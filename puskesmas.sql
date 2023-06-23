@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2023 at 06:07 PM
+-- Generation Time: Jun 23, 2023 at 04:26 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -32,6 +32,7 @@ CREATE TABLE `dokter` (
   `nama` varchar(255) NOT NULL,
   `nip` varchar(255) NOT NULL,
   `jabatan` varchar(255) NOT NULL,
+  `image` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -40,9 +41,8 @@ CREATE TABLE `dokter` (
 -- Dumping data for table `dokter`
 --
 
-INSERT INTO `dokter` (`id`, `nama`, `nip`, `jabatan`, `created_at`, `updated_at`) VALUES
-(1, 'admin Dokter', '22', 'Dokter', NULL, '2023-06-10 08:42:27'),
-(3, 'Maulana', '123456', 'Doktter', '2023-06-10 07:50:43', '2023-06-10 07:50:43');
+INSERT INTO `dokter` (`id`, `nama`, `nip`, `jabatan`, `image`, `created_at`, `updated_at`) VALUES
+(6, 'Maulana', '123', 'Doktter', '1641685791.png', '2023-06-18 10:20:48', '2023-06-18 12:02:59');
 
 -- --------------------------------------------------------
 
@@ -273,7 +273,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
