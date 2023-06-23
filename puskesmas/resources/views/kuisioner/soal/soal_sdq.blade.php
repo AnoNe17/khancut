@@ -17,7 +17,7 @@
         <div class="col-md-6" style="margin-top: 30px">
             <div class="col-12 border border-success rounded-pill" style="background-color: #d5f6dc; height: 200px; padding-top: 50px">
                 <div class="d-flex justify-content-center mb-2">
-                    <h2>Kuisioner kejiwaan SDQ</h2>
+                    <h2>Kuisioner kejiwaan SDQ </h2>
                 </div>
                 <div class="d-flex justify-content-center px-5">
                     <select id="umur" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
