@@ -23,16 +23,16 @@ class KuisionerController extends Controller
             "1. Apakah Anda sering merasa sakit kepala ?",
             "2. Apakah anda kehilangan nafsu makan ?",
             "3. Apakah tidur anda tidak nyenyak ?",
-            "4. Apakah Anda mudah merasa takut? ",
+            "4. Apakah Anda mudah merasa takut ?",
             "5. Apakah Anda merasa Cemas, Tegang, atau khawatir ? ",
             "6. Apakah tangan anda gemetar ?",
-            "7. Apakah anda mengalami gangguan pencernaan?",
-            "8. Apakah anda merasa sulit berfikir jernih?",
-            "9. Apakah anda merasa tidak bahagia?",
+            "7. Apakah anda mengalami gangguan pencernaan ?",
+            "8. Apakah anda merasa sulit berfikir jernih ?",
+            "9. Apakah anda merasa tidak bahagia ?",
             "10. Apakah anda lebih sering menangis ?",
-            "11. Apakah anda merasa sulit menikmati aktivitas sehari-hari?",
+            "11. Apakah anda merasa sulit menikmati aktivitas sehari-hari ?",
             "12. Apakah anda mengalami kesulitan untuk mengambil keputusan ?",
-            "13. Apakah ativitas/tugas sehari-hari anda terbengkalai?",
+            "13. Apakah ativitas/tugas sehari-hari anda terbengkalai ?",
             "14. Anda merasa tidak mampu berperan dalam kehidupan ini ?",
             "15. Apakah anda mengalami kehilangan minat terhadap banyak hal ?",
             "16. Apakah anda merasa tidak berharga ?",
@@ -40,15 +40,24 @@ class KuisionerController extends Controller
             "18. Apakah anda merasa lelah sepanjang waktu ?",
             "19. Apakah anda merasa tidak enak di perut ?",
             "20. Apakah anda mudah lelah ?",
+            "21. Apakah Anda minum alkohol lebih banyak dari biasanya atau Apakah Anda menggunakan narkoba ?",
+            "22. Apakah Anda yakin bahwa seseorang mencoba mencelakai Anda dengan cara tertentu ?",
+            "23. Apakah ada yang mengganggu atau hal yang tidak biasa dalam pikiran Anda ?",
+            "24. Apakah Anda pernah mendengar suara tanpa tahu sumbernya atau yang orang lain tidak dapat mendengar ?",
+            "25. Apakah Anda mengalami mimpi yang mengganggu tentang suatu bencana/musibah atau adakah saat-saat Anda seolah mengalami kembali kejadian bencana itu ?",
+            "26. Apakah Anda menghindari kegiatan, tempat, orang atau pikiran yang mengingatkan Anda akan bencana tersebut ?",
+            "27. Apakah minat Anda terhadap teman dan kegiatan yang biasa Anda lakukan berkurang ?",
+            "28. Apakah Anda merasa sangat terganggu jika berada dalam situasi yang mengingatkan Anda akan bencana atau jika Anda berpikir tentang bencana itu ?",
+            "29. Apakah Anda kesulitan memahami atau mengekspresikan perasaan Anda ?",
 
         );
 
         $nilai_1 = array(
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         );
 
         $nilai_2 = array(
-            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         );
 
 
@@ -68,10 +77,24 @@ class KuisionerController extends Controller
     public function hasilSRQ(Request $request)
     {
         $total = 0;
+        $total_psikologis = 0;
+        $total_narkoba = 0;
+        $total_psikotik = 0;
+        $total_ptsd = 0;
 
-        foreach ($request->radio as $r) {
+        foreach ($request->radio as $r => $index) {
+            if ($r <= 19) {
+                $total_psikologis += $request->radio[$r];
+            } elseif ($r === 20) {
+                $total_narkoba = $request->radio[$r];
+            } elseif ($r >= 21 && $r <= 23) {
+                $total_psikotik += $request->radio[$r];
+            } elseif ($r >= 24) {
+                $total_ptsd += $request->radio[$r];
+            }
             $total += $request->radio[$r];
         }
+
 
         if ($total <= 8) {
             $hasil = 'Normal';
@@ -79,6 +102,29 @@ class KuisionerController extends Controller
             $hasil = 'Abnormal';
         }
 
+        if ($total_psikologis <= 15) {
+            $masalah_psikologis = 'ya';
+        } else {
+            $masalah_psikologis = 'tidak';
+        }
+
+        if ($total_narkoba = 0) {
+            $pengguna_narkoba = 'ya';
+        } else {
+            $pengguna_narkoba = 'tidak';
+        }
+
+        if ($total_psikotik <= 3) {
+            $gangguan_psikotik = 'ya';
+        } else {
+            $gangguan_psikotik = 'tidak';
+        }
+
+        if ($total_ptsd <= 4) {
+            $gangguan_ptsd = 'ya';
+        } else {
+            $gangguan_ptsd = 'tidak';
+        }
 
         $nama       = $request->nama;
         $umur       = $request->umur;
@@ -87,16 +133,21 @@ class KuisionerController extends Controller
         $pekerjaan  = $request->pekerjaan;
 
         $data = new HasilSRQ();
-        $data->nama         = strtoupper($nama);
-        $data->umur         = strtoupper($umur);
-        $data->no_hp        = strtoupper($no_hp);
-        $data->alamat       = strtoupper($alamat);
-        $data->pekerjaan    = strtoupper($pekerjaan);
-        $data->hasil        = strtoupper($hasil);
+        $data->nama                 = strtoupper($nama);
+        $data->umur                 = strtoupper($umur);
+        $data->no_hp                = strtoupper($no_hp);
+        $data->alamat               = strtoupper($alamat);
+        $data->pekerjaan            = strtoupper($pekerjaan);
+        $data->hasil                = strtoupper($hasil);
+        $data->total                = $total;
+        $data->masalah_psikologis   = $masalah_psikologis;
+        $data->pengguna_narkoba     = $pengguna_narkoba;
+        $data->gangguan_psikotik    = $gangguan_psikotik;
+        $data->gangguan_ptsd        = $gangguan_ptsd;
         $data->save();
 
         if ($data->save()) {
-            return view('kuisioner.hasil.hasil_srq', compact('nama', 'umur', 'no_hp', 'alamat', 'pekerjaan', 'total', 'hasil'));
+            return view('kuisioner.hasil.hasil_srq', compact('nama', 'umur', 'no_hp', 'alamat', 'pekerjaan', 'total', 'hasil', 'masalah_psikologis', 'pengguna_narkoba', 'gangguan_psikotik', 'gangguan_ptsd'));
         }
     }
 
@@ -269,58 +320,6 @@ class KuisionerController extends Controller
 
         if ($data->save()) {
             return view('kuisioner.hasil.hasil_sdq', compact('total', 'total_e', 'total_c', 'total_h', 'total_p', 'total_pro', 'hasil_kesulitan', 'hasil_e', 'hasil_c', 'hasil_h', 'hasil_p', 'hasil_pro', 'nama', 'instansi', 'umur'));
-        }
-    }
-
-    public function inputSDQ(Request $request)
-    {
-
-        $data = new HasilSDQ();
-        $data->nama             = strtoupper($request->nama);
-        $data->instansi         = strtoupper($request->instansi);
-        $data->total_kesulitan  = strtoupper($request->total_kesulitan);
-        $data->hasil_e          = strtoupper($request->hasil_e);
-        $data->hasil_c          = strtoupper($request->hasil_c);
-        $data->hasil_h          = strtoupper($request->hasil_h);
-        $data->hasil_p          = strtoupper($request->hasil_p);
-        $data->hasil_pro        = strtoupper($request->hasil_pro);
-        $data->save();
-
-        if ($data->save()) {
-            return response()->json([
-                'success' => true,
-                'note' => 'Data Berhasil Di Input'
-            ], 200);
-        } else {
-            return response()->json([
-                'success' => false,
-                'note' => 'Data Gagal Di Input'
-            ], 400);
-        }
-    }
-
-    public function inputSRQ(Request $request)
-    {
-
-        $data = new HasilSRQ();
-        $data->nama         = strtoupper($request->nama);
-        $data->umur         = strtoupper($request->umur);
-        $data->no_hp        = strtoupper($request->no_hp);
-        $data->alamat       = strtoupper($request->alamat);
-        $data->pekerjaan    = strtoupper($request->pekerjaan);
-        $data->hasil        = strtoupper($request->hasil);
-        $data->save();
-
-        if ($data->save()) {
-            return response()->json([
-                'success' => true,
-                'note' => 'Data Berhasil Di Input'
-            ], 200);
-        } else {
-            return response()->json([
-                'success' => false,
-                'note' => 'Data Gagal Di Input'
-            ], 400);
         }
     }
 

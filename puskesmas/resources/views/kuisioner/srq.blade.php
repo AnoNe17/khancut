@@ -57,6 +57,10 @@
                             <th>No HP</th>
                             <th>Alamat</th>
                             <th>Pekerjaan</th>
+                            <th>Masalah Psikologis</th>
+                            <th>Pengguna Narkoba</th>
+                            <th>Gangguan Psikotik</th>
+                            <th>Gangguan PTSD</th>
                             <th>Hasil</th>
                             <th>Dibuat Pada</th>
                         </tr>
@@ -70,7 +74,41 @@
                             <td>{{ $value->no_hp }}</td>
                             <td>{{ $value->alamat }}</td>
                             <td>{{ $value->pekerjaan }}</td>
-                            <td>{{ $value->hasil }}</td>
+                            <th>
+                                @if ($value->masalah_psikologis === 'ya')
+                                    <div class="text-danger">{{ $value->masalah_psikologis }}</div>
+                                @else
+                                    <div class="text-success">{{ $value->masalah_psikologis }}</div>
+                                @endif
+                            </th>
+                            <th>
+                                @if ($value->pengguna_narkoba === 'ya')
+                                    <div class="text-danger">{{ $value->pengguna_narkoba }}</div>
+                                @else
+                                    <div class="text-success">{{ $value->pengguna_narkoba }}</div>
+                                @endif
+                            </th>
+                            <th>
+                                @if ($value->gangguan_psikotik === 'ya')
+                                    <div class="text-danger">{{ $value->gangguan_psikotik }}</div>
+                                @else
+                                    <div class="text-success">{{ $value->gangguan_psikotik }}</div>
+                                @endif    
+                            </th>
+                            <th>
+                                @if ($value->gangguan_ptsd === 'ya')
+                                    <div class="text-danger">{{ $value->gangguan_ptsd }}</div>
+                                @else
+                                    <div class="text-success">{{ $value->gangguan_ptsd }}</div>
+                                @endif
+                            </th>
+                            <th>
+                                @if ($value->hasil === 'ABNORMAL')
+                                    <div class="text-danger">{{ $value->hasil }}</div>
+                                @else
+                                    <div class="text-success">{{ $value->hasil }}</div>
+                                @endif
+                            </th>
                             <td>{{ $value->created_at }}</td>
                         </tr>
                         @endforeach

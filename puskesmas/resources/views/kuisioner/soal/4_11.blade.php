@@ -1,8 +1,8 @@
 
-@foreach ($soal['4_11'] as $x => $s)
+@foreach ($soal['4_11'] as $x => $soal)
 <input name="umur" type="hidden" value="4_11">
     <div class="col-12 border border-warning rounded" style="margin-top: 20px; padding: 10px; background-color: #f5f2d6">
-        <h5>{{ $s }} </h5>
+        <h5>{{ $soal }} </h5>
         <div class="form-check">
             @if ($kategori['4_11'][$x] == 'e')
                 <input class="form-check-input" type="radio" name="radio_e[{{ $x }}]" value="{{ $nilai_1['4_11'][$x] }}" required>

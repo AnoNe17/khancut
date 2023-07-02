@@ -34,7 +34,7 @@
             <form method="post" action="{{ route('hasil.kuisioner.sdq') }}">
                 @csrf   
                 <div id="soal">
-
+                    
                 </div>
 
 
