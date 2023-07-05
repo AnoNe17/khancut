@@ -41,6 +41,8 @@ Route::get('soal_11_18', [KuisionerController::class, 'soal_11_18'])->name('soal
 Route::get('data_sdq', [KuisionerController::class, 'getHasilSDQ'])->name('hasil.sdq');
 Route::get('data_srq', [KuisionerController::class, 'getHasilSRQ'])->name('hasil.srq');
 
+Route::get('/kuisioner/sdq/pdf/{id}', [KuisionerController::class, 'pdfSDQ'])->name('pdf.sdq');
+
 
 Route::get('/data_dokter', [DokterController::class, 'index'])->name('dokter');
 Route::post('/dokter/reset', [dokterController::class, 'reset'])->name('dokter.reset');

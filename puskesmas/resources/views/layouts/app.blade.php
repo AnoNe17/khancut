@@ -141,16 +141,6 @@
 
         
         @yield('script')
-        <script>
-            $(document).ready(function() {
-                $('#datatable').DataTable( {
-                    dom: 'Bfrtlp',
-                    lengthMenu: [[10, 20, 100], [10, 20, 100]],
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print',
-                    ]
-                });
-            } );
-        </script>
+       
     </body>
 </html>

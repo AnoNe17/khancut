@@ -480,4 +480,9 @@ class KuisionerController extends Controller
             'nilai_3' => $nilai_3
         ]);
     }
+
+    public function pdfSDQ($id)
+    {
+        return $id;
+    }
 }
