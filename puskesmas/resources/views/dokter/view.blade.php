@@ -67,3 +67,42 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+     <script>
+            $(document).ready(function() {
+                $('#datatable').DataTable( {
+                    dom: 'Bfrtlp',
+                    lengthMenu: [[10, 20, 100], [10, 20, 100]],
+                    buttons: [
+                        {
+                            extend: 'csv',
+                            exportOptions: {
+                                columns: [ 0, 1, 2, 3,]
+                            }
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: [ 0, 1, 2, 3,]
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            exportOptions: {
+                                columns: [ 0, 1, 2, 3,]
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                stripHtml: false,
+                                columns: [ 0, 1, 2, 3, 4,]
+                            }
+                        },
+                        
+                    ]
+                });
+            } );
+        </script>
+@endsection

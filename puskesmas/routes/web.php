@@ -42,6 +42,7 @@ Route::get('data_sdq', [KuisionerController::class, 'getHasilSDQ'])->name('hasil
 Route::get('data_srq', [KuisionerController::class, 'getHasilSRQ'])->name('hasil.srq');
 
 Route::get('/kuisioner/sdq/pdf/{id}', [KuisionerController::class, 'pdfSDQ'])->name('pdf.sdq');
+Route::get('/kuisioner/srq/pdf/{id}', [KuisionerController::class, 'pdfSRQ'])->name('pdf.srq');
 
 
 Route::get('/data_dokter', [DokterController::class, 'index'])->name('dokter');

@@ -63,6 +63,7 @@
                             <th>Gangguan PTSD</th>
                             <th>Hasil</th>
                             <th>Dibuat Pada</th>
+                            <th>Export PDF</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -110,6 +111,9 @@
                                 @endif
                             </th>
                             <td>{{ $value->created_at }}</td>
+                            <td>
+                                <a href="{{ route('pdf.srq', $value->id) }}" class="btn btn-success btn ml-2">Export</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -117,4 +121,42 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+     <script>
+            $(document).ready(function() {
+                $('#datatable').DataTable( {
+                    dom: 'Bfrtlp',
+                    lengthMenu: [[10, 20, 100], [10, 20, 100]],
+                    buttons: [
+                        {
+                            extend: 'csv',
+                            exportOptions: {
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+                            }
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            exportOptions: {
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+                            }
+                        },
+                        
+                    ]
+                });
+            } );
+        </script>
 @endsection

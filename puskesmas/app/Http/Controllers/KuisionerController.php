@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HasilSDQ;
 use App\Models\HasilSRQ;
 use Illuminate\Http\Request;
+use PDF;
 
 class KuisionerController extends Controller
 {
@@ -81,15 +82,19 @@ class KuisionerController extends Controller
         $total_narkoba = 0;
         $total_psikotik = 0;
         $total_ptsd = 0;
+        $keterangan = '';
 
         foreach ($request->radio as $r => $index) {
             if ($r <= 19) {
                 $total_psikologis += $request->radio[$r];
-            } elseif ($r === 20) {
-                $total_narkoba = $request->radio[$r];
-            } elseif ($r >= 21 && $r <= 23) {
+            }
+            if ($r === 20) {
+                $total_narkoba += $request->radio[$r];
+            }
+            if ($r >= 21 && $r <= 23) {
                 $total_psikotik += $request->radio[$r];
-            } elseif ($r >= 24) {
+            }
+            if ($r >= 24) {
                 $total_ptsd += $request->radio[$r];
             }
             $total += $request->radio[$r];
@@ -108,7 +113,7 @@ class KuisionerController extends Controller
             $masalah_psikologis = 'tidak';
         }
 
-        if ($total_narkoba = 0) {
+        if ($total_narkoba === 0) {
             $pengguna_narkoba = 'ya';
         } else {
             $pengguna_narkoba = 'tidak';
@@ -132,6 +137,19 @@ class KuisionerController extends Controller
         $alamat     = $request->alamat;
         $pekerjaan  = $request->pekerjaan;
 
+        if ($masalah_psikologis === 'ya') {
+            $keterangan .= '- Terdapat masalah psikologis seperti cemas dan depresi<br>';
+        }
+        if ($pengguna_narkoba === 'ya') {
+            $keterangan .= '- Terdapat penggunaan zat psikoaktif/narkoba<br>';
+        }
+        if ($gangguan_psikotik === 'ya') {
+            $keterangan .= '- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius<br>';
+        }
+        if ($gangguan_ptsd === 'ya') {
+            $keterangan .= '- Terdapat gejala-gejala gangguan  PTSD (Post Traumatic Stress Disorder) / gangguan stres setelah trauma<br>';
+        }
+
         $data = new HasilSRQ();
         $data->nama                 = strtoupper($nama);
         $data->umur                 = strtoupper($umur);
@@ -144,10 +162,11 @@ class KuisionerController extends Controller
         $data->pengguna_narkoba     = $pengguna_narkoba;
         $data->gangguan_psikotik    = $gangguan_psikotik;
         $data->gangguan_ptsd        = $gangguan_ptsd;
+        $data->keterangan           = $keterangan;
         $data->save();
 
         if ($data->save()) {
-            return view('kuisioner.hasil.hasil_srq', compact('nama', 'umur', 'no_hp', 'alamat', 'pekerjaan', 'total', 'hasil', 'masalah_psikologis', 'pengguna_narkoba', 'gangguan_psikotik', 'gangguan_ptsd'));
+            return view('kuisioner.hasil.hasil_srq', compact('nama', 'umur', 'no_hp', 'alamat', 'pekerjaan', 'total', 'hasil', 'masalah_psikologis', 'pengguna_narkoba', 'gangguan_psikotik', 'gangguan_ptsd', 'keterangan'));
         }
     }
 
@@ -483,6 +502,17 @@ class KuisionerController extends Controller
 
     public function pdfSDQ($id)
     {
-        return $id;
+        $data = HasilSDQ::where('id', $id)->get();
+
+        $pdf = PDF::loadview('kuisioner.pdf.sdq', ['data' => $data]);
+        return $pdf->download('Hasil Kuisioner SDQ ' . $data[0]->nama . ' (' . $data[0]->instansi . ')' . '.pdf');
+    }
+
+    public function pdfSRQ($id)
+    {
+        $data = HasilSRQ::where('id', $id)->get();
+
+        $pdf = PDF::loadview('kuisioner.pdf.srq', ['data' => $data]);
+        return $pdf->download('Hasil Kuisioner SDQ ' . $data[0]->nama . ' (' . $data[0]->no_hp . ')' . '.pdf');
     }
 }

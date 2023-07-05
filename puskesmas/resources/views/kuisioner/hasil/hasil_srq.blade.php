@@ -64,26 +64,10 @@
                 <div class="d-flex justify-content-center">
                     <h3 class="text-success">Keterangan</h3>
                 </div>
-                @if ($masalah_psikologis === 'ya')
-                    <div class="d-flex justify-content-center">
-                        <h4 class="">- Terdapat masalah psikologis seperti cemas dan depresi</h4>
+                    <div class="d-flex justify-content-center mt-2">
+                        <h4>{!! $keterangan !!}</h4>
                     </div>
-                @endif
-                @if ($pengguna_narkoba === 'ya')
-                    <div class="d-flex justify-content-center">
-                        <h4 class="text-center">- Terdapat penggunaan zat psikoaktif/narkoba</h4>
-                    </div>
-                @endif
-                @if ($gangguan_psikotik === 'ya')
-                    <div class="d-flex justify-content-center">
-                        <h4 class="text-center">- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius</h4>
-                    </div>
-                @endif
-                @if ($gangguan_ptsd === 'ya')
-                    <div class="d-flex justify-content-center">
-                        <h4 class="text-center">- Terdapat gejala-gejala gangguan  PTSD (Post Traumatic Stress Disorder) / gangguan stres setelah trauma</h4>
-                    </div>
-                @endif
+                
             </div>
 
 
