@@ -48,11 +48,17 @@
                             <th>Nama</th>
                             <th>Instansi</th>
                             <th>Total Skor Kesulitan</th>
+                            <th>Skor E</th>
                             <th>Hasil E</th>
+                            <th>Skor C</th>
                             <th>Hasil C</th>
+                            <th>Skor H</th>
                             <th>Hasil H</th>
+                            <th>Skor P</th>
                             <th>Hasil P</th>
+                            <th>Skor Pro</th>
                             <th>Hasil Pro</th>
+                            <th>Skor Keseluruhan</th>
                             <th>Dibuat Pada</th>
                         </tr>
                     </thead>
@@ -62,12 +68,18 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->instansi }}</td>
-                            <td>{{ $value->total_kesulitan }}</td>
+                            <td>{{ $value->skor_kesulitan }}</td>
+                            <td>{{ $value->skor_e }}</td>
                             <td>{{ $value->hasil_e }}</td>
+                            <td>{{ $value->skor_c }}</td>
                             <td>{{ $value->hasil_c }}</td>
+                            <td>{{ $value->skor_h }}</td>
                             <td>{{ $value->hasil_h }}</td>
+                            <td>{{ $value->skor_p }}</td>
                             <td>{{ $value->hasil_p }}</td>
+                            <td>{{ $value->skor_pro }}</td>
                             <td>{{ $value->hasil_pro }}</td>
+                            <td>{{ $value->skor_keseluruhan }}</td>
                             <td>{{ $value->created_at }}</td>
                         </tr>
                         @endforeach

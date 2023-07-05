@@ -36,6 +36,21 @@
                 </div>
                 
             </div>
+
+
+            <div class="d-flex justify-content-center mt-4">
+                <h3>Skor Keseluruhan</h3>
+            </div>
+            <div class="col-12 border border-warning rounded" style="margin-top: 10px; padding: 10px; background-color: #f5f2d6">
+                <div class="d-flex justify-content-center">
+                    <h3 class="text-success">Skor Keseluruhan</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="border border-success rounded-circle p-4" style="background-color: #d5f6dc;">
+                        <h4>{{ $skor_keseluruhan }}</h4>
+                    </div>
+                </div>
+            </div>
            
             <div class="d-flex justify-content-center mt-4">
                 <h3>Skor Akhir Kesulitan</h3>
@@ -46,7 +61,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="border border-success rounded-circle p-4" style="background-color: #d5f6dc;">
-                        <h4>{{ $total }}</h4>
+                        <h4>{{ $skor_kesulitan }}</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
@@ -60,7 +75,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="border border-success rounded-circle p-4" style="background-color: #d5f6dc;">
-                        <h4>{{ $total_e }}</h4>
+                        <h4>{{ $skor_e }}</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
@@ -74,7 +89,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="border border-success rounded-circle p-4" style="background-color: #d5f6dc;">
-                        <h4>{{ $total_c }}</h4>
+                        <h4>{{ $skor_c }}</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
@@ -88,7 +103,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="border border-success rounded-circle p-4" style="background-color: #d5f6dc;">
-                        <h4>{{ $total_h }}</h4>
+                        <h4>{{ $skor_h }}</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
@@ -102,7 +117,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="border border-success rounded-circle p-4" style="background-color: #d5f6dc;">
-                        <h4>{{ $total_p }}</h4>
+                        <h4>{{ $skor_p }}</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
@@ -120,7 +135,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="border border-success rounded-circle p-4" style="background-color: #d5f6dc;">
-                        <h4>{{ $total_pro }}</h4>
+                        <h4>{{ $skor_pro }}</h4>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">

@@ -154,149 +154,152 @@ class KuisionerController extends Controller
 
     public function hasilSDQ(Request $request)
     {
-        $total = 0;
-        $total_e = 0;
-        $total_c = 0;
-        $total_h = 0;
-        $total_p = 0;
-        $total_pro = 0;
+        $skor = 0;
+        $skor_e = 0;
+        $skor_c = 0;
+        $skor_h = 0;
+        $skor_p = 0;
+        $skor_pro = 0;
 
         for ($x = 0; $x <= 24; $x++) {
             if (!empty($request->radio_e[$x])) {
-                $total_e += $request->radio_e[$x];
+                $skor_e += $request->radio_e[$x];
             }
         }
 
         for ($x = 0; $x <= 24; $x++) {
             if (!empty($request->radio_c[$x])) {
-                $total_c += $request->radio_c[$x];
+                $skor_c += $request->radio_c[$x];
             }
         }
 
         for ($x = 0; $x <= 24; $x++) {
             if (!empty($request->radio_h[$x])) {
-                $total_h += $request->radio_h[$x];
+                $skor_h += $request->radio_h[$x];
             }
         }
 
         for ($x = 0; $x <= 24; $x++) {
             if (!empty($request->radio_p[$x])) {
-                $total_p += $request->radio_p[$x];
+                $skor_p += $request->radio_p[$x];
             }
         }
 
         for ($x = 0; $x <= 24; $x++) {
             if (!empty($request->radio_pro[$x])) {
-                $total_pro += $request->radio_pro[$x];
+                $skor_pro += $request->radio_pro[$x];
             }
         }
 
-        $total = $total_e + $total_c + $total_h + $total_p + $total_pro;
+        $skor_kesulitan = $skor_e + $skor_c + $skor_h + $skor_p;
+
+
+        $skor_keseluruhan = $skor_kesulitan + $skor_pro;
 
         if ($request->umur === "4_11") {
             // skor keseluruhan
-            if ($total <= 13) {
+            if ($skor <= 13) {
                 $hasil_kesulitan = 'Normal';
-            } else if ($total >= 14 && $total <= 15) {
+            } else if ($skor >= 14 && $skor <= 15) {
                 $hasil_kesulitan = 'Borderline / Ambang';
             } else {
                 $hasil_kesulitan = 'Abnormal';
             }
 
             // Skor e
-            if ($total_e <= 3) {
+            if ($skor_e <= 3) {
                 $hasil_e = 'Normal';
-            } else if ($total_e == 4) {
+            } else if ($skor_e == 4) {
                 $hasil_e = 'Borderline / Ambang';
             } else {
                 $hasil_e = 'Abnormal';
             }
 
             // Skor c
-            if ($total_c <= 2) {
+            if ($skor_c <= 2) {
                 $hasil_c = 'Normal';
-            } else if ($total_c == 3) {
+            } else if ($skor_c == 3) {
                 $hasil_c = 'Borderline / Ambang';
             } else {
                 $hasil_c = 'Abnormal';
             }
 
             // Skor h
-            if ($total_h <= 5) {
+            if ($skor_h <= 5) {
                 $hasil_h = 'Normal';
-            } else if ($total_h == 6) {
+            } else if ($skor_h == 6) {
                 $hasil_h = 'Borderline / Ambang';
             } else {
                 $hasil_h = 'Abnormal';
             }
 
             // Skor p
-            if ($total_p <= 2) {
+            if ($skor_p <= 2) {
                 $hasil_p = 'Normal';
-            } else if ($total_p == 3) {
+            } else if ($skor_p == 3) {
                 $hasil_p = 'Borderline / Ambang';
             } else {
                 $hasil_p = 'Abnormal';
             }
 
             // Skor Pro
-            if ($total_pro <= 4) {
+            if ($skor_pro <= 4) {
                 $hasil_pro = 'Normal';
-            } else if ($total_pro == 5) {
+            } else if ($skor_pro == 5) {
                 $hasil_pro = 'Borderline / Ambang';
             } else {
                 $hasil_pro = 'Abnormal';
             }
         } else {
             // skor keseluruhan
-            if ($total <= 15) {
+            if ($skor <= 15) {
                 $hasil_kesulitan = 'Normal';
-            } else if ($total >= 16 && $total <= 19) {
+            } else if ($skor >= 16 && $skor <= 19) {
                 $hasil_kesulitan = 'Borderline / Ambang';
             } else {
                 $hasil_kesulitan = 'Abnormal';
             }
 
             // Skor e
-            if ($total_e <= 5) {
+            if ($skor_e <= 5) {
                 $hasil_e = 'Normal';
-            } else if ($total_e == 6) {
+            } else if ($skor_e == 6) {
                 $hasil_e = 'Borderline / Ambang';
             } else {
                 $hasil_e = 'Abnormal';
             }
 
             // Skor c
-            if ($total_c <= 3) {
+            if ($skor_c <= 3) {
                 $hasil_c = 'Normal';
-            } else if ($total_c == 4) {
+            } else if ($skor_c == 4) {
                 $hasil_c = 'Borderline / Ambang';
             } else {
                 $hasil_c = 'Abnormal';
             }
 
             // Skor h
-            if ($total_h <= 5) {
+            if ($skor_h <= 5) {
                 $hasil_h = 'Normal';
-            } else if ($total_h == 6) {
+            } else if ($skor_h == 6) {
                 $hasil_h = 'Borderline / Ambang';
             } else {
                 $hasil_h = 'Abnormal';
             }
 
             // Skor p
-            if ($total_p <= 3) {
+            if ($skor_p <= 3) {
                 $hasil_p = 'Normal';
-            } else if ($total >= 4 && $total <= 5) {
+            } else if ($skor >= 4 && $skor <= 5) {
                 $hasil_p = 'Borderline / Ambang';
             } else {
                 $hasil_p = 'Abnormal';
             }
 
             // Skor Pro
-            if ($total_pro <= 4) {
+            if ($skor_pro <= 4) {
                 $hasil_pro = 'Normal';
-            } else if ($total_pro == 5) {
+            } else if ($skor_pro == 5) {
                 $hasil_pro = 'Borderline / Ambang';
             } else {
                 $hasil_pro = 'Abnormal';
@@ -310,17 +313,41 @@ class KuisionerController extends Controller
         $data = new HasilSDQ();
         $data->nama             = strtoupper($nama);
         $data->instansi         = strtoupper($instansi);
-        $data->total_kesulitan  = strtoupper($hasil_kesulitan);
         $data->hasil_e          = strtoupper($hasil_e);
         $data->hasil_c          = strtoupper($hasil_c);
         $data->hasil_h          = strtoupper($hasil_h);
         $data->hasil_p          = strtoupper($hasil_p);
         $data->hasil_pro        = strtoupper($hasil_pro);
+        $data->hasil_kesulitan  = strtoupper($hasil_kesulitan);
+        $data->skor_kesulitan   = $skor_kesulitan;
+        $data->skor_e           = $skor_e;
+        $data->skor_c           = $skor_c;
+        $data->skor_h           = $skor_h;
+        $data->skor_p           = $skor_p;
+        $data->skor_pro         = $skor_pro;
+        $data->skor_keseluruhan = $skor_keseluruhan;
         $data->save();
 
-        if ($data->save()) {
-            return view('kuisioner.hasil.hasil_sdq', compact('total', 'total_e', 'total_c', 'total_h', 'total_p', 'total_pro', 'hasil_kesulitan', 'hasil_e', 'hasil_c', 'hasil_h', 'hasil_p', 'hasil_pro', 'nama', 'instansi', 'umur'));
-        }
+        // if ($data->save()) {
+        return view('kuisioner.hasil.hasil_sdq', compact(
+            'nama',
+            'instansi',
+            'umur',
+            'hasil_e',
+            'hasil_c',
+            'hasil_h',
+            'hasil_p',
+            'hasil_pro',
+            'hasil_kesulitan',
+            'skor_kesulitan',
+            'skor_e',
+            'skor_c',
+            'skor_h',
+            'skor_p',
+            'skor_pro',
+            'skor_keseluruhan',
+        ));
+        // }
     }
 
     public function getHasilSDQ()
