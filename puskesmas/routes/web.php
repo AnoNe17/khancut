@@ -7,6 +7,7 @@ use App\Http\Controllers\KuisionerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\kuisionerSrqController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,10 @@ Route::post('/dokter/store', [dokterController::class, 'store'])->name('dokter.s
 Route::get('/dokter/edit/{id}', [dokterController::class, 'edit'])->name('dokter.edit');
 Route::post('/dokter/update', [dokterController::class, 'update'])->name('dokter.update');
 Route::get('/dokter/delete/{id}', [dokterController::class, 'delete'])->name('dokter.delete');
+
+
+Route::get('/data_notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
+Route::post('/notifikasi/store', [NotifikasiController::class, 'store'])->name('notifikasi.store');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
