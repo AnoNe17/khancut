@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\HasilSDQ;
 use App\Models\HasilSRQ;
 use Illuminate\Http\Request;
+use PDF;
 
 class KuisionerController extends Controller
 {
-    // ini buat API
     public function inputSDQ(Request $request)
     {
         $data = new HasilSDQ();
@@ -35,10 +36,8 @@ class KuisionerController extends Controller
         }
     }
 
-    // ini buat API
     public function inputSRQ(Request $request)
     {
-
         $data = new HasilSRQ();
         $data->nama         = strtoupper($request->nama);
         $data->umur         = strtoupper($request->umur);
@@ -59,5 +58,13 @@ class KuisionerController extends Controller
                 'note' => 'Data Gagal Di Input'
             ], 400);
         }
+    }
+
+    public function printSDQ($id)
+    {
+        $data = HasilSDQ::where('id', $id)->get();
+
+        $pdf = PDF::loadview('kuisioner.pdf.sdq', ['data' => $data]);
+        return $pdf->download('Hasil Kuisioner SDQ ' . $data[0]->nama . ' (' . $data[0]->instansi . ')' . '.pdf');
     }
 }

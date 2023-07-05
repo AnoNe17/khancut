@@ -80,27 +80,22 @@
                                         <a class="nav-link" href="layout-sidenav-light.html">Pasien Baru</a>
                                     </nav>
                                 </div>
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#col-dokter" aria-expanded="false" aria-controls="collapseLayouts">
+                                <a class="nav-link collapsed" href="{{ route('dokter') }}" >
                                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                     Data Dokter
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
-                                <div class="collapse" id="col-dokter" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="{{ route('dokter') }}">Data Dokter</a>
-                                    </nav>
-                                </div>
-                                {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#col_kuisioner" aria-expanded="false" aria-controls="collapseLayouts">
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#col_kuisioner" aria-expanded="false" aria-controls="collapseLayouts">
                                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                    Isi Kuisioner
+                                    Data Kuisioner
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
                                 <div class="collapse" id="col_kuisioner" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="{{ route('kuisioner.srq') }}">SRQ</a>
-                                        <a class="nav-link" href="{{ route('kuisioner.sdq') }}">SDQ</a>
+                                        <a class="nav-link" href="{{ route('hasil.srq') }}">SRQ</a>
+                                        <a class="nav-link" href="{{ route('hasil.sdq') }}">SDQ</a>
                                     </nav>
-                                </div> --}}
+                                </div>
                                 <a class="nav-link collapsed" href="{{ route('notifikasi') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                     Data Notifikasi

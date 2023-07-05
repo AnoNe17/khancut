@@ -22,6 +22,8 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('input_sdq', [KuisionerController::class, 'inputSDQ']);
 Route::post('input_srq', [KuisionerController::class, 'inputSRQ']);
 
+Route::get('sdq/pdf/{id}', [KuisionerController::class, 'printSDQ']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
