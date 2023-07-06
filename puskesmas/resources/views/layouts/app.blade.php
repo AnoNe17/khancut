@@ -69,17 +69,11 @@
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Data</div>
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#col-pasien" aria-expanded="false" aria-controls="collapseLayouts">
+                                <a class="nav-link collapsed" href="{{ route('pasien') }}" >
                                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                     Data Pasien
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
-                                <div class="collapse" id="col-pasien" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="layout-static.html">Pasien Lama</a>
-                                        <a class="nav-link" href="layout-sidenav-light.html">Pasien Baru</a>
-                                    </nav>
-                                </div>
                                 <a class="nav-link collapsed" href="{{ route('dokter') }}" >
                                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                     Data Dokter

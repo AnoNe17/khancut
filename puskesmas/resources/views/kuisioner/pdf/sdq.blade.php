@@ -85,6 +85,13 @@
 			</tr>
 		</tbody>
 	</table>
+    <br><br><br><br>
+    @if (isset($code_verif))
+        <center>
+            <h5>Kode Verifikasi :</h5>
+            <h2>{{ $code_verif }}</h2>
+        </center>
+    @endif
  
 </body>
 </html>

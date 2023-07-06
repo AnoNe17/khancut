@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\kuisionerSrqController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\PasienController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,14 +46,21 @@ Route::get('data_srq', [KuisionerController::class, 'getHasilSRQ'])->name('hasil
 Route::get('/kuisioner/sdq/pdf/{id}', [KuisionerController::class, 'pdfSDQ'])->name('pdf.sdq');
 Route::get('/kuisioner/srq/pdf/{id}', [KuisionerController::class, 'pdfSRQ'])->name('pdf.srq');
 
-
 Route::get('/data_dokter', [DokterController::class, 'index'])->name('dokter');
-Route::post('/dokter/reset', [dokterController::class, 'reset'])->name('dokter.reset');
-Route::get('/dokter/create', [dokterController::class, 'create'])->name('dokter.create');
-Route::post('/dokter/store', [dokterController::class, 'store'])->name('dokter.store');
-Route::get('/dokter/edit/{id}', [dokterController::class, 'edit'])->name('dokter.edit');
-Route::post('/dokter/update', [dokterController::class, 'update'])->name('dokter.update');
-Route::get('/dokter/delete/{id}', [dokterController::class, 'delete'])->name('dokter.delete');
+Route::post('/dokter/reset', [DokterController::class, 'reset'])->name('dokter.reset');
+Route::get('/dokter/create', [DokterController::class, 'create'])->name('dokter.create');
+Route::post('/dokter/store', [DokterController::class, 'store'])->name('dokter.store');
+Route::get('/dokter/edit/{id}', [DokterController::class, 'edit'])->name('dokter.edit');
+Route::post('/dokter/update', [DokterController::class, 'update'])->name('dokter.update');
+Route::get('/dokter/delete/{id}', [DokterController::class, 'delete'])->name('dokter.delete');
+
+Route::get('/data_pasien', [PasienController::class, 'index'])->name('pasien');
+// Route::post('/dokter/reset', [PasienController::class, 'reset'])->name('dokter.reset');
+Route::get('/dokter/create', [PasienController::class, 'create'])->name('pasien.create');
+// Route::post('/dokter/store', [PasienController::class, 'store'])->name('dokter.store');
+// Route::get('/dokter/edit/{id}', [PasienController::class, 'edit'])->name('dokter.edit');
+// Route::post('/dokter/update', [PasienController::class, 'update'])->name('dokter.update');
+// Route::get('/dokter/delete/{id}', [PasienController::class, 'delete'])->name('dokter.delete');
 
 
 Route::get('/data_notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
