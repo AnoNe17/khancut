@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2023 at 04:26 PM
+-- Generation Time: Jul 09, 2023 at 09:58 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,7 +42,8 @@ CREATE TABLE `dokter` (
 --
 
 INSERT INTO `dokter` (`id`, `nama`, `nip`, `jabatan`, `image`, `created_at`, `updated_at`) VALUES
-(6, 'Maulana', '123', 'Doktter', '1641685791.png', '2023-06-18 10:20:48', '2023-06-18 12:02:59');
+(6, 'Maulana', '123', 'Doktter', '1641685791.png', '2023-06-18 10:20:48', '2023-06-18 12:02:59'),
+(7, 'farkhhan', '123', 'dokter', '1230399211.jpg', '2023-06-23 08:49:19', '2023-06-23 08:49:19');
 
 -- --------------------------------------------------------
 
@@ -70,12 +71,25 @@ CREATE TABLE `hasil_sdq` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `instansi` varchar(255) NOT NULL,
-  `total_kesulitan` varchar(255) NOT NULL,
+  `skor_kesulitan` varchar(11) NOT NULL,
+  `hasil_kesulitan` varchar(255) NOT NULL,
+  `skor_e` varchar(11) NOT NULL,
   `hasil_e` varchar(255) NOT NULL,
+  `keterangan_e` text NOT NULL,
+  `skor_c` varchar(11) NOT NULL,
   `hasil_c` varchar(255) NOT NULL,
+  `keterangan_c` text NOT NULL,
+  `skor_h` varchar(11) NOT NULL,
   `hasil_h` varchar(255) NOT NULL,
+  `keterangan_h` text NOT NULL,
+  `skor_p` varchar(11) NOT NULL,
   `hasil_p` varchar(255) NOT NULL,
+  `keterangan_p` text NOT NULL,
+  `skor_pro` varchar(11) NOT NULL,
   `hasil_pro` varchar(255) NOT NULL,
+  `keterangan_pro` text NOT NULL,
+  `skor_keseluruhan` varchar(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -84,11 +98,8 @@ CREATE TABLE `hasil_sdq` (
 -- Dumping data for table `hasil_sdq`
 --
 
-INSERT INTO `hasil_sdq` (`id`, `nama`, `instansi`, `total_kesulitan`, `hasil_e`, `hasil_c`, `hasil_h`, `hasil_p`, `hasil_pro`, `created_at`, `updated_at`) VALUES
-(12, 'FARKHAN', 'POLINDRA', 'ABNORMAL', 'ABNORMAL', 'NORMAL', 'NORMAL', 'NORMAL', 'NORMAL', '2023-06-01 11:26:17', '2023-06-01 11:26:17'),
-(14, 'ISA', 'POLINDRA', 'ABNORMAL', 'NORMAL', 'ABNORMAL', 'NORMAL', 'ABNORMAL', 'BORDERLINE / AMBANG', '2023-06-10 01:33:30', '2023-06-10 01:33:30'),
-(15, 'LANA', 'SMK PGRI JATIBARANG', 'ABNORMAL', 'BORDERLINE / AMBANG', 'ABNORMAL', 'ABNORMAL', 'ABNORMAL', 'ABNORMAL', '2023-06-10 01:39:17', '2023-06-10 01:39:17'),
-(16, 'RAGIL', 'SMP PUI', 'ABNORMAL', 'NORMAL', 'ABNORMAL', 'NORMAL', 'ABNORMAL', 'BORDERLINE / AMBANG', '2023-06-10 05:08:46', '2023-06-10 05:08:46');
+INSERT INTO `hasil_sdq` (`id`, `nama`, `instansi`, `skor_kesulitan`, `hasil_kesulitan`, `skor_e`, `hasil_e`, `keterangan_e`, `skor_c`, `hasil_c`, `keterangan_c`, `skor_h`, `hasil_h`, `keterangan_h`, `skor_p`, `hasil_p`, `keterangan_p`, `skor_pro`, `hasil_pro`, `keterangan_pro`, `skor_keseluruhan`, `user_id`, `created_at`, `updated_at`) VALUES
+(21, 'RIYAN', 'POLINDRA', '19', 'NORMAL', '5', 'NORMAL', '1. Tidak merasakan sakit badan<br>2. Tidak ada rasa khawatir<br>3. Bahagia<br>4. Percaya diri yang tinggi<br>5. Berani', '4', 'NORMAL', '1. Tidak mudah marah<br>2.	Memiliki kepribadian dan perilaku yang baik, teguh pada pendirian diri sendiri<br>3. Tidak pernah melakukan perkelahian<br>4. Tidak berbohong dan tidak melakukan kecurangan dalam hal apapun<br>5. Tidak mencuri', '5', 'NORMAL', '1.	Tidak merasa gelisah, dan dapat mengendalikan sikap<br>2. Dapat mengendalikan diri dan tidak mudah resah<br>3. Konsentrasi<br>4. Berpikir panjang sebelum melakukan sesuatu<br>5. Mampu menyelesaikan tugas sampai selesai', '5', 'NORMAL', '1.	Senang bergaul<br>2. Memiliki sahabat / teman baik<br>3. Memiliki banyak teman dan dapat bersosialisasi dengan orang banyak<br>4. Bergaul dengan anak anak yang seusia nya', '5', 'NORMAL', '1. Tidak Dapat menjaga perasaan orang lain<br>2. Cuek<br>3. Tidak suka membantu dengan orang lain / cuek<br>4. Memliki sikap yang tidak baik', '24', NULL, '2023-07-08 00:56:16', '2023-07-08 00:56:16');
 
 -- --------------------------------------------------------
 
@@ -103,7 +114,14 @@ CREATE TABLE `hasil_srq` (
   `no_hp` varchar(255) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `pekerjaan` varchar(255) NOT NULL,
+  `total` varchar(11) NOT NULL,
   `hasil` varchar(255) NOT NULL,
+  `masalah_psikologis` enum('ya','tidak') NOT NULL,
+  `pengguna_narkoba` enum('ya','tidak') NOT NULL,
+  `gangguan_psikotik` enum('ya','tidak') NOT NULL,
+  `gangguan_ptsd` enum('ya','tidak') NOT NULL,
+  `keterangan` text NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -112,12 +130,13 @@ CREATE TABLE `hasil_srq` (
 -- Dumping data for table `hasil_srq`
 --
 
-INSERT INTO `hasil_srq` (`id`, `nama`, `umur`, `no_hp`, `alamat`, `pekerjaan`, `hasil`, `created_at`, `updated_at`) VALUES
-(3, 'MAUALANA', '12', '0895642', 'JATIBARANG', 'KERJA', 'NORMAL', '2023-06-01 20:58:46', '2023-06-01 20:58:46'),
-(4, 'FARKHAN', '21', '0895683754', 'BEKASI', 'KULIAH', 'NORMAL', '2023-06-01 20:59:56', '2023-06-01 20:59:56'),
-(5, 'MAULANA', '11', '089098897', 'JATIBARANG', 'KULIAH', 'NORMAL', '2023-06-10 06:25:03', '2023-06-10 06:25:03'),
-(6, 'MAULANA', '11', '089098897', 'JATIBARANG', 'KULIAH', 'NORMAL', '2023-06-10 06:26:32', '2023-06-10 06:26:32'),
-(7, 'RAGIL', '11', '089098987', 'JATIBARANG', 'MAHASISWA', 'ABNORMAL', '2023-06-10 06:28:57', '2023-06-10 06:28:57');
+INSERT INTO `hasil_srq` (`id`, `nama`, `umur`, `no_hp`, `alamat`, `pekerjaan`, `total`, `hasil`, `masalah_psikologis`, `pengguna_narkoba`, `gangguan_psikotik`, `gangguan_ptsd`, `keterangan`, `user_id`, `created_at`, `updated_at`) VALUES
+(24, 'FARKHAN', '12', '98709809', 'BEKASI', 'MAHASISWA', '20', 'ABNORMAL', 'ya', 'tidak', 'ya', 'tidak', '- Terdapat masalah psikologis seperti cemas dan depresi<br>- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius<br>', 0, '2023-07-05 00:19:26', '2023-07-05 00:19:26'),
+(28, 'MAULANA', '12', '98709809', 'JATIBARANG', 'MAHASISWA', '27', 'ABNORMAL', 'tidak', 'ya', 'ya', 'tidak', '- Terdapat penggunaan zat psikoaktif/narkoba<br>- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius<br>', 0, '2023-07-05 00:26:25', '2023-07-05 00:26:25'),
+(29, 'SYAFIRA', '22', '0889787876876', 'INDRAMAYU', 'MAHASISWA', '21', 'ABNORMAL', 'ya', 'ya', 'ya', 'ya', '- Terdapat masalah psikologis seperti cemas dan depresi<br>- Terdapat penggunaan zat psikoaktif/narkoba<br>- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius<br>- Terdapat gejala-gejala gangguan  PTSD (Post Traumatic Stress Disorder) / gangguan stres setelah trauma<br>', NULL, '2023-07-06 21:11:04', '2023-07-06 21:11:04'),
+(30, 'SAFIRA', '23', '089787987', 'INDRAMAYU', 'MAHASISWA', '25', 'ABNORMAL', 'tidak', 'tidak', 'ya', 'tidak', '- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius<br>', NULL, '2023-07-06 21:12:29', '2023-07-06 21:12:29'),
+(33, 'ASD', '23', '08989787', 'INDRAMAYU', 'MAHASISWA', '29', 'ABNORMAL', 'tidak', 'tidak', 'ya', 'tidak', '- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius<br>', NULL, '2023-07-06 21:29:00', '2023-07-06 21:29:00'),
+(42, 'NANA', '23', '78654399', 'INDRAMAYU', 'MAHASISWA', '14', 'ABNORMAL', 'ya', 'tidak', 'ya', 'ya', '- Terdapat masalah psikologis seperti cemas dan depresi<br>- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius<br>- Terdapat gejala-gejala gangguan  PTSD (Post Traumatic Stress Disorder) / gangguan stres setelah trauma<br>', NULL, '2023-07-07 00:00:06', '2023-07-07 00:00:06');
 
 -- --------------------------------------------------------
 
@@ -140,6 +159,54 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifikasi`
+--
+
+CREATE TABLE `notifikasi` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `isi` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifikasi`
+--
+
+INSERT INTO `notifikasi` (`id`, `user_id`, `isi`, `created_at`, `updated_at`) VALUES
+(2, 2, 'user isi mobile', '2023-07-05 01:30:52', '2023-07-05 01:30:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pasien`
+--
+
+CREATE TABLE `pasien` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `umur` varchar(255) NOT NULL,
+  `instansi` varchar(255) NOT NULL,
+  `no_hp` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `pekerjaan` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pasien`
+--
+
+INSERT INTO `pasien` (`id`, `user_id`, `nama`, `umur`, `instansi`, `no_hp`, `alamat`, `pekerjaan`, `created_at`, `updated_at`) VALUES
+(1, 23, 'Lana', '12', 'Polindrar', '089098', 'Jatibarang', 'Mahasiswa', '2023-07-07 23:04:46', '2023-07-07 23:04:46'),
+(2, 24, 'asd', '12', 'polindra', '98709809', 'Jatibarang', 'Mahasiswa', '2023-07-07 23:10:24', '2023-07-07 23:10:24');
 
 -- --------------------------------------------------------
 
@@ -178,7 +245,12 @@ CREATE TABLE `personal_access_tokens` (
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
 (1, 'App\\Models\\User', 1, 'auth_token', 'f0a086d6c6964c7ca1ec64c241372eee8c863a2b35d7e50ecb5d0640a0cc6e70', '[\"*\"]', NULL, NULL, '2023-05-16 05:17:18', '2023-05-16 05:17:18'),
-(2, 'App\\Models\\User', 2, 'auth_token', 'b74fdf1b977f91451a663188ae5124c6bcf2ec92f238ea9e741cde7b854d22b7', '[\"*\"]', NULL, NULL, '2023-05-16 08:35:20', '2023-05-16 08:35:20');
+(2, 'App\\Models\\User', 2, 'auth_token', 'b74fdf1b977f91451a663188ae5124c6bcf2ec92f238ea9e741cde7b854d22b7', '[\"*\"]', NULL, NULL, '2023-05-16 08:35:20', '2023-05-16 08:35:20'),
+(3, 'App\\Models\\User', 14, 'auth_token', '0d100742a5fe611e87c212a1d2d1dd3062a152be69c4cbcd1c5aac8c45e04ec6', '[\"*\"]', NULL, NULL, '2023-07-05 06:34:27', '2023-07-05 06:34:27'),
+(4, 'App\\Models\\User', 14, 'auth_token', '37fdcbda031f85b2b70109a56d8219f4908a388d8f242ae0aa14986aeca8bdc8', '[\"*\"]', NULL, NULL, '2023-07-05 06:40:08', '2023-07-05 06:40:08'),
+(5, 'App\\Models\\User', 14, 'auth_token', '76badc45a26897bfcd43a5dd04edc01a23cf0b356293ea201120052918b2f429', '[\"*\"]', NULL, NULL, '2023-07-05 09:25:19', '2023-07-05 09:25:19'),
+(6, 'App\\Models\\User', 14, 'auth_token', 'fbf55fd1466e310648297a666999065f2888c1dcc3a638f61e4fcc1e012164c0', '[\"*\"]', NULL, NULL, '2023-07-05 09:26:07', '2023-07-05 09:26:07'),
+(7, 'App\\Models\\User', 23, 'auth_token', '9407feb5b43b3bea96a4bd8fdf6f0884d3b6d951fc943bea641dbc05b43eb353', '[\"*\"]', NULL, NULL, '2023-07-07 23:05:13', '2023-07-07 23:05:13');
 
 -- --------------------------------------------------------
 
@@ -188,12 +260,14 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `role` varchar(255) DEFAULT NULL,
+  `verif_code` varchar(255) DEFAULT NULL,
+  `status_verif` enum('true','false') DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -202,12 +276,15 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'syafira ndh', 'admin@admin.com', NULL, '$2y$10$FzsesU/rLxt7tUrtWWfOSeoAYApczk95R.UIIGPZXoFWblOXm.daC', NULL, 'admin', '2023-05-16 05:17:18', '2023-06-10 08:53:48'),
-(2, 'Maulana', 'maulana@gmail.com', NULL, '$2y$10$pdvBGPwcwmsOIqxj9Zl7VukAOdSGDWUANvWJy91pa0Gxn1kPNFuYe', NULL, 'admin', '2023-05-16 08:35:20', '2023-05-16 08:35:20'),
-(9, 'lana', 'lana@lana.com', NULL, '$2y$10$tyqpXiEOx1I5VzPYfuuTU.0Vp/R85qDsDt6pbYWhESJxzubyHf0tG', NULL, 'pasien', '2023-05-23 05:39:47', '2023-05-23 05:39:47'),
-(10, 'syafirandh', 'firand@gmail.com', NULL, '$2y$10$UAl7UF24JIVIkeqamZvHve8CFwvSEHk8T8tTxM8rKJOz1WyCGsHbm', NULL, 'pasien', '2023-05-24 22:09:41', '2023-05-24 22:09:41'),
-(11, 'firrza', 'firrza@gmail.com', NULL, '$2y$10$Z8k1LrwBDXrwsxMO0JO0muOnHCgaQfhVuzM97eOIaaumjxVbp2Yp2', NULL, 'pasien', '2023-05-26 02:08:54', '2023-05-26 02:08:54');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `verif_code`, `status_verif`, `created_at`, `updated_at`) VALUES
+(1, 'syafira ndh', 'admin@admin.com', NULL, '$2y$10$FzsesU/rLxt7tUrtWWfOSeoAYApczk95R.UIIGPZXoFWblOXm.daC', NULL, 'admin', NULL, 'true', '2023-05-16 05:17:18', '2023-06-10 08:53:48'),
+(2, 'Maulana', 'maulana@gmail.com', NULL, '$2y$10$pdvBGPwcwmsOIqxj9Zl7VukAOdSGDWUANvWJy91pa0Gxn1kPNFuYe', NULL, 'admin', NULL, 'true', '2023-05-16 08:35:20', '2023-05-16 08:35:20'),
+(10, 'syafirandh', 'firand@gmail.com', NULL, '$2y$10$UAl7UF24JIVIkeqamZvHve8CFwvSEHk8T8tTxM8rKJOz1WyCGsHbm', NULL, 'pasien', NULL, 'true', '2023-05-24 22:09:41', '2023-05-24 22:09:41'),
+(11, 'firrza', 'firrza@gmail.com', NULL, '$2y$10$Z8k1LrwBDXrwsxMO0JO0muOnHCgaQfhVuzM97eOIaaumjxVbp2Yp2', NULL, 'pasien', NULL, 'true', '2023-05-26 02:08:54', '2023-05-26 02:08:54'),
+(14, 'lana', 'lana@lana.com', NULL, '$2y$10$5p4kOxKibFHkqMFKQsJ/0.tDcVg.xVh/WTX5XYvEnLd1wciQgvfkC', NULL, 'pasien', NULL, 'true', '2023-07-05 06:33:26', '2023-07-05 06:33:26'),
+(23, 'empus202315', NULL, NULL, '$2y$10$xx/BTH/cKpk.RUDOk6uhZOFDCPhOiT1e5MajEKurmS8UoADQheseK', NULL, 'pasien', 'empus202315', 'true', '2023-07-07 22:18:54', '2023-07-07 23:04:46'),
+(24, 'empus202324', NULL, NULL, '@empus202324', NULL, 'pasien', 'empus202324', 'true', '2023-07-07 23:10:24', '2023-07-07 23:10:24'),
+(25, 'empus202325', NULL, NULL, '@empus202325', NULL, 'pasien', 'empus202325', 'true', '2023-07-07 23:17:50', '2023-07-07 23:17:50');
 
 --
 -- Indexes for dumped tables
@@ -245,6 +322,18 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pasien`
+--
+ALTER TABLE `pasien`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
@@ -273,7 +362,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -285,13 +374,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `hasil_sdq`
 --
 ALTER TABLE `hasil_sdq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `hasil_srq`
 --
 ALTER TABLE `hasil_srq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -300,16 +389,28 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pasien`
+--
+ALTER TABLE `pasien`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
