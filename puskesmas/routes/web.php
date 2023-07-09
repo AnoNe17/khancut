@@ -55,16 +55,14 @@ Route::post('/dokter/update', [DokterController::class, 'update'])->name('dokter
 Route::get('/dokter/delete/{id}', [DokterController::class, 'delete'])->name('dokter.delete');
 
 Route::get('/data_pasien', [PasienController::class, 'index'])->name('pasien');
-// Route::post('/dokter/reset', [PasienController::class, 'reset'])->name('dokter.reset');
-Route::get('/dokter/create', [PasienController::class, 'create'])->name('pasien.create');
-// Route::post('/dokter/store', [PasienController::class, 'store'])->name('dokter.store');
-// Route::get('/dokter/edit/{id}', [PasienController::class, 'edit'])->name('dokter.edit');
-// Route::post('/dokter/update', [PasienController::class, 'update'])->name('dokter.update');
-// Route::get('/dokter/delete/{id}', [PasienController::class, 'delete'])->name('dokter.delete');
-
+Route::post('/cek_code', [PasienController::class, 'cek'])->name('pasien.cek');
+Route::get('/pasien/create', [PasienController::class, 'create'])->name('pasien.create');
+Route::post('/pasien/store', [PasienController::class, 'store'])->name('pasien.store');
+Route::get('/pasien/edit/{id}', [PasienController::class, 'edit'])->name('pasien.edit');
+Route::post('/pasien/update', [PasienController::class, 'update'])->name('pasien.update');
+Route::get('/pasien/delete/{id}', [PasienController::class, 'delete'])->name('pasien.delete');
 
 Route::get('/data_notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
 Route::post('/notifikasi/store', [NotifikasiController::class, 'store'])->name('notifikasi.store');
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

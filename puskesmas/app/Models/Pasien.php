@@ -10,4 +10,9 @@ class Pasien extends Model
     protected $primaryKey = 'id';
 
     protected $guarded = [];
+
+    public function User()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

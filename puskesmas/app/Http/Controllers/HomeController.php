@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokter;
+use App\Models\HasilSDQ;
+use App\Models\HasilSRQ;
+use App\Models\Notifikasi;
+use App\Models\Pasien;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +28,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $pasien = Pasien::count();
+        $dokter = Dokter::count();
+        $sdq = HasilSDQ::count();
+        $srq = HasilSRQ::count();
+        $notifikasi = Notifikasi::count();
+
+
+        return view('home', compact('pasien', 'dokter', 'sdq', 'srq', 'notifikasi'));
     }
 }

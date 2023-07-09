@@ -39,20 +39,19 @@
             </div>
         </div>
         {{-- <a href="{{ route('kuisioner.sdq') }}" class="mb-2 mt-3 btn btn-primary">Isi Kuisioner SDQ</a> --}}
-        <div class="card ">
-            <div class="card-body">
-                <table id="datatable">
+            <br><br>
+                <table id="datatable" class="">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
                             <th>Instansi</th>
-                            <th>Skor Kesulitan</th>
-                            <th>Skor E</th>
-                            <th>Skor C</th>
-                            <th>Skor H</th>
-                            <th>Skor P</th>
-                            <th>Skor Pro</th>
+                            {{-- <th>Skor Kesulitan</th> --}}
+                            <th>Gejala Emosional</th>
+                            <th>Gejala perilaku</th>
+                            <th>Hiperaktivitas</th>
+                            <th>Masalah Teman Sebaya</th>
+                            <th>Perilaku Proposional</th>
                             <th>Skor Keseluruhan</th>
                             <th>Dibuat Pada</th>
                             <th>Export PDF</th>
@@ -64,7 +63,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->instansi }}</td>
-                            <th>
+                            {{-- <th>
                                 @if ($value->hasil_kesulitan === 'NORMAL')
                                     <div class="text-success">{{ $value->skor_kesulitan }}</div>
                                 @elseif($value->hasil_e === 'BORDERLINE / AMBANG')
@@ -72,7 +71,7 @@
                                 @else
                                     <div class="text-danger">{{ $value->skor_kesulitan }}</div>
                                 @endif
-                            </td>
+                            </td> --}}
                             <th>
                                 @if ($value->hasil_e === 'NORMAL')
                                     <div class="text-success">{{ $value->skor_e }}</div>
@@ -129,15 +128,15 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-        </div>
     </div>
+    <br><br><br>
 @endsection
 
 @section('script')
      <script>
             $(document).ready(function() {
                 $('#datatable').DataTable( {
+                    responsive: true,
                     dom: 'Bfrtlp',
                     lengthMenu: [[10, 20, 100], [10, 20, 100]],
                     buttons: [

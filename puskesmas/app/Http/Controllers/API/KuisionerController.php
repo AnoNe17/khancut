@@ -69,13 +69,14 @@ class KuisionerController extends Controller
 
         if ($request->pasien_baru) {
 
-            $banyak_user = User::count();
+            $last_id_user = User::orderBy('id', 'desc')->first()->id + 1;
 
-            $code_verif = 'E-Mpus' . substr(str_replace('-', "", date($data[0]->created_at)), 0, 8) . '-' . $banyak_user;
+            $code_verif = 'empus' . substr(str_replace('-', "", date($data[0]->created_at)), 0, 4) . $last_id_user;
 
             $user                 = new User();
-            $user->name           = $data[0]->nama;
+            $user->name           = $code_verif;
             $user->verif_code     = $code_verif;
+            $user->role           = 'pasien';
             $user->status_verif   = 'false';
             $user->save();
 
@@ -93,13 +94,14 @@ class KuisionerController extends Controller
 
         if ($request->pasien_baru) {
 
-            $banyak_user = User::count();
+            $last_id_user = User::orderBy('id', 'desc')->first()->id + 1;
 
-            $code_verif = 'E-Mpus' . substr(str_replace('-', "", date($data[0]->created_at)), 0, 8) . '-' . $banyak_user;
+            $code_verif = 'empus' . substr(str_replace('-', "", date($data[0]->created_at)), 0, 4) . $last_id_user;
 
             $user                 = new User();
-            $user->name           = $data[0]->nama;
+            $user->name           = $code_verif;
             $user->verif_code     = $code_verif;
+            $user->role           = 'pasien';
             $user->status_verif   = 'false';
             $user->save();
 

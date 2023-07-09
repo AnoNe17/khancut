@@ -100,13 +100,6 @@ class KuisionerController extends Controller
             $total += $request->radio[$r];
         }
 
-
-        if ($total <= 8) {
-            $hasil = 'Normal';
-        } elseif ($total >= 8) {
-            $hasil = 'Abnormal';
-        }
-
         if ($total_psikologis <= 15) {
             $masalah_psikologis = 'ya';
         } else {
@@ -119,7 +112,7 @@ class KuisionerController extends Controller
             $pengguna_narkoba = 'tidak';
         }
 
-        if ($total_psikotik <= 3) {
+        if ($total_psikotik <= 2) {
             $gangguan_psikotik = 'ya';
         } else {
             $gangguan_psikotik = 'tidak';
@@ -129,6 +122,12 @@ class KuisionerController extends Controller
             $gangguan_ptsd = 'ya';
         } else {
             $gangguan_ptsd = 'tidak';
+        }
+
+        if ($masalah_psikologis == 'ya' || $pengguna_narkoba == 'ya' || $gangguan_psikotik == 'ya' || $gangguan_ptsd == 'ya') {
+            $hasil = 'Abnormal';
+        } else {
+            $hasil = 'Normal';
         }
 
         $nama       = $request->nama;
@@ -149,6 +148,11 @@ class KuisionerController extends Controller
         if ($gangguan_ptsd === 'ya') {
             $keterangan .= '- Terdapat gejala-gejala gangguan  PTSD (Post Traumatic Stress Disorder) / gangguan stres setelah trauma<br>';
         }
+        if ($hasil == 'Normal') {
+            $keterangan .= '- Mohon Jaga Kesehatan Anda';
+        }
+
+
 
         $data = new HasilSRQ();
         $data->nama                 = strtoupper($nama);
@@ -324,6 +328,35 @@ class KuisionerController extends Controller
                 $hasil_pro = 'Abnormal';
             }
         }
+        if ($hasil_e = 'Normal') {
+            $keterangan_e = '1. Tidak merasakan sakit badan<br>2. Tidak ada rasa khawatir<br>3. Bahagia<br>4. Percaya diri yang tinggi<br>5. Berani';
+        } else {
+            $keterangan_e = '1. Sering mengeluh sakit badan ( seperti sakit kepala )<br>2. Banyak kekhawatiran<br>3. Sering tidak bahagia, menangis<br>4. Gugup atau mudah hilang percaya diri<br>5. Mudah takut';
+        }
+
+        if ($hasil_c = 'Normal') {
+            $keterangan_c = '1. Tidak mudah marah<br>2.	Memiliki kepribadian dan perilaku yang baik, teguh pada pendirian diri sendiri<br>3. Tidak pernah melakukan perkelahian<br>4. Tidak berbohong dan tidak melakukan kecurangan dalam hal apapun<br>5. Tidak mencuri';
+        } else {
+            $keterangan_c = '1. Sering marah meledak-ledak<br>2. Umunya berprilaku tidak baik, tidak melakukan apa yang diminta orang dewasa<br>3. Sering berkelahi<br>4. Sering berbohong, curang<br>5. Mencuri';
+        }
+
+        if ($hasil_h = 'Normal') {
+            $keterangan_h = '1.	Tidak merasa gelisah, dan dapat mengendalikan sikap<br>2. Dapat mengendalikan diri dan tidak mudah resah<br>3. Konsentrasi<br>4. Berpikir panjang sebelum melakukan sesuatu<br>5. Mampu menyelesaikan tugas sampai selesai';
+        } else {
+            $keterangan_h = '1.	Gelisah, terlalu aktif, tidak dapat diam lama.<br>2. Terus bergerak dengan resah.<br>3. Mudah teralih, konsentrasi buyar.<br>4. Tidak berpikir sebelum bertindak<br>5. Tidak mampu menyelesaikan tugas sampai selesai.';
+        }
+
+        if ($hasil_p = 'Normal') {
+            $keterangan_p = '1.	Senang bergaul<br>2. Memiliki sahabat / teman baik<br>3. Memiliki banyak teman dan dapat bersosialisasi dengan orang banyak<br>4. Bergaul dengan anak anak yang seusia nya';
+        } else {
+            $keterangan_p = '1.	Cenderung menyendiri, lebih senang main sendiri.<br>2. Tidak punya 1 teman baik.<br>3. Tidak disukai anak-anak lain.<br>4.	Diganggu/digerak oleh anak lain.<br>5. Bergaul lebih baik dengan orang dewasa dari pada anak-anak';
+        }
+
+        if ($hasil_pro = 'Normal') {
+            $keterangan_pro = '1. Tidak Dapat menjaga perasaan orang lain<br>2. Cuek<br>3. Tidak suka membantu dengan orang lain / cuek<br>4. Memliki sikap yang tidak baik';
+        } else {
+            $keterangan_pro = '1. Mampu mempertimbangkan perasaan orang lain.<br>2.	Bersedia berbagi dengan anak lain. - Suka Menolong.<br>3. Bersikap baik pada anak yang lebih muda.<br>4. Sering menawarkan diri membantu orang lain.';
+        }
 
         $nama       = $request->nama;
         $instansi   = $request->instansi;
@@ -344,6 +377,11 @@ class KuisionerController extends Controller
         $data->skor_h           = $skor_h;
         $data->skor_p           = $skor_p;
         $data->skor_pro         = $skor_pro;
+        $data->keterangan_e     = $keterangan_e;
+        $data->keterangan_c     = $keterangan_c;
+        $data->keterangan_h     = $keterangan_h;
+        $data->keterangan_p     = $keterangan_p;
+        $data->keterangan_pro   = $keterangan_pro;
         $data->skor_keseluruhan = $skor_keseluruhan;
         $data->save();
 

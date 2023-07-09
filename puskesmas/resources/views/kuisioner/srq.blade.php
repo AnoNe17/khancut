@@ -46,9 +46,10 @@
                 </div>
             </div>
         </div>
-        <div class="card ">
-            <div class="card-body">
-                <table id="datatable">
+        {{-- <div class="card ">
+            <div class="card-body"> --}}
+                <br><br>
+                <table id="datatable" class="m-2">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -118,15 +119,17 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-        </div>
+            {{-- </div>
+        </div> --}}
     </div>
+    <br><br><br>
 @endsection
 
 @section('script')
      <script>
             $(document).ready(function() {
                 $('#datatable').DataTable( {
+                    responsive: true,
                     dom: 'Bfrtlp',
                     lengthMenu: [[10, 20, 100], [10, 20, 100]],
                     buttons: [

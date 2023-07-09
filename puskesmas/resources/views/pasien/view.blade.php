@@ -4,8 +4,35 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Data Pasien</h1>
         
-        <a href="" class="mb-4 mt-3 btn btn-primary">Tambah Data pasien</a>
-        <a href="" class="mb-4 mt-3 mx-3 btn btn-success">Verifikasi Pasien baru</a>
+        <a href="{{ route('pasien.create') }}" class="mb-4 mt-4 btn btn-primary">Tambah Data pasien</a> &nbsp;&nbsp;
+        <button type="button" class="btn btn-success mb-4 mt-4" id="inputan_data" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+            Verifikasi Kode Pasien
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Verifikasi Kode Pasien</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('pasien.cek') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-floating mb-3">
+                                <input id="code" type="text" class="form-control" name="code" value="{{ old('code') }}" required autocomplete="code" autofocus>
+                                <label for="">Kode Veifikasi</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="input" class="btn btn-primary">Cek</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="card ">
             <div class="card-body">
                 <table id="datatable">
@@ -13,6 +40,7 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
+                            <th>Code Verifikasi</th>
                             <th>Umur</th>
                             <th>Instansi</th>
                             <th>No HP</th>
@@ -25,6 +53,7 @@
                         @foreach ($pasien as $index => $value)
                         <tr>
                             <td>{{ $index + 1 }}</td>
+                            <th>{{ $value->User->verif_code }}</th>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->umur }}</td>
                             <td>{{ $value->instansi }}</td>
@@ -32,8 +61,8 @@
                             <td>{{ $value->alamat }}</td>
                             <td>{{ $value->pekerjaan }}</td>
                             <td>
-                                {{-- <a href="{{ route('pasien.edit', $value->id) }}" class="btn btn-primary btn ml-2">Edit</a>
-                                <a href="{{ route('pasien.delete', $value->id) }}" class="btn btn-danger btn ml-2">Hapus</a> --}}
+                                <a href="{{ route('pasien.edit', $value->id) }}" class="btn btn-primary btn ml-2">Edit</a>
+                                <a href="{{ route('pasien.delete', $value->id) }}" class="btn btn-danger btn ml-2">Hapus</a>
                             </td>
                         </tr>
                         @endforeach

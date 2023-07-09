@@ -22,18 +22,18 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr>
-                <th>Hasil Kesulitan</th>
-                <th>Hasil E</th>
-                <th>Hasil C</th>
-                <th>Hasil H</th>
-                <th>Hasil P</th>
-                <th>Hasil Pro</th>
+                {{-- <th>Hasil Kesulitan</th> --}}
+                <th>Gejala Emosional</th>
+                <th>Gejala Perilaku</th>
+                <th>Hiperaktivitas</th>
+                <th>Masalah Teman Sebaya</th>
+                <th>Perilaku Proposional</th>
                 <th>Dibuat Pada</th>
             </tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>{{$data[0]->hasil_kesulitan}}</td>
+				{{-- <td>{{$data[0]->hasil_kesulitan}}</td> --}}
 				<td>
                     @if ($data[0]->hasil_e === 'NORMAL')
                         <div class="text-success">{{ $data[0]->hasil_e }}</div>
