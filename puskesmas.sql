@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2023 at 09:58 PM
+-- Generation Time: Jul 16, 2023 at 05:13 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -99,7 +99,8 @@ CREATE TABLE `hasil_sdq` (
 --
 
 INSERT INTO `hasil_sdq` (`id`, `nama`, `instansi`, `skor_kesulitan`, `hasil_kesulitan`, `skor_e`, `hasil_e`, `keterangan_e`, `skor_c`, `hasil_c`, `keterangan_c`, `skor_h`, `hasil_h`, `keterangan_h`, `skor_p`, `hasil_p`, `keterangan_p`, `skor_pro`, `hasil_pro`, `keterangan_pro`, `skor_keseluruhan`, `user_id`, `created_at`, `updated_at`) VALUES
-(21, 'RIYAN', 'POLINDRA', '19', 'NORMAL', '5', 'NORMAL', '1. Tidak merasakan sakit badan<br>2. Tidak ada rasa khawatir<br>3. Bahagia<br>4. Percaya diri yang tinggi<br>5. Berani', '4', 'NORMAL', '1. Tidak mudah marah<br>2.	Memiliki kepribadian dan perilaku yang baik, teguh pada pendirian diri sendiri<br>3. Tidak pernah melakukan perkelahian<br>4. Tidak berbohong dan tidak melakukan kecurangan dalam hal apapun<br>5. Tidak mencuri', '5', 'NORMAL', '1.	Tidak merasa gelisah, dan dapat mengendalikan sikap<br>2. Dapat mengendalikan diri dan tidak mudah resah<br>3. Konsentrasi<br>4. Berpikir panjang sebelum melakukan sesuatu<br>5. Mampu menyelesaikan tugas sampai selesai', '5', 'NORMAL', '1.	Senang bergaul<br>2. Memiliki sahabat / teman baik<br>3. Memiliki banyak teman dan dapat bersosialisasi dengan orang banyak<br>4. Bergaul dengan anak anak yang seusia nya', '5', 'NORMAL', '1. Tidak Dapat menjaga perasaan orang lain<br>2. Cuek<br>3. Tidak suka membantu dengan orang lain / cuek<br>4. Memliki sikap yang tidak baik', '24', NULL, '2023-07-08 00:56:16', '2023-07-08 00:56:16');
+(24, 'LANA', 'POLINDRA', '30', 'NORMAL', '10', 'ABNORMAL', '1. Sering mengeluh sakit badan ( seperti sakit kepala )<br>2. Banyak kekhawatiran<br>3. Sering tidak bahagia, menangis<br>4. Gugup atau mudah hilang percaya diri<br>5. Mudah takut', '8', 'ABNORMAL', '1. Sering marah meledak-ledak<br>2. Umunya berprilaku tidak baik, tidak melakukan apa yang diminta orang dewasa<br>3. Sering berkelahi<br>4. Sering berbohong, curang<br>5. Mencuri', '6', 'BORDERLINE / AMBANG', '1.	Gelisah, terlalu aktif, tidak dapat diam lama.<br>2. Terus bergerak dengan resah.<br>3. Mudah teralih, konsentrasi buyar.<br>4. Tidak berpikir sebelum bertindak<br>5. Tidak mampu menyelesaikan tugas sampai selesai.', '6', 'ABNORMAL', '1.	Cenderung menyendiri, lebih senang main sendiri.<br>2. Tidak punya 1 teman baik.<br>3. Tidak disukai anak-anak lain.<br>4.	Diganggu/digerak oleh anak lain.<br>5. Bergaul lebih baik dengan orang dewasa dari pada anak-anak', '10', 'ABNORMAL', '1. Mampu mempertimbangkan perasaan orang lain.<br>2.	Bersedia berbagi dengan anak lain. - Suka Menolong.<br>3. Bersikap baik pada anak yang lebih muda.<br>4. Sering menawarkan diri membantu orang lain.', '40', NULL, '2023-07-16 07:51:25', '2023-07-16 07:51:25'),
+(25, 'ADAM', 'SMK CIREBON', '22', 'NORMAL', '6', 'BORDERLINE / AMBANG', '1. Sering mengeluh sakit badan ( seperti sakit kepala )<br>2. Banyak kekhawatiran<br>3. Sering tidak bahagia, menangis<br>4. Gugup atau mudah hilang percaya diri<br>5. Mudah takut', '5', 'ABNORMAL', '1. Sering marah meledak-ledak<br>2. Umunya berprilaku tidak baik, tidak melakukan apa yang diminta orang dewasa<br>3. Sering berkelahi<br>4. Sering berbohong, curang<br>5. Mencuri', '6', 'BORDERLINE / AMBANG', '1.	Gelisah, terlalu aktif, tidak dapat diam lama.<br>2. Terus bergerak dengan resah.<br>3. Mudah teralih, konsentrasi buyar.<br>4. Tidak berpikir sebelum bertindak<br>5. Tidak mampu menyelesaikan tugas sampai selesai.', '5', 'ABNORMAL', '1.	Cenderung menyendiri, lebih senang main sendiri.<br>2. Tidak punya 1 teman baik.<br>3. Tidak disukai anak-anak lain.<br>4.	Diganggu/digerak oleh anak lain.<br>5. Bergaul lebih baik dengan orang dewasa dari pada anak-anak', '4', 'NORMAL', '1. Tidak Dapat menjaga perasaan orang lain<br>2. Cuek<br>3. Tidak suka membantu dengan orang lain / cuek<br>4. Memliki sikap yang tidak baik', '26', NULL, '2023-07-16 08:12:27', '2023-07-16 08:12:27');
 
 -- --------------------------------------------------------
 
@@ -169,6 +170,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `notifikasi` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `kategori` varchar(255) NOT NULL,
+  `tanggal` date DEFAULT NULL,
   `isi` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -178,8 +181,8 @@ CREATE TABLE `notifikasi` (
 -- Dumping data for table `notifikasi`
 --
 
-INSERT INTO `notifikasi` (`id`, `user_id`, `isi`, `created_at`, `updated_at`) VALUES
-(2, 2, 'user isi mobile', '2023-07-05 01:30:52', '2023-07-05 01:30:52');
+INSERT INTO `notifikasi` (`id`, `user_id`, `kategori`, `tanggal`, `isi`, `created_at`, `updated_at`) VALUES
+(4, 23, 'Kategori', '2023-07-28', 'isi notifikasi', '2023-07-16 03:47:40', '2023-07-16 03:47:40');
 
 -- --------------------------------------------------------
 
@@ -374,7 +377,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `hasil_sdq`
 --
 ALTER TABLE `hasil_sdq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `hasil_srq`
@@ -392,7 +395,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pasien`
