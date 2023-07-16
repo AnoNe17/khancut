@@ -19,12 +19,22 @@
                         @csrf
                         <div class="modal-body">
                             <div class=" mb-3">
-                                <select class="form-select" aria-label="Default select example" name="user_id">
+                                <select class="form-select" aria-label="Default select example" name="user_id" required>
                                     <option selected disabled>-- Silahkan Pilih User --</option>
                                     @foreach ($user as $value)
-                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                        @if (!empty($value->Pasien->nama))
+                                            <option value="{{ $value->id }}">{{ $value->Pasien->nama }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input id="kategori" type="text" class="form-control" name="kategori" value="{{ old('kategori') }}" required autocomplete="kategori">
+                                <label for="">Kategori</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input id="tanggal" type="date" class="form-control" name="tanggal" value="{{ old('tanggal') }}" required autocomplete="tanggal">
+                                <label for="">Tanggal Notifikasi Muncul</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <textarea class="form-control" rows="15" style="height:100%;" name="isi"></textarea>
@@ -46,17 +56,19 @@
                         <tr>
                             <th>No</th>
                             <th>User</th>
+                            <th>Kategori</th>
+                            <th>Tanggal Notifikasi Muncul</th>
                             <th>Isi Notifikasi</th>
-                            <th>Dibuat Pada</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($notif as $index => $value)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $value->User->name }}</td>
+                            <td>{{ $value->User->Pasien->nama }}</td>
+                            <td>{{ $value->kategori }}</td>
+                            <td>{{ $value->tanggal }}</td>
                             <td>{{ $value->isi }}</td>
-                            <td>{{ $value->created_at }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -76,27 +88,27 @@
                         {
                             extend: 'csv',
                             exportOptions: {
-                                columns: [ 0, 1, 2, 3,]
+                                columns: [ 0, 1, 2, 3,4]
                             }
                         },
                         {
                             extend: 'excelHtml5',
                             exportOptions: {
                                 
-                                columns: [ 0, 1, 2, 3,]
+                                columns: [ 0, 1, 2, 3,4]
                             }
                         },
                         {
                             extend: 'pdfHtml5',
                             exportOptions: {
-                                columns: [ 0, 1, 2, 3,]
+                                columns: [ 0, 1, 2, 3,4]
                             }
                         },
                         {
                             extend: 'print',
                             exportOptions: {
                                 stripHtml: false,
-                                columns: [ 0, 1, 2, 3,]
+                                columns: [ 0, 1, 2, 3,4]
                             }
                         },
                         

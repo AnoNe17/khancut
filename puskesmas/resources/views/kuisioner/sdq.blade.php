@@ -46,7 +46,6 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Instansi</th>
-                            {{-- <th>Skor Kesulitan</th> --}}
                             <th>Gejala Emosional</th>
                             <th>Gejala perilaku</th>
                             <th>Hiperaktivitas</th>
@@ -143,25 +142,25 @@
                         {
                             extend: 'csv',
                             exportOptions: {
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
                             }
                         },
                         {
                             extend: 'excelHtml5',
                             exportOptions: {
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
                             }
                         },
                         {
                             extend: 'pdfHtml5',
                             exportOptions: {
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
                             }
                         },
                         {
                             extend: 'print',
                             exportOptions: {
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
                             }
                         },
                         

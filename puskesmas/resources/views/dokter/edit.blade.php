@@ -40,7 +40,6 @@
                     </div> --}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary m-2 btn-lg" data-bs-dismiss="modal">Close</button>
                     <button type="input" class="btn btn-primary m-2 btn-lg">Simpan</button>
                 </div>
             </form>

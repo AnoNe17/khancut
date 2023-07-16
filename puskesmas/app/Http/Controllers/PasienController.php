@@ -19,8 +19,8 @@ class PasienController extends Controller
     public function cek(Request $request)
     {
         $user = User::where('verif_code', $request->code)->where('status_verif', 'false')->first();
-
-        if ($user->count() != 0) {
+        // return $user;
+        if (!empty($user)) {
             return view('pasien.create', compact('user'));
         } else {
             Alert::error('Code Verifikasi Tidak Ditemukan');

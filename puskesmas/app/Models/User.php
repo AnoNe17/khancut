@@ -16,4 +16,9 @@ class User extends Authenticatable
     protected $primaryKey = 'id';
 
     protected $guarded = [];
+
+    public function Pasien()
+    {
+        return $this->hasOne(Pasien::class, 'user_id', 'id');
+    }
 }
