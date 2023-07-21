@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2023 at 05:13 PM
+-- Generation Time: Jul 17, 2023 at 04:33 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -253,7 +253,8 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (4, 'App\\Models\\User', 14, 'auth_token', '37fdcbda031f85b2b70109a56d8219f4908a388d8f242ae0aa14986aeca8bdc8', '[\"*\"]', NULL, NULL, '2023-07-05 06:40:08', '2023-07-05 06:40:08'),
 (5, 'App\\Models\\User', 14, 'auth_token', '76badc45a26897bfcd43a5dd04edc01a23cf0b356293ea201120052918b2f429', '[\"*\"]', NULL, NULL, '2023-07-05 09:25:19', '2023-07-05 09:25:19'),
 (6, 'App\\Models\\User', 14, 'auth_token', 'fbf55fd1466e310648297a666999065f2888c1dcc3a638f61e4fcc1e012164c0', '[\"*\"]', NULL, NULL, '2023-07-05 09:26:07', '2023-07-05 09:26:07'),
-(7, 'App\\Models\\User', 23, 'auth_token', '9407feb5b43b3bea96a4bd8fdf6f0884d3b6d951fc943bea641dbc05b43eb353', '[\"*\"]', NULL, NULL, '2023-07-07 23:05:13', '2023-07-07 23:05:13');
+(7, 'App\\Models\\User', 23, 'auth_token', '9407feb5b43b3bea96a4bd8fdf6f0884d3b6d951fc943bea641dbc05b43eb353', '[\"*\"]', NULL, NULL, '2023-07-07 23:05:13', '2023-07-07 23:05:13'),
+(8, 'App\\Models\\User', 23, 'auth_token', '49a1506b2aecba6586ae806907196edf6825483a251fc2513e6ce46c0fbe2e41', '[\"*\"]', NULL, NULL, '2023-07-17 07:05:51', '2023-07-17 07:05:51');
 
 -- --------------------------------------------------------
 
@@ -407,7 +408,7 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

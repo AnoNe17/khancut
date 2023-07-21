@@ -21,4 +21,17 @@ class User extends Authenticatable
     {
         return $this->hasOne(Pasien::class, 'user_id', 'id');
     }
+
+    public static function auto_hapus()
+    {
+        $data = User::all();
+        foreach ($data as $item) {
+            if ($item->status_verif == 'false') {
+                $created = strtotime($item->created_at) + (10000);
+                if ($created < time()) {
+                    $item->delete();
+                }
+            }
+        }
+    }
 }

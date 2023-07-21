@@ -407,7 +407,6 @@ class KuisionerController extends Controller
             'skor_pro',
             'skor_keseluruhan',
         ));
-        // }
     }
 
     public function getHasilSDQ()
@@ -554,6 +553,6 @@ class KuisionerController extends Controller
         $data = HasilSRQ::where('id', $id)->get();
 
         $pdf = PDF::loadview('kuisioner.pdf.srq', ['data' => $data]);
-        return $pdf->download('Hasil Kuisioner SDQ ' . $data[0]->nama . ' (' . $data[0]->no_hp . ')' . '.pdf');
+        return $pdf->download('Hasil Kuisioner SRQ ' . $data[0]->nama . ' (' . $data[0]->no_hp . ')' . '.pdf');
     }
 }

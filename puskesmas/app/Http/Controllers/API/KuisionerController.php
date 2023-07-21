@@ -13,15 +13,75 @@ class KuisionerController extends Controller
 {
     public function inputSDQ(Request $request)
     {
+        // return $request;
+
+
+        if ($request->hasil_e === 'Normal') {
+            $keterangan_e = '1. Tidak merasakan sakit badan<br>2. Tidak ada rasa khawatir<br>3. Bahagia<br>4. Percaya diri yang tinggi<br>5. Berani';
+        } else {
+            $keterangan_e = '1. Sering mengeluh sakit badan ( seperti sakit kepala )<br>2. Banyak kekhawatiran<br>3. Sering tidak bahagia, menangis<br>4. Gugup atau mudah hilang percaya diri<br>5. Mudah takut';
+        }
+
+        if ($request->hasil_c === 'Normal') {
+            $keterangan_c = '1. Tidak mudah marah<br>2.	Memiliki kepribadian dan perilaku yang baik, teguh pada pendirian diri sendiri<br>3. Tidak pernah melakukan perkelahian<br>4. Tidak berbohong dan tidak melakukan kecurangan dalam hal apapun<br>5. Tidak mencuri';
+        } else {
+            $keterangan_c = '1. Sering marah meledak-ledak<br>2. Umunya berprilaku tidak baik, tidak melakukan apa yang diminta orang dewasa<br>3. Sering berkelahi<br>4. Sering berbohong, curang<br>5. Mencuri';
+        }
+
+        if ($request->hasil_h === 'Normal') {
+            $keterangan_h = '1.	Tidak merasa gelisah, dan dapat mengendalikan sikap<br>2. Dapat mengendalikan diri dan tidak mudah resah<br>3. Konsentrasi<br>4. Berpikir panjang sebelum melakukan sesuatu<br>5. Mampu menyelesaikan tugas sampai selesai';
+        } else {
+            $keterangan_h = '1.	Gelisah, terlalu aktif, tidak dapat diam lama.<br>2. Terus bergerak dengan resah.<br>3. Mudah teralih, konsentrasi buyar.<br>4. Tidak berpikir sebelum bertindak<br>5. Tidak mampu menyelesaikan tugas sampai selesai.';
+        }
+
+        if ($request->hasil_p === 'Normal') {
+            $keterangan_p = '1.	Senang bergaul<br>2. Memiliki sahabat / teman baik<br>3. Memiliki banyak teman dan dapat bersosialisasi dengan orang banyak<br>4. Bergaul dengan anak anak yang seusia nya';
+        } else {
+            $keterangan_p = '1.	Cenderung menyendiri, lebih senang main sendiri.<br>2. Tidak punya 1 teman baik.<br>3. Tidak disukai anak-anak lain.<br>4.	Diganggu/digerak oleh anak lain.<br>5. Bergaul lebih baik dengan orang dewasa dari pada anak-anak';
+        }
+
+        if ($request->hasil_pro === 'Normal') {
+            $keterangan_pro = '1. Tidak Dapat menjaga perasaan orang lain<br>2. Cuek<br>3. Tidak suka membantu dengan orang lain / cuek<br>4. Memliki sikap yang tidak baik';
+        } else {
+            $keterangan_pro = '1. Mampu mempertimbangkan perasaan orang lain.<br>2.	Bersedia berbagi dengan anak lain. - Suka Menolong.<br>3. Bersikap baik pada anak yang lebih muda.<br>4. Sering menawarkan diri membantu orang lain.';
+        }
+
+        // $data = new HasilSDQ();
+        // $data->nama             = strtoupper($request->nama);
+        // $data->instansi         = strtoupper($request->instansi);
+        // $data->total_kesulitan  = strtoupper($request->total_kesulitan);
+        // $data->hasil_e          = strtoupper($request->hasil_e);
+        // $data->hasil_c          = strtoupper($request->hasil_c);
+        // $data->hasil_h          = strtoupper($request->hasil_h);
+        // $data->hasil_p          = strtoupper($request->hasil_p);
+        // $data->hasil_pro        = strtoupper($request->hasil_pro);
+        // $data->save();
+
+        $skor_kesulitan = $request->skor_e + $request->skor_c + $request->skor_h + $request->skor_p;
+
+        $skor_keseluruhan = $skor_kesulitan + $request->skor_pro;
+
         $data = new HasilSDQ();
         $data->nama             = strtoupper($request->nama);
         $data->instansi         = strtoupper($request->instansi);
-        $data->total_kesulitan  = strtoupper($request->total_kesulitan);
         $data->hasil_e          = strtoupper($request->hasil_e);
         $data->hasil_c          = strtoupper($request->hasil_c);
         $data->hasil_h          = strtoupper($request->hasil_h);
         $data->hasil_p          = strtoupper($request->hasil_p);
         $data->hasil_pro        = strtoupper($request->hasil_pro);
+        $data->hasil_kesulitan  = strtoupper($request->hasil_kesulitan);
+        $data->skor_kesulitan   = $request->skor_kesulitan;
+        $data->skor_e           = $request->skor_e;
+        $data->skor_c           = $request->skor_c;
+        $data->skor_h           = $request->skor_h;
+        $data->skor_p           = $request->skor_p;
+        $data->skor_pro         = $request->skor_pro;
+        $data->keterangan_e     = $keterangan_e;
+        $data->keterangan_c     = $keterangan_c;
+        $data->keterangan_h     = $keterangan_h;
+        $data->keterangan_p     = $keterangan_p;
+        $data->keterangan_pro   = $keterangan_pro;
+        $data->skor_keseluruhan = $skor_keseluruhan;
         $data->save();
 
         if ($data->save()) {
@@ -106,10 +166,10 @@ class KuisionerController extends Controller
             $user->save();
 
             $pdf = PDF::loadview('kuisioner.pdf.srq', ['data' => $data, 'code_verif' => $code_verif]);
-            return $pdf->download('Hasil Kuisioner SDQ ' . $data[0]->nama . ' (' . $data[0]->instansi . ')' . '.pdf');
+            return $pdf->download('Hasil Kuisioner SRQ ' . $data[0]->nama . ' (' . $data[0]->instansi . ')' . '.pdf');
         }
 
         $pdf = PDF::loadview('kuisioner.pdf.srq', ['data' => $data,]);
-        return $pdf->download('Hasil Kuisioner SDQ ' . $data[0]->nama . ' (' . $data[0]->instansi . ')' . '.pdf');
+        return $pdf->download('Hasil Kuisioner SRQ ' . $data[0]->nama . ' (' . $data[0]->instansi . ')' . '.pdf');
     }
 }
