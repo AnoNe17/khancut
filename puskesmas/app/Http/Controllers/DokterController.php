@@ -7,6 +7,7 @@ use App\Models\Dokter;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Alert;
 
 class DokterController extends Controller
 {
@@ -39,7 +40,7 @@ class DokterController extends Controller
         $dokter->image     = $docName;
         $dokter->save();
 
-
+        Alert::success('Data Berhasil Ditambahkan');
         return redirect()->route('dokter');
         // return view('kuisioner.hasil.hasil_sdq', compact('total', 'total_e', 'total_c', 'total_h', 'total_p', 'total_pro', 'hasil_kesulitan', 'hasil_e', 'hasil_c', 'hasil_h', 'hasil_p', 'hasil_pro', 'nama', 'instansi', 'umur'));
         // }
@@ -53,6 +54,7 @@ class DokterController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
+        Alert::success('Password Berhasil Direset');
         return redirect()->route('dokter');
     }
 
@@ -90,6 +92,7 @@ class DokterController extends Controller
             'image' => $docName
         ]);
 
+        Alert::success('Data Berhasil Diedit');
         return redirect()->route('dokter');
     }
 
@@ -100,6 +103,7 @@ class DokterController extends Controller
         // $dokter->User->delete();
         $dokter->delete();
 
+        Alert::success('Data Berhasil Di hapus');
         return redirect()->route('dokter');
     }
 }

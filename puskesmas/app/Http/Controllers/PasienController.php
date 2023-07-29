@@ -21,9 +21,10 @@ class PasienController extends Controller
         $user = User::where('verif_code', $request->code)->where('status_verif', 'false')->first();
         // return $user;
         if (!empty($user)) {
+            Alert::success('Kode Verifikasi ditemukan');
             return view('pasien.create', compact('user'));
         } else {
-            Alert::error('Code Verifikasi Tidak Ditemukan');
+            Alert::error('Kode Verifikasi Tidak Ditemukan');
             return redirect()->route('pasien');
         }
     }

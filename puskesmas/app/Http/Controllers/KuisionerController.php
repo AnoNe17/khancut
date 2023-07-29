@@ -6,6 +6,7 @@ use App\Models\HasilSDQ;
 use App\Models\HasilSRQ;
 use Illuminate\Http\Request;
 use PDF;
+use Alert;
 
 class KuisionerController extends Controller
 {
@@ -167,6 +168,9 @@ class KuisionerController extends Controller
         $data->gangguan_ptsd        = $gangguan_ptsd;
         $data->keterangan           = $keterangan;
         $data->save();
+
+
+        Alert::success('Data Berhasil Ditambahkan');
 
         if ($data->save()) {
             return view('kuisioner.hasil.hasil_srq', compact('nama', 'umur', 'no_hp', 'alamat', 'pekerjaan', 'total', 'hasil', 'masalah_psikologis', 'pengguna_narkoba', 'gangguan_psikotik', 'gangguan_ptsd', 'keterangan'));
@@ -387,7 +391,8 @@ class KuisionerController extends Controller
         $data->skor_keseluruhan = $skor_keseluruhan;
         $data->save();
 
-        // if ($data->save()) {
+
+        Alert::success('Data Berhasil Ditambahkan');
         return view('kuisioner.hasil.hasil_sdq', compact(
             'nama',
             'instansi',
