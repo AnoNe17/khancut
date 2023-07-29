@@ -66,3 +66,5 @@ Route::get('/data_notifikasi', [NotifikasiController::class, 'index'])->name('no
 Route::post('/notifikasi/store', [NotifikasiController::class, 'store'])->name('notifikasi.store');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/edit_profil/{id}', [App\Http\Controllers\HomeController::class, 'edit_profil'])->name('profil.edit');
+Route::post('/update', [App\Http\Controllers\HomeController::class, 'update'])->name('profil.update');
