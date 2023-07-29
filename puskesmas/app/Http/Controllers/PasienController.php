@@ -112,4 +112,22 @@ class PasienController extends Controller
         Alert::success('Data Berhasil Dihapus');
         return redirect()->route('pasien');
     }
+
+    public function riwayat_sdq($id)
+    {
+        $pasien = Pasien::find($id);
+
+        $riwayat_sdq = $pasien->User->SDQ;
+
+        return view('pasien.riwayat.sdq', compact('riwayat_sdq', 'pasien'));
+    }
+
+    public function riwayat_srq($id)
+    {
+        $pasien = Pasien::find($id);
+
+        $riwayat_srq = $pasien->User->SRQ;
+
+        return view('pasien.riwayat.srq', compact('riwayat_srq', 'pasien'));
+    }
 }

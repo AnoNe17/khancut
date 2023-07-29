@@ -61,6 +61,8 @@ Route::post('/pasien/store', [PasienController::class, 'store'])->name('pasien.s
 Route::get('/pasien/edit/{id}', [PasienController::class, 'edit'])->name('pasien.edit');
 Route::post('/pasien/update', [PasienController::class, 'update'])->name('pasien.update');
 Route::get('/pasien/delete/{id}', [PasienController::class, 'delete'])->name('pasien.delete');
+Route::get('/pasien/sdq/{id}', [PasienController::class, 'riwayat_sdq'])->name('pasien.sdq');
+Route::get('/pasien/srq/{id}', [PasienController::class, 'riwayat_srq'])->name('pasien.srq');
 
 Route::get('/data_notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
 Route::post('/notifikasi/store', [NotifikasiController::class, 'store'])->name('notifikasi.store');

@@ -46,6 +46,8 @@
                             <th>No HP</th>
                             <th>Alamat</th>
                             <th>Pekerjaan</th>
+                            <th>Riwayat SDQ</th>
+                            <th>Riwayat SRQ</th>
                             <th>action</th>
                         </tr>
                     </thead>
@@ -61,6 +63,20 @@
                             <td>{{ $value->alamat }}</td>
                             <td>{{ $value->pekerjaan }}</td>
                             <td>
+                                @if (!$value->User->SDQ->isEmpty())
+                                    <a href="{{ route('pasien.sdq', $value->id) }}" class="btn btn-success btn ml-2">Riwayat SDQ</a>
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>
+                                @if (!$value->User->SRQ->isEmpty())
+                                    <a href="{{ route('pasien.srq', $value->id) }}" class="btn btn-warning btn ml-2">Riwayat SRQ</a>
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>                                
                                 <a href="{{ route('pasien.edit', $value->id) }}" class="btn btn-primary btn ml-2">Edit</a>
                                 <a href="{{ route('pasien.delete', $value->id) }}" class="btn btn-danger btn ml-2">Hapus</a>
                             </td>
