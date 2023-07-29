@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\HasilSDQ;
 use App\Models\HasilSRQ;
+use App\Models\Notifikasi;
+use App\Models\Pasien;
 use App\Models\User;
 use Illuminate\Http\Request;
 use PDF;
@@ -100,13 +102,45 @@ class KuisionerController extends Controller
 
     public function inputSRQ(Request $request)
     {
+        // return $request;
+        $keterangan = '';
+
+        if ($request->hasil_psikologis === 'ya') {
+            $keterangan .= '- Terdapat masalah psikologis seperti cemas dan depresi<br>';
+        }
+        if ($request->hasil_narkoba === 'ya') {
+            $keterangan .= '- Terdapat penggunaan zat psikoaktif/narkoba<br>';
+        }
+        if ($request->hasil_psikotik === 'ya') {
+            $keterangan .= '- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius<br>';
+        }
+        if ($request->hasil_ptsd === 'ya') {
+            $keterangan .= '- Terdapat gejala-gejala gangguan  PTSD (Post Traumatic Stress Disorder) / gangguan stres setelah trauma<br>';
+        }
+        if ($request->hasil == 'Normal') {
+            $keterangan .= '- Mohon Jaga Kesehatan Anda';
+        }
+
+        $nama       = $request->nama;
+        $umur       = $request->umur;
+        $no_hp      = $request->no_hp;
+        $alamat     = $request->alamat;
+        $pekerjaan  = $request->pekerjaan;
+
+
         $data = new HasilSRQ();
-        $data->nama         = strtoupper($request->nama);
-        $data->umur         = strtoupper($request->umur);
-        $data->no_hp        = strtoupper($request->no_hp);
-        $data->alamat       = strtoupper($request->alamat);
-        $data->pekerjaan    = strtoupper($request->pekerjaan);
-        $data->hasil        = strtoupper($request->hasil);
+        $data->nama                 = strtoupper($nama);
+        $data->umur                 = strtoupper($umur);
+        $data->no_hp                = strtoupper($no_hp);
+        $data->alamat               = strtoupper($alamat);
+        $data->pekerjaan            = strtoupper($pekerjaan);
+        $data->hasil                = strtoupper($request->hasil_akhir);
+        $data->total                = $request->skor_akhir;
+        $data->masalah_psikologis   = $request->hasil_psikologis;
+        $data->pengguna_narkoba     = $request->hasil_narkoba;
+        $data->gangguan_psikotik    = $request->hasil_psikotik;
+        $data->gangguan_ptsd        = $request->hasil_ptsd;
+        $data->keterangan           = $keterangan;
         $data->save();
 
         if ($data->save()) {
@@ -140,6 +174,12 @@ class KuisionerController extends Controller
             $user->status_verif   = 'false';
             $user->save();
 
+            $data[0]->update([
+                'user_id' => $user->id,
+            ]);
+
+            $data[0]->save();
+
             $pdf = PDF::loadview('kuisioner.pdf.sdq', ['data' => $data, 'code_verif' => $code_verif]);
             return $pdf->download('Hasil Kuisioner SDQ ' . $data[0]->nama . ' (' . $data[0]->instansi . ')' . '.pdf');
         }
@@ -164,6 +204,12 @@ class KuisionerController extends Controller
             $user->role           = 'pasien';
             $user->status_verif   = 'false';
             $user->save();
+
+            $data[0]->update([
+                'user_id' => $user->id,
+            ]);
+
+            $data[0]->save();
 
             $pdf = PDF::loadview('kuisioner.pdf.srq', ['data' => $data, 'code_verif' => $code_verif]);
             return $pdf->download('Hasil Kuisioner SRQ ' . $data[0]->nama . ' (' . $data[0]->instansi . ')' . '.pdf');

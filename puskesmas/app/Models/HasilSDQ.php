@@ -9,4 +9,6 @@ class HasilSDQ extends Model
 {
     protected $table = 'hasil_sdq';
     protected $primaryKey = 'id';
+
+    protected $guarded = [];
 }

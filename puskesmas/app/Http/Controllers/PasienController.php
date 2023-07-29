@@ -37,7 +37,6 @@ class PasienController extends Controller
     {
         if ($request->user_id) {
             $user = User::where('id', $request->user_id)->first();
-            // return $user;
             $user->update([
                 'password' => Hash::make('@' . $user->verif_code),
                 'status_verif' => 'true',
@@ -62,7 +61,7 @@ class PasienController extends Controller
             $user->verif_code     = $code_verif;
             $user->role           = 'pasien';
             $user->status_verif   = 'true';
-            $user->password       = '@' . $code_verif;
+            $user->password       = Hash::make('@' . $user->verif_code);
             $user->save();
 
 
@@ -76,8 +75,6 @@ class PasienController extends Controller
             $pasien->pekerjaan  = $request->pekerjaan;
             $pasien->save();
         }
-
-
         Alert::success('Data Berhasil Ditambahkan');
         return redirect()->route('pasien');
     }
@@ -91,9 +88,6 @@ class PasienController extends Controller
     public function update(Request $request)
     {
         $pasien = Pasien::where('id', $request->pasien_id)->first();
-        // $dokter->User->update([
-        //     'email' => $request->email
-        // ]);
         $pasien->update([
             'nama' => $request->nama,
             'umur' => $request->umur,
@@ -110,9 +104,9 @@ class PasienController extends Controller
     public function delete($id)
     {
         // menghapus data jenis berdasarkan id yang dipilih
-        $dokter = Pasien::where('id', $id)->first();
-        // $dokter->User->delete();
-        $dokter->delete();
+        $pasien = Pasien::where('id', $id)->first();
+
+        $pasien->delete();
 
         Alert::success('Data Berhasil Dihapus');
         return redirect()->route('pasien');

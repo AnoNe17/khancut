@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\KuisionerController;
 
 /*
@@ -24,6 +25,12 @@ Route::post('input_srq', [KuisionerController::class, 'inputSRQ']);
 
 Route::post('hasil_sdq/pdf', [KuisionerController::class, 'printSDQ']);
 Route::post('hasil_srq/pdf', [KuisionerController::class, 'printSRQ']);
+
+Route::post('riwayat_sdq', [DashboardController::class, 'riwayatSDQ']);
+Route::post('riwayat_srq', [DashboardController::class, 'riwayatSRQ']);
+Route::post('notifikasi', [DashboardController::class, 'notifikasi']);
+Route::post('profil', [DashboardController::class, 'profil']);
+Route::post('dashboard', [DashboardController::class, 'dashboard']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

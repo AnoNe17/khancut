@@ -153,7 +153,6 @@ class KuisionerController extends Controller
         }
 
 
-
         $data = new HasilSRQ();
         $data->nama                 = strtoupper($nama);
         $data->umur                 = strtoupper($umur);

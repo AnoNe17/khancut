@@ -19,7 +19,17 @@ class User extends Authenticatable
 
     public function Pasien()
     {
-        return $this->hasOne(Pasien::class, 'user_id', 'id');
+        return $this->hasOne(Pasien::class, 'user_id', 'id')->withDefault();
+    }
+
+    public function SDQ()
+    {
+        return $this->hasMany(HasilSDQ::class, 'user_id', 'id');
+    }
+
+    public function SRQ()
+    {
+        return $this->hasMany(HasilSRQ::class, 'user_id', 'id');
     }
 
     public static function auto_hapus()

@@ -9,4 +9,6 @@ class HasilSRQ extends Model
 {
     protected $table = 'hasil_srq';
     protected $primaryKey = 'id';
+
+    protected $guarded = [];
 }
