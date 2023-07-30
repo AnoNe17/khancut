@@ -19,13 +19,13 @@ class SoalSDQ11_18 extends StatefulWidget {
 class _SoalSDQ11_18State extends State<SoalSDQ11_18> {
   List<Soal> soal = [
     Soal('a','0', 0, 0, 0),
-    Soal('pro', '1. Saya berusaha baik kepada orang lain. Saya peduli dengan perasaan mereka', 0, 1 ,2),
-    Soal('h', '2. Saya gelisah. saya tidak dapat diam untuk waktu lama', 0, 1 ,2),
-    Soal('e', '3. Saya sering sakit kepala, sakit perut atau macam-macam sakit lainnya', 0, 1 ,2),
-    Soal('pro', '4. Kalau saya memiliki mainan, CD, atau makanan, Saya biasanya berbagi dengan orang lain', 0, 1 ,2),
-    Soal('c', '5. Saya menjadi sangat marah dan sering tidak dapat mengendalikan kemarahan saya', 0, 1 ,2),
-    Soal('p', '6. Saya lebih suka sendiri daripada bersama dengan orang yang seusiaku', 0, 1 ,2),
-    Soal('c', '7. Saya biasanya melakukan apa yang diperintahkan oleh orang lain.', 2, 1 ,0),
+    Soal('pro', '1. Saya berusaha baik kepada orang lain. Saya peduli dengan perasaan mereka', 0, 1, 2),
+    Soal('h', '2. Saya gelisah. saya tidak dapat diam untuk waktu lama', 0, 1, 2),
+    Soal('e', '3. Saya sering sakit kepala, sakit perut atau macam-macam sakit lainnya', 0, 1, 2),
+    Soal('pro', '4. Kalau saya memiliki mainan, CD, atau makanan, Saya biasanya berbagi dengan orang lain', 0, 1, 2),
+    Soal('c', '5. Saya menjadi sangat marah dan sering tidak dapat mengendalikan kemarahan saya', 0, 1, 2),
+    Soal('p', '6. Saya lebih suka sendiri daripada bersama dengan orang yang seusiaku', 0, 1, 2),
+    Soal('c', '7. Saya biasanya melakukan apa yang diperintahkan oleh orang lain.', 2, 1, 0),
     Soal('e', '8. Saya banyak merasa cemas atau khawatir terhadap apapun', 0, 1 ,2),
     Soal('pro', '9. Saya selalu siap menolong jika seseorang terluka, kecewa atau merasa sakit', 0, 1 ,2),
     Soal('h', '10. Bila sedang gelisah atau cemas badan saya sering bergerak –gerask tanpa saya sadari', 0, 1 ,2),
@@ -57,18 +57,19 @@ class _SoalSDQ11_18State extends State<SoalSDQ11_18> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              setState(() {
-                if(index > 1){
-                  index--;
-                } else {
-                  Navigator.of(context).pop();
-                }
-              });
-            },
-          ),
+          // leading: IconButton(
+          //   icon: Icon(Icons.arrow_back, color: Colors.white),
+          //   onPressed: () {
+          //     setState(() {
+          //       if(index > 1){
+          //         index--;
+          //       } else {
+          //         Navigator.of(context).pop();
+          //       }
+          //     });
+          //   },
+          // ),
+          automaticallyImplyLeading: false,
           toolbarHeight: 70,
           title: Text('Soal SDQ (Umur 11 - 18)' ),
           shape: RoundedRectangleBorder(
@@ -128,7 +129,7 @@ class _SoalSDQ11_18State extends State<SoalSDQ11_18> {
                         } else {
                           hasil_pro = hasil_pro + soal[index].nilai_1;
                         }
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , hasil_e: hasil_e, hasil_c: hasil_c, hasil_h: hasil_h, hasil_p: hasil_p, hasil_pro: hasil_pro, login: widget.login, tipe: '11-18',)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , skor_e: hasil_e, skor_c: hasil_c, skor_h: hasil_h, skor_p: hasil_p, skor_pro: hasil_pro, login: widget.login, tipe: '11-18',)));
                       }
                     });
                   },
@@ -161,7 +162,6 @@ class _SoalSDQ11_18State extends State<SoalSDQ11_18> {
                         if (soal[index].kategori == 'e'){
                           hasil_e = hasil_e + soal[index].nilai_2;
                         } else if (soal[index].kategori == 'c'){
-                          print(soal[index].kategori);
                           hasil_c = hasil_c + soal[index].nilai_2;
                         } else if (soal[index].kategori == 'h'){
                           hasil_h = hasil_h + soal[index].nilai_2;
@@ -183,7 +183,7 @@ class _SoalSDQ11_18State extends State<SoalSDQ11_18> {
                         } else {
                           hasil_pro = hasil_pro + soal[index].nilai_2;
                         }
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , hasil_e: hasil_e, hasil_c: hasil_c, hasil_h: hasil_h, hasil_p: hasil_p, hasil_pro: hasil_pro, login: widget.login, tipe: '11-18',)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , skor_e: hasil_e, skor_c: hasil_c, skor_h: hasil_h, skor_p: hasil_p, skor_pro: hasil_pro, login: widget.login, tipe: '11-18',)));
                       }
                     });
                   },
@@ -239,7 +239,7 @@ class _SoalSDQ11_18State extends State<SoalSDQ11_18> {
                         } else {
                           hasil_pro = hasil_pro + soal[index].nilai_3;
                         }
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , hasil_e: hasil_e, hasil_c: hasil_c, hasil_h: hasil_h, hasil_p: hasil_p, hasil_pro: hasil_pro, login: widget.login, tipe: '11-18',)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , skor_e: hasil_e, skor_c: hasil_c, skor_h: hasil_h, skor_p: hasil_p, skor_pro: hasil_pro, login: widget.login, tipe: '11-18',)));
                       }
                     });
                   },

@@ -42,60 +42,16 @@ class _TipeSDQState extends State<TipeSDQ> {
               margin: const EdgeInsets.only(top: 20.0),
               child: Column(
                 children: [
-                  SizedBox(height: 10),
                   Text("Pilihan Kuisioner SDQ",
                     style: TextStyle(fontSize: 30),
                   ),
                   SizedBox(height: 30),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                    width: double.infinity,
-                    height: 70,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Color(0xffF18265),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoalSDQ4_11(login: widget.login, nama: widget.nama, umur: widget.umur, instansi: widget.instansi)));
-                      },
-                      child: Text(
-                        "SDQ (Umur 4 - 11 Tahun)",
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Color(0xffffffff),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                    width: double.infinity,
-                    height: 70,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Color(0xffF18265),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoalSDQ11_18(login: widget.login, nama: widget.nama, umur: widget.umur, instansi: widget.instansi)));
-                      },
-                      child: Text(
-                        "SDQ (Umur 11 - 18 Tahun)",
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Color(0xffffffff),
-                        ),
-                      ),
-                    ),
-                  ),
+                  if (int.parse(widget.umur) <= 10) ...[
+                    _Card4_11(),
+                  ]
+                  else ...[
+                    _Card11_18()
+                  ]
                 ],
               ),
             )
@@ -104,5 +60,57 @@ class _TipeSDQState extends State<TipeSDQ> {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => InputanSDQ(login: false)));
           return true;
         });
+  }
+
+  _Card4_11(){
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15.0),
+      width: double.infinity,
+      height: 70,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          backgroundColor: Color(0xffF18265),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoalSDQ4_11(login: widget.login, nama: widget.nama, umur: widget.umur, instansi: widget.instansi)));
+        },
+        child: Text(
+          "SDQ (Umur 4 - 10 Tahun)",
+          style: TextStyle(
+            fontSize: 24,
+            color: Color(0xffffffff),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _Card11_18(){
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15.0),
+      width: double.infinity,
+      height: 70,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          backgroundColor: Color(0xffF18265),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoalSDQ11_18(login: widget.login, nama: widget.nama, umur: widget.umur, instansi: widget.instansi)));
+        },
+        child: Text(
+          "SDQ (Umur 11 - 18 Tahun)",
+          style: TextStyle(
+            fontSize: 24,
+            color: Color(0xffffffff),
+          ),
+        ),
+      ),
+    );
   }
 }

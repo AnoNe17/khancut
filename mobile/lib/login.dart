@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'ui/background/background.dart';
-import 'ui/forms/login_form.dart';
+import 'package:untitled/main.dart';
+import 'package:untitled/ui/background/background.dart';
+import 'package:untitled/ui/forms/login_form.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -12,16 +13,18 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-        body: Stack(
-          children: [
-            Background(),
-            const LoginForm(),
-          ],
-        ),
-      ),
-    );
+    return WillPopScope(
+          child: Scaffold(
+            body: Stack(
+              children: [
+                Background(),
+                const LoginForm(),
+              ],
+            ),
+          ),
+          onWillPop: () async {
+            Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new MyApp()));
+            return true;
+          });
   }
 }

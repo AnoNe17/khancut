@@ -1,7 +1,4 @@
-// ignore_for_file: use_function_type_syntax_for_parameters
-
 import 'package:flutter/material.dart';
-import 'package:untitled/model/soal.dart';
 import 'package:untitled/model/soalsrq.dart';
 import 'package:untitled/ui/hasil_srq.dart';
 
@@ -30,38 +27,39 @@ class _SoalSRQState extends State<SoalSRQ> {
     SoalSrq('7. Apakah anda mengalami gangguan pencernaan?', 1, 0 ),
     SoalSrq('8. Apakah anda merasa sulit berpikir jernih?', 1, 0 ),
     SoalSrq('9. Apakah anda merasa tidak Bahagia?', 1, 0 ),
-    SoalSrq('10.Apakah anda lebih sering menangis?', 1, 0 ),
-    SoalSrq('11.Apakah anda merasa sulit menikmati aktivitas sehari hari?', 1, 0 ),
-    SoalSrq('12.Apakah anda mengalami kesulitan untuk mengambil keputusan?', 1, 0 ),
-    SoalSrq('13.Apakah aktivitas/ tugas sehari hari anda terbengkalai?', 1, 0 ),
-    SoalSrq('14.Anda merasa tidak mampu berperan dalam kehidupan ini?', 1, 0),
-    SoalSrq('15.Apakah anda kehilangan minat terhadap banyak hal? ', 1, 0 ),
-    SoalSrq('16.Apakah anda merasa tidak berharga?', 1, 0 ),
-    SoalSrq('17.Apakah anda mempunyai pemikiran untuk mengakhiri hidup anda?', 1, 0 ),
-    SoalSrq('18.Apakah anda merasa Lelah sepanjang masa?', 1, 0 ),
-    SoalSrq('19.Apakah anda merasa tidak enak di perut?', 1, 0 ),
-    SoalSrq('20.Apakah anda mudah Lelah?', 1, 0 )
+    SoalSrq('10. Apakah anda lebih sering menangis?', 1, 0 ),
+    SoalSrq('11. Apakah anda merasa sulit menikmati aktivitas sehari hari?', 1, 0 ),
+    SoalSrq('12. Apakah anda mengalami kesulitan untuk mengambil keputusan?', 1, 0 ),
+    SoalSrq('13. Apakah aktivitas/ tugas sehari hari anda terbengkalai?', 1, 0 ),
+    SoalSrq('14. Anda merasa tidak mampu berperan dalam kehidupan ini?', 1, 0),
+    SoalSrq('15. Apakah anda kehilangan minat terhadap banyak hal? ', 1, 0 ),
+    SoalSrq('16. Apakah anda merasa tidak berharga?', 1, 0 ),
+    SoalSrq('17. Apakah anda mempunyai pemikiran untuk mengakhiri hidup anda?', 1, 0 ),
+    SoalSrq('18. Apakah anda merasa Lelah sepanjang masa?', 1, 0 ),
+    SoalSrq('19. Apakah anda merasa tidak enak di perut?', 1, 0 ),
+    SoalSrq('20. Apakah anda mudah Lelah?', 1, 0 ),
+    SoalSrq('21. Apakah Anda minum alkohol lebih banyak dari biasanya atau Apakah Anda menggunakan narkoba?', 1, 0 ),
+    SoalSrq('22. Apakah Anda yakin bahwa seseorang mencoba mencelakai Anda dengan cara tertentu?', 1, 0 ),
+    SoalSrq('23. Apakah ada yang mengganggu atau hal yang tidak biasa dalam pikiran Anda?', 1, 0 ),
+    SoalSrq('24. Apakah Anda pernah mendengar suara tanpa tahu sumbernya atau yang orang lain tidak dapat mendengar?', 1, 0 ),
+    SoalSrq('25. Apakah Anda mengalami mimpi yang mengganggu tentang suatu bencana/musibah atau adakah saat-saat Anda seolah mengalami kembali kejadian bencana itu?', 1, 0 ),
+    SoalSrq('26. Apakah Anda menghindari kegiatan, tempat, orang atau pikiran yang mengingatkan Anda akan bencana tersebut?', 1, 0 ),
+    SoalSrq('27. Apakah minat Anda terhadap teman dan kegiatan yang biasa Anda lakukan berkurang?', 1, 0 ),
+    SoalSrq('28. Apakah Anda merasa sangat terganggu jika berada dalam situasi yang mengingatkan Anda akan bencana atau jika Anda berpikir tentang bencana itu?', 1, 0 ),
+    SoalSrq('29. Apakah Anda kesulitan memahami atau mengekspresikan perasaan Anda?', 1, 0 ),
   ];
 
   int index = 1;
-  int hasil = 0;
+  int total_psikologis = 0;
+  int total_narkoba = 0;
+  int total_psikotik = 0;
+  int total_ptsd = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              setState(() {
-                if(index > 1){
-                  index--;
-                } else {
-                  Navigator.of(context).pop();
-                }
-              });
-            },
-          ),
+          automaticallyImplyLeading: false,
           toolbarHeight: 70,
           title: Text('Soal SRQ' ),
           shape: RoundedRectangleBorder(
@@ -82,7 +80,6 @@ class _SoalSRQState extends State<SoalSRQ> {
                   style: TextStyle(fontSize: 30),
                 ),
               ),
-
               SizedBox(height: 50),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -97,13 +94,21 @@ class _SoalSRQState extends State<SoalSRQ> {
                   ),
                   onPressed: () {
                     setState(() {
-                      if(index<20){
-                        hasil = hasil + soal[index].nilai_1;
+                      if(index <= 20){
+                        total_psikologis = total_psikologis + soal[index].nilai_1;
+                        index++;
+                      } else if (index == 21){
+                        total_narkoba = total_narkoba + soal[index].nilai_1;
+                        index++;
+                      } else if (index >= 22 && index <= 24){
+                        total_psikotik = total_psikotik + soal[index].nilai_1;
+                        index++;
+                      } else if (index >= 25 && index <= 28){
+                        total_ptsd = total_ptsd + soal[index].nilai_1;
                         index++;
                       } else {
-                        hasil = hasil + soal[index].nilai_1;
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HasilSrq(hasil: hasil, login: widget.login, nama: widget.nama, umur: widget.umur, no_hp: widget.no_hp, alamat: widget.alamat, pekerjaan: widget.pekerjaan)));
-
+                        total_ptsd = total_ptsd + soal[index].nilai_1;
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HasilSrq(total_psikologis: total_psikologis, total_narkoba: total_narkoba, total_psikotik: total_psikotik, total_ptsd: total_ptsd, login: widget.login, nama: widget.nama, umur: widget.umur, no_hp: widget.no_hp, alamat: widget.alamat, pekerjaan: widget.pekerjaan)));
                       }
                     });
                   },
@@ -132,13 +137,21 @@ class _SoalSRQState extends State<SoalSRQ> {
                   ),
                   onPressed: () {
                     setState(() {
-                      if(index<20){
-                        hasil = hasil + soal[index].nilai_2;
+                      if(index <= 20){
+                        total_psikologis = total_psikologis + soal[index].nilai_2;
+                        index++;
+                      } else if (index == 21){
+                        total_narkoba = total_narkoba + soal[index].nilai_2;
+                        index++;
+                      } else if (index >= 22 && index <= 24){
+                        total_psikotik = total_psikotik + soal[index].nilai_2;
+                        index++;
+                      } else if (index >= 25 && index <= 28){
+                        total_ptsd = total_ptsd + soal[index].nilai_2;
                         index++;
                       } else {
-                        hasil = hasil + soal[index].nilai_2;
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HasilSrq(hasil: hasil, login: widget.login, nama: widget.nama, umur: widget.umur, no_hp: widget.no_hp, alamat: widget.alamat, pekerjaan: widget.pekerjaan)));
-
+                        total_ptsd = total_ptsd + soal[index].nilai_2;
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HasilSrq(total_psikologis: total_psikologis, total_narkoba: total_narkoba, total_psikotik: total_psikotik, total_ptsd: total_ptsd, login: widget.login, nama: widget.nama, umur: widget.umur, no_hp: widget.no_hp, alamat: widget.alamat, pekerjaan: widget.pekerjaan)));
                       }
                     });
                   },

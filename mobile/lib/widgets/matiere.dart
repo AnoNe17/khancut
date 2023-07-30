@@ -58,16 +58,6 @@ class _MatiereState extends State<Matiere> {
                               fontWeight: FontWeight.w700),
                         ),
                       ]),
-                  // const SizedBox(width: 20),
-                  // Column(
-                  //   children: const [
-                  //     SizedBox(height: 13),
-                  //     Icon(
-                  //       Icons.arrow_forward,
-                  //       color: Color(0xff2E5961),
-                  //     ),
-                  //   ],
-                  // )
                 ],
               ),
             )),

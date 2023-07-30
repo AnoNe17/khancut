@@ -45,145 +45,147 @@ class _InputanSDQState extends State<InputanSDQ> {
                 ),
               ),
             ),
-            body: Form(
-              key: formKey,
-              child: Container(
-                margin: const EdgeInsets.only(top: 20.0),
-                child: Column(
-                  children: [
-                    SizedBox(height: 10),
-                    Text("Input Data Diri",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    SizedBox(height: 30),
-                    Container(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: TextFormField(
-                        controller: txNama,
-                        decoration: InputDecoration(
-                          labelText: "Nama",
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(21),
-                            borderSide: BorderSide(
-                                color: Colors.orange
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
+            body: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 20.0),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10),
+                      Text("Input Data Diri",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                      SizedBox(height: 30),
+                      Container(
+                        padding: EdgeInsets.only(left: 20, right: 20),
+                        child: TextFormField(
+                          controller: txNama,
+                          decoration: InputDecoration(
+                            labelText: "Nama",
+                            enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(21),
                               borderSide: BorderSide(
                                   color: Colors.orange
-                              )
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Email tidak boleh Kosong";
-                          } else {
-                            return null;
-                          }
-                        },
-                        onChanged: (value) {
-                          _nama = value;
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: txUmur,
-                        decoration: InputDecoration(
-                          labelText: "Umur",
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(21),
-                            borderSide: BorderSide(
-                                color: Colors.orange
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(21),
+                                borderSide: BorderSide(
+                                    color: Colors.orange
+                                )
                             ),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Email tidak boleh Kosong";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onChanged: (value) {
+                            _nama = value;
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 20, right: 20),
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          controller: txUmur,
+                          decoration: InputDecoration(
+                            labelText: "Umur",
+                            enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(21),
                               borderSide: BorderSide(
                                   color: Colors.orange
-                              )
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Email tidak boleh Kosong";
-                          } else {
-                            return null;
-                          }
-                        },
-                        onChanged: (value) {
-                          _umur = value;
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: TextFormField(
-                        controller: txInstansi,
-                        decoration: InputDecoration(
-                          labelText: "Instansi",
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(21),
-                            borderSide: BorderSide(
-                                color: Colors.orange
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(21),
+                                borderSide: BorderSide(
+                                    color: Colors.orange
+                                )
                             ),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Email tidak boleh Kosong";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onChanged: (value) {
+                            _umur = value;
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 20, right: 20),
+                        child: TextFormField(
+                          controller: txInstansi,
+                          decoration: InputDecoration(
+                            labelText: "Instansi",
+                            enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(21),
                               borderSide: BorderSide(
                                   color: Colors.orange
-                              )
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(21),
+                                borderSide: BorderSide(
+                                    color: Colors.orange
+                                )
+                            ),
                           ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Email tidak boleh Kosong";
-                          } else {
-                            return null;
-                          }
-                        },
-                        onChanged: (value) {
-                          _instansi = value;
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                      width: double.infinity,
-                      height: 60,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: Color(0xffF18265),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        onPressed: () {
-                          cek_inputan();
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => TipeSDQ(login: false, nama: txNama.text.toString(), umur: txUmur.text.toString(), instansi: txInstansi.text.toString(),)));
-                        },
-                        child: Text(
-                          "Lanjutkan",
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Color(0xffffffff),
-                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Email tidak boleh Kosong";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onChanged: (value) {
+                            _instansi = value;
+                          },
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                        width: double.infinity,
+                        height: 60,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color(0xffF18265),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          onPressed: () {
+                            cek_inputan();
+                            // Navigator.of(context).push(MaterialPageRoute(builder: (context) => TipeSDQ(login: false, nama: txNama.text.toString(), umur: txUmur.text.toString(), instansi: txInstansi.text.toString(),)));
+                          },
+                          child: Text(
+                            "Lanjutkan",
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )

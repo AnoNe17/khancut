@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:untitled/main.dart';
 
 class Background extends StatefulWidget {
   @override
@@ -16,15 +17,20 @@ class _MyPainterState extends State<Background> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Center(
-      child: Container(
-        color: Colors.white,
-        child: CustomPaint(
-          size: Size(size.width, size.height),
-          painter: Curved(),
+    return WillPopScope(
+        child: Center(
+          child: Container(
+            color: Colors.white,
+            child: CustomPaint(
+              size: Size(size.width, size.height),
+              painter: Curved(),
+            ),
+          ),
         ),
-      ),
-    );
+        onWillPop: () async {
+          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new MyApp()));
+          return true;
+        });
   }
 }
 

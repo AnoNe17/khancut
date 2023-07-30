@@ -1,14 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:untitled/dashboard.dart';
-import 'package:untitled/kuisioner.dart';
-import 'package:untitled/kusioner/soal_sdq_11-18.dart';
-import 'package:untitled/login.dart';
+import 'kuisioner.dart';
+import 'login.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -22,21 +23,32 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
           color: const Color(0xff43978D),
       ),),
-      home: const MyHomePage(title: 'Puskesmas Kertasemaya'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int progress = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Timer(Duration(seconds: 3), () {
+      setState(() {
+        progress = 1;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,68 +75,66 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Container(
-            //   margin: ,
-            // )
             Image.asset(
               'assets/logo.png',
               width: 500,
               height: 500,
             ),
-            // Text(
-            //   "Selamat Datang",
-            //   style: TextStyle(
-            //     fontSize: 50,
-            //     // color: Color(0xffffffff),
-            //   ),
-            // ),
-            // SizedBox(height: 50),
-            // _title()
-            Container(
-              width: 300,
-              height: 60,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Color(0xff43978D),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+
+            if (progress == 0) ... [
+              CircularProgressIndicator(
+                color: Colors.deepOrangeAccent,
+              ),
+            ] else ... [
+              Container(
+                width: 300,
+                height: 60,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0xff43978D),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Kuisioner()));
-                },
-                child: Text(
-                  "Isi Kuisioner",
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Color(0xffffffff),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new Kuisioner()));
+                  },
+                  child: Text(
+                    "Isi Kuisioner",
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Color(0xffffffff),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              width: 300,
-              height: 60,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.deepOrangeAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+              SizedBox(height: 20),
+              Container(
+                width: 300,
+                height: 60,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.deepOrangeAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login()));
-                },
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Color(0xffffffff),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new Login()));
+                    // setState(() {
+                    //   progress = 1 ;
+                    // });
+                  },
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Color(0xffffffff),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ],
         ),
       ),

@@ -60,18 +60,19 @@ class _SoalSDQ4_11State extends State<SoalSDQ4_11> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              setState(() {
-                if(index > 1){
-                  index--;
-                } else {
-                  Navigator.of(context).pop();
-                }
-              });
-            },
-          ),
+          // leading: IconButton(
+          //   icon: Icon(Icons.arrow_back, color: Colors.white),
+          //   onPressed: () {
+          //     setState(() {
+          //       if(index > 1){
+          //         index--;
+          //       } else {
+          //         Navigator.of(context).pop();
+          //       }
+          //     });
+          //   },
+          // ),
+          automaticallyImplyLeading: false,
           toolbarHeight: 70,
           title: Text('Soal SDQ (Umur 4 - 11)' ),
           shape: RoundedRectangleBorder(
@@ -131,7 +132,7 @@ class _SoalSDQ4_11State extends State<SoalSDQ4_11> {
                         } else {
                           hasil_pro = hasil_pro + soal[index].nilai_1;
                         }
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , hasil_e: hasil_e, hasil_c: hasil_c, hasil_h: hasil_h, hasil_p: hasil_p, hasil_pro: hasil_pro, login: widget.login, tipe: '4_11',)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , skor_e: hasil_e, skor_c: hasil_c, skor_h: hasil_h, skor_p: hasil_p, skor_pro: hasil_pro, login: widget.login, tipe: '4_11',)));
                       }
                     });
                   },
@@ -185,7 +186,7 @@ class _SoalSDQ4_11State extends State<SoalSDQ4_11> {
                         } else {
                           hasil_pro = hasil_pro + soal[index].nilai_2;
                         }
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , hasil_e: hasil_e, hasil_c: hasil_c, hasil_h: hasil_h, hasil_p: hasil_p, hasil_pro: hasil_pro, login: widget.login, tipe: '4_11',)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , skor_e: hasil_e, skor_c: hasil_c, skor_h: hasil_h, skor_p: hasil_p, skor_pro: hasil_pro, login: widget.login, tipe: '4_11',)));
                       }
                     });
                   },
@@ -239,7 +240,7 @@ class _SoalSDQ4_11State extends State<SoalSDQ4_11> {
                         } else {
                           hasil_pro = hasil_pro + soal[index].nilai_3;
                         }
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , hasil_e: hasil_e, hasil_c: hasil_c, hasil_h: hasil_h, hasil_p: hasil_p, hasil_pro: hasil_pro, login: widget.login, tipe: '4_11',)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HasilSdq(nama: widget.nama,umur: widget.umur, instansi: widget.instansi , skor_e: hasil_e, skor_c: hasil_c, skor_h: hasil_h, skor_p: hasil_p, skor_pro: hasil_pro, login: widget.login, tipe: '4_11',)));
                       }
                     });
                   },
