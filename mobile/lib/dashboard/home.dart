@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/api/api.dart';
+import 'package:untitled/api/model/dashboard.dart';
 import 'package:untitled/main.dart';
 import 'package:untitled/widgets/matiere.dart';
 
@@ -10,6 +12,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Dashboard dashboard = Dashboard();
+
+  @override
+  void initState() {
+    API.dashboard().then((value) {
+      setState(() {
+        dashboard = value;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,7 +88,7 @@ class _HomeState extends State<Home> {
                   child: Row(
                     children: [
                       ChallangeCard(
-                          "4",
+                          dashboard.banyak_sdq.toString(),
                           "Riwayat SDQ",
                           "",
                           "",
@@ -83,7 +97,7 @@ class _HomeState extends State<Home> {
                           Colors.deepOrangeAccent),
                       Spacer(),
                       ChallangeCard(
-                          "5",
+                          dashboard.banyak_srq.toString(),
                           "Riwayat SRQ",
                           "",
                           "",
@@ -117,9 +131,12 @@ class _HomeState extends State<Home> {
                     const Color(0xffF5D9CC),
                     const Color(0xffF1E6DF),
                     const Color(0xfff1665f),
-                    "SDQ",),
+                    "SDQ",
+                  ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 InkWell(
                   onTap: () async {
                     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoalSRQ(login: true)));
@@ -128,7 +145,8 @@ class _HomeState extends State<Home> {
                     const Color(0xffF5D9CC),
                     const Color(0xffF1E6DF),
                     const Color(0xfff1665f),
-                    "SRQ",),
+                    "SRQ",
+                  ),
                 ),
                 SizedBox(
                   height: 80,
@@ -176,7 +194,7 @@ class ChallangeCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child:
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               const SizedBox(height: 30),
               Align(
                   alignment: Alignment.center,

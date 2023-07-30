@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:untitled/api/model/dashboard.dart';
+import 'package:untitled/api/model/profil.dart';
 
-const String baseURL = "https://puskesmaskertasemaya.com/api/"; //emulator localhost
+const String baseURL = "http://192.168.0.105:8000/api/"; //emulator localhost
 const Map<String, String> header = {"Content-Type": "application/json"};
 
 class API {
@@ -29,22 +31,21 @@ class API {
   }
 
   static Future<String?> tambahHasilSDQ(
-      String? nama,
-      String? instansi,
-      String? hasil_e,
-      String? hasil_c,
-      String? hasil_h,
-      String? hasil_p,
-      String? hasil_pro,
-      int? skor_e,
-      int? skor_c,
-      int? skor_h,
-      int? skor_p,
-      int? skor_pro,
-      String? hasil_kesulitan,
-      int? skor_kesulitan,
-      ) async {
-
+    String? nama,
+    String? instansi,
+    String? hasil_e,
+    String? hasil_c,
+    String? hasil_h,
+    String? hasil_p,
+    String? hasil_pro,
+    int? skor_e,
+    int? skor_c,
+    int? skor_h,
+    int? skor_p,
+    int? skor_pro,
+    String? hasil_kesulitan,
+    int? skor_kesulitan,
+  ) async {
     Map data = {
       "nama": nama,
       "instansi": instansi,
@@ -72,14 +73,12 @@ class API {
     );
 
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString(
-        'id_sdq', json.decode(response.body)["data"].toString());
+    pref.setString('id_sdq', json.decode(response.body)["data"].toString());
 
     return json.decode(response.body)["data"].toString();
   }
 
   static Future pdfSDQPasienBaru() async {
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data = {
@@ -99,14 +98,8 @@ class API {
     // return "Data Berhasil Di Input";
   }
 
-  static Future<String?> tambahHasilSRQ(
-      String? nama,
-      String? umur,
-      String? no_hp,
-      String? alamat,
-      String? pekerjaan,
-      String? hasil
-      ) async {
+  static Future<String?> tambahHasilSRQ(String? nama, String? umur,
+      String? no_hp, String? alamat, String? pekerjaan, String? hasil) async {
     Map data = {
       "nama": nama,
       "umur": umur,
@@ -128,5 +121,72 @@ class API {
     return "Data Berhasil Di Input";
   }
 
+  static Future<Dashboard> dashboard() async {
+    Uri url = Uri.parse(baseURL + 'dashboard');
 
+    Map data = {
+      "user_id": 40,
+    };
+
+    var body = json.encode(data);
+
+    http.Response response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    var data_dashboard = json.decode(response.body)['data'];
+
+    bool success = json.decode(response.body)["success"];
+
+    if (response.statusCode == 200) {
+      return Dashboard(
+        banyak_sdq: data_dashboard['banyak_sdq'],
+        banyak_srq: data_dashboard['banyak_srq'],
+        success: success,
+      );
+    }
+    return Dashboard(
+      success: success,
+    );
+  }
+
+  static Future<Profil> getProfil() async {
+    Uri url = Uri.parse(baseURL + 'profil');
+
+    Map data = {
+      "user_id": 40,
+    };
+
+    var body = json.encode(data);
+
+    http.Response response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    var data_profil = json.decode(response.body)['data'];
+
+    print(data_profil);
+
+    bool success = json.decode(response.body)["success"];
+
+    if (response.statusCode == 200) {
+      return Profil(
+        nama: data_profil['nama'],
+        umur: data_profil['umur'],
+        instansi: data_profil['instansi'],
+        no_hp: data_profil['no_hp'],
+        alamat: data_profil['alamat'],
+        pekerjaan: data_profil['pekerjaan'],
+        kode_verif: data_profil['kode_verif'],
+        success: success,
+      );
+    } else {}
+    return Profil(
+      success: success,
+    );
+  }
 }

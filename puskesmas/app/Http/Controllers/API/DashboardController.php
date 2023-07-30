@@ -84,6 +84,7 @@ class DashboardController extends Controller
     public function profil(Request $request)
     {
         $data = Pasien::where('user_id', $request->user_id)->first();
+        $data["kode_verif"] = $data->User->verif_code;
 
         if (!empty($data)) {
             return response()->json([
