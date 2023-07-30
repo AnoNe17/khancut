@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/api/model/dashboard.dart';
 import 'package:untitled/api/model/profil.dart';
+import 'package:untitled/api/model/riwayat_sdq.dart';
 
 const String baseURL = "http://192.168.0.105:8000/api/"; //emulator localhost
 const Map<String, String> header = {"Content-Type": "application/json"};
@@ -150,6 +151,34 @@ class API {
     return Dashboard(
       success: success,
     );
+  }
+
+  Future riwayatSDQ() async {
+    Uri url = Uri.parse(baseURL + 'riwayat_sdq');
+
+    Map data = {
+      "user_id": 40,
+    };
+
+    var body = json.encode(data);
+
+    http.Response response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    var data_sdq = json.decode(response.body)['data'];
+
+    Iterable it = data_sdq;
+    List<RiwayatSDQ> riwayat_sdq =
+        it.map((e) => RiwayatSDQ.fromJson(e)).toList();
+
+    if (response.statusCode == 200) {
+      return riwayat_sdq;
+    } else {
+      return riwayat_sdq;
+    }
   }
 
   static Future<Profil> getProfil() async {

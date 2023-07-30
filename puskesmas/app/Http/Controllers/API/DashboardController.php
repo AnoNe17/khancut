@@ -37,6 +37,10 @@ class DashboardController extends Controller
 
         $data = HasilSDQ::where('user_id', $request->user_id)->get();
 
+        foreach ($data as $key => $value) {
+            $data[$key]["tanggal"] = date($value->created_at);
+        }
+
         if (count($data) !== 0) {
             return response()->json([
                 'success' => true,
@@ -45,6 +49,7 @@ class DashboardController extends Controller
         } else {
             return response()->json([
                 'success' => false,
+                'data' => $data
             ], 400);
         }
     }
