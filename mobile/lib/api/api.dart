@@ -3,8 +3,10 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/api/model/dashboard.dart';
+import 'package:untitled/api/model/notifikasi.dart';
 import 'package:untitled/api/model/profil.dart';
 import 'package:untitled/api/model/riwayat_sdq.dart';
+import 'package:untitled/api/model/riwayat_srq.dart';
 
 const String baseURL = "http://192.168.0.105:8000/api/"; //emulator localhost
 const Map<String, String> header = {"Content-Type": "application/json"};
@@ -178,6 +180,62 @@ class API {
       return riwayat_sdq;
     } else {
       return riwayat_sdq;
+    }
+  }
+
+  Future riwayatSRQ() async {
+    Uri url = Uri.parse(baseURL + 'riwayat_srq');
+
+    Map data = {
+      "user_id": 40,
+    };
+
+    var body = json.encode(data);
+
+    http.Response response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    var data_srq = json.decode(response.body)['data'];
+
+    Iterable it = data_srq;
+    List<RiwayatSRQ> riwayat_srq =
+        it.map((e) => RiwayatSRQ.fromJson(e)).toList();
+
+    if (response.statusCode == 200) {
+      return riwayat_srq;
+    } else {
+      return riwayat_srq;
+    }
+  }
+
+  Future notifikasi() async {
+    Uri url = Uri.parse(baseURL + 'notifikasi');
+
+    Map data = {
+      "user_id": 40,
+    };
+
+    var body = json.encode(data);
+
+    http.Response response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    var data_notif = json.decode(response.body)['data'];
+
+    Iterable it = data_notif;
+    List<Notifikasi> notifikasi =
+        it.map((e) => Notifikasi.fromJson(e)).toList();
+
+    if (response.statusCode == 200) {
+      return notifikasi;
+    } else {
+      return notifikasi;
     }
   }
 

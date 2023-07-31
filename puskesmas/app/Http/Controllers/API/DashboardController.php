@@ -35,7 +35,7 @@ class DashboardController extends Controller
     public function riwayatSDQ(Request $request)
     {
 
-        $data = HasilSDQ::where('user_id', $request->user_id)->get();
+        $data = HasilSDQ::where('user_id', $request->user_id)->orderBy("id", "desc")->get();
 
         foreach ($data as $key => $value) {
             $data[$key]["tanggal"] = date($value->created_at);
@@ -56,7 +56,11 @@ class DashboardController extends Controller
 
     public function riwayatSRQ(Request $request)
     {
-        $data = HasilSRQ::where('user_id', $request->user_id)->get();
+        $data = HasilSRQ::where('user_id', $request->user_id)->orderBy("id", "desc")->get();
+
+        foreach ($data as $key => $value) {
+            $data[$key]["tanggal"] = date($value->created_at);
+        }
 
         if (count($data) !== 0) {
             return response()->json([
@@ -72,7 +76,7 @@ class DashboardController extends Controller
 
     public function notifikasi(Request $request)
     {
-        $data = Notifikasi::where('user_id', $request->user_id)->get();
+        $data = Notifikasi::where('user_id', $request->user_id)->orderBy("id", "desc")->get();
 
         if (count($data) !== 0) {
             return response()->json([
@@ -82,6 +86,7 @@ class DashboardController extends Controller
         } else {
             return response()->json([
                 'success' => false,
+                'data' => $data
             ], 400);
         }
     }

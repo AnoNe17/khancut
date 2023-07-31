@@ -1,5 +1,4 @@
 class RiwayatSDQ {
-  bool? success;
   String? skor_e,
       hasil_e,
       skor_c,
@@ -18,7 +17,6 @@ class RiwayatSDQ {
 
   RiwayatSDQ(
       {this.id,
-      this.success,
       this.skor_e,
       this.hasil_e,
       this.skor_c,
