@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/api/api.dart';
 import 'package:untitled/api/model/riwayat_sdq.dart';
 
@@ -76,6 +80,7 @@ class _RiwayatSDQPageState extends State<RiwayatSDQPage> {
                   Column(
                     children: [
                       _card(
+                        riwayatSDQ[index].id,
                         "${riwayatSDQ[index].skor_keseluruhan}",
                         "${riwayatSDQ[index].skor_e}",
                         "${riwayatSDQ[index].hasil_e}",
@@ -87,6 +92,7 @@ class _RiwayatSDQPageState extends State<RiwayatSDQPage> {
                         "${riwayatSDQ[index].hasil_p}",
                         "${riwayatSDQ[index].skor_pro}",
                         "${riwayatSDQ[index].hasil_pro}",
+                        "${riwayatSDQ[index].tanggal}",
                       ),
                       SizedBox(
                         height: 10,
@@ -103,6 +109,7 @@ class _RiwayatSDQPageState extends State<RiwayatSDQPage> {
   }
 
   Widget _card(
+    int? sdq_id,
     String skor_keseluruhan,
     String skor_e,
     String hasil_e,
@@ -114,16 +121,12 @@ class _RiwayatSDQPageState extends State<RiwayatSDQPage> {
     String hasil_p,
     String skor_pro,
     String hasil_pro,
+    String tanggal,
   ) {
     return GestureDetector(
-      // onTap: () => Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context) => PenilaianPage(
-      //     tema: tema,
-      //     sub_tema: sub_tema,
-      //     minggu_ke: minggu_ke,
-      //     semester: semester,
-      //   ),
-      // )),
+      onTap: () {
+        // pdfSDQ(sdq_id, tanggal);
+      },
       child: Card(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -150,6 +153,21 @@ class _RiwayatSDQPageState extends State<RiwayatSDQPage> {
       ),
     );
   }
+
+  // void pdfSDQ(int? sdq_id, String nama) async {
+  //   // final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   Map data = {
+  //     "id": sdq_id.toString(),
+  //   };
+
+  //   var time = DateTime.now().millisecondsSinceEpoch;
+  //   var path = "storage/emulated/0/Download/Hasil-SDQ-" + nama + ".pdf";
+  //   var file = File(path);
+  //   var res = await post(
+  //       Uri.parse("https://puskesmaskertasemaya.com/api/hasil_sdq/pdf"),
+  //       body: data);
+  //   file.writeAsBytes(res.bodyBytes);
+  // }
 
   _cardHasil(String judul, String hasil, String skor) {
     return Padding(

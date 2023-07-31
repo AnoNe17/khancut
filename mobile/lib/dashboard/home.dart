@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/api/api.dart';
 import 'package:untitled/api/model/dashboard.dart';
+import 'package:untitled/inputan/tipe_sdq.dart';
+import 'package:untitled/kusioner/soal_sdq_11-18.dart';
+import 'package:untitled/kusioner/soal_sdq_4-11.dart';
 import 'package:untitled/main.dart';
 import 'package:untitled/widgets/matiere.dart';
 
@@ -111,29 +114,59 @@ class _HomeState extends State<Home> {
                   height: 10,
                 ),
                 Row(
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.only(left: 18.0, top: 20, bottom: 20),
-                      child: Text("SOAL",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xff9FB2BA),
-                            fontSize: 17,
-                          )),
+                      child: Text(
+                        "SOAL",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xff9FB2BA),
+                          fontSize: 17,
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                InkWell(
-                  onTap: () async {
-                    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoalSDQ(login: true,)));
-                  },
-                  child: Matiere(
-                    const Color(0xffF5D9CC),
-                    const Color(0xffF1E6DF),
-                    const Color(0xfff1665f),
-                    "SDQ",
+                if (dashboard.tipe.toString() == "11_18") ...[
+                  InkWell(
+                    onTap: () async {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SoalSDQ4_11(
+                              login: true,
+                              nama: dashboard.nama.toString(),
+                              umur: dashboard.umur.toString(),
+                              instansi: dashboard.instansi.toString())));
+                    },
+                    child: Matiere(
+                      const Color(0xffF5D9CC),
+                      const Color(0xffF1E6DF),
+                      const Color(0xfff1665f),
+                      "SDQ",
+                    ),
                   ),
-                ),
+                ] else ...[
+                  InkWell(
+                    onTap: () async {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SoalSDQ11_18(
+                            login: true,
+                            nama: dashboard.nama.toString(),
+                            umur: dashboard.umur.toString(),
+                            instansi: dashboard.instansi.toString(),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Matiere(
+                      const Color(0xffF5D9CC),
+                      const Color(0xffF1E6DF),
+                      const Color(0xfff1665f),
+                      "SDQ",
+                    ),
+                  ),
+                ],
                 SizedBox(
                   height: 10,
                 ),

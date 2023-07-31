@@ -85,24 +85,54 @@ class API {
     return json.decode(response.body)["data"].toString();
   }
 
-  static Future pdfSDQPasienBaru() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+  static Future<String?> tambahHasilSDQPasien(
+    String? nama,
+    String? instansi,
+    String? hasil_e,
+    String? hasil_c,
+    String? hasil_h,
+    String? hasil_p,
+    String? hasil_pro,
+    int? skor_e,
+    int? skor_c,
+    int? skor_h,
+    int? skor_p,
+    int? skor_pro,
+    String? hasil_kesulitan,
+    int? skor_kesulitan,
+  ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data = {
-      "id": prefs.getString('id_sdq'),
-      "pasien_baru": true,
+      "nama": nama,
+      "instansi": instansi,
+      "hasil_e": hasil_e,
+      "hasil_c": hasil_c,
+      "hasil_h": hasil_h,
+      "hasil_p": hasil_p,
+      "hasil_pro": hasil_pro,
+      "skor_e": skor_e,
+      "skor_c": skor_c,
+      "skor_h": skor_h,
+      "skor_p": skor_p,
+      "skor_pro": skor_pro,
+      "hasil_kesulitan": hasil_kesulitan,
+      "skor_kesulitan": skor_kesulitan,
+      "user_id": prefs.getString('user_id')
     };
-
+    //
     var body = json.encode(data);
-    var url = Uri.parse(baseURL + 'hasil_sdq/pdf');
-
+    var url = Uri.parse(baseURL + 'input_sdq_pasien');
+    //
     http.Response response = await http.post(
       url,
       headers: header,
       body: body,
     );
 
-    // return "Data Berhasil Di Input";
+    prefs.setString('id_sdq', json.decode(response.body)["data"].toString());
+
+    return json.decode(response.body)["data"].toString();
   }
 
   static Future<String?> tambahHasilSRQ(String? nama, String? umur,
@@ -153,6 +183,13 @@ class API {
       return Dashboard(
         banyak_sdq: data_dashboard['banyak_sdq'],
         banyak_srq: data_dashboard['banyak_srq'],
+        nama: data_dashboard['nama'],
+        umur: data_dashboard['umur'],
+        instansi: data_dashboard['instansi'],
+        no_hp: data_dashboard['no_hp'],
+        alamat: data_dashboard['alamat'],
+        pekerjaan: data_dashboard['pekerjaan'],
+        tipe: data_dashboard['tipe'],
         success: success,
       );
     }
