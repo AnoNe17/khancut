@@ -15,7 +15,7 @@ class API {
   static Future<http.Response> login(
       String email, String password, BuildContext context) async {
     Map data = {
-      "email": email,
+      "name": email,
       "password": password,
     };
     var body = json.encode(data);
@@ -25,6 +25,10 @@ class API {
       headers: header,
       body: body,
     );
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString(
+        'user_id', json.decode(response.body)["data"]["id"].toString());
 
     try {
       return response;
@@ -127,8 +131,10 @@ class API {
   static Future<Dashboard> dashboard() async {
     Uri url = Uri.parse(baseURL + 'dashboard');
 
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     Map data = {
-      "user_id": 40,
+      "user_id": prefs.getString('user_id'),
     };
 
     var body = json.encode(data);
@@ -158,8 +164,10 @@ class API {
   Future riwayatSDQ() async {
     Uri url = Uri.parse(baseURL + 'riwayat_sdq');
 
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     Map data = {
-      "user_id": 40,
+      "user_id": prefs.getString('user_id'),
     };
 
     var body = json.encode(data);
@@ -186,8 +194,10 @@ class API {
   Future riwayatSRQ() async {
     Uri url = Uri.parse(baseURL + 'riwayat_srq');
 
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     Map data = {
-      "user_id": 40,
+      "user_id": prefs.getString('user_id'),
     };
 
     var body = json.encode(data);
@@ -213,9 +223,10 @@ class API {
 
   Future notifikasi() async {
     Uri url = Uri.parse(baseURL + 'notifikasi');
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data = {
-      "user_id": 40,
+      "user_id": prefs.getString('user_id'),
     };
 
     var body = json.encode(data);
@@ -241,9 +252,10 @@ class API {
 
   static Future<Profil> getProfil() async {
     Uri url = Uri.parse(baseURL + 'profil');
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data = {
-      "user_id": 40,
+      "user_id": prefs.getString('user_id'),
     };
 
     var body = json.encode(data);
@@ -255,8 +267,6 @@ class API {
     );
 
     var data_profil = json.decode(response.body)['data'];
-
-    print(data_profil);
 
     bool success = json.decode(response.body)["success"];
 

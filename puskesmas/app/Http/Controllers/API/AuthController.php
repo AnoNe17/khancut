@@ -47,6 +47,7 @@ class AuthController extends Controller
             $auth = Auth::user();
             $success['token'] = $auth->createToken('auth_token')->plainTextToken;
             $success['name'] = $auth->name;
+            $success['id'] = $auth->id;
 
             return response()->json([
                 'success' => true,

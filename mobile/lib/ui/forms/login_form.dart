@@ -29,32 +29,31 @@ class _LoginFormState extends State<LoginForm> {
     //   message: Text("Please Wait ..."),
     // );
     // progressDialog.show();
-      try {
-        http.Response response = await API.login(_email, _password, context);
-        if (response.statusCode == 200) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => Menu()),
-                  (route) => false);
-        } else {
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.error,
-            animType: AnimType.scale,
-            headerAnimationLoop: true,
-            title: 'Username atau Password Salah !',
-            btnOkOnPress: () {},
-            onDismissCallback: (type) {
-              // progressDialog.dismiss();
-            },
-            btnOkIcon: Icons.cancel,
-            btnOkColor: Colors.red,
-          ).show();
-          txEmail.text = "";
-          txPass.text = "";
-        }
-      } catch (e) {
-        // API.gagal(context, progressDialog);
+    try {
+      http.Response response = await API.login(_email, _password, context);
+      if (response.statusCode == 200) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Menu()), (route) => false);
+      } else {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.scale,
+          headerAnimationLoop: true,
+          title: 'Username atau Password Salah !',
+          btnOkOnPress: () {},
+          onDismissCallback: (type) {
+            // progressDialog.dismiss();
+          },
+          btnOkIcon: Icons.cancel,
+          btnOkColor: Colors.red,
+        ).show();
+        txEmail.text = "";
+        txPass.text = "";
       }
+    } catch (e) {
+      // API.gagal(context, progressDialog);
+    }
   }
 
   @override
@@ -106,7 +105,8 @@ class _LoginFormState extends State<LoginForm> {
                             child: Column(
                               children: <Widget>[
                                 Container(
-                                  margin: const EdgeInsets.only(left: 6, right: 50 ),
+                                  margin:
+                                      const EdgeInsets.only(left: 6, right: 50),
                                   alignment: Alignment.center,
                                   child: TextFormField(
                                     controller: txEmail,
@@ -115,7 +115,7 @@ class _LoginFormState extends State<LoginForm> {
                                     autofocus: true,
                                     decoration: InputDecoration(
                                       icon: Icon(Icons.person),
-                                      labelText: 'Email',
+                                      labelText: 'Username',
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
@@ -130,7 +130,8 @@ class _LoginFormState extends State<LoginForm> {
                                   ),
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.only(left: 6, right: 50),
+                                  margin:
+                                      const EdgeInsets.only(left: 6, right: 50),
                                   alignment: Alignment.center,
                                   child: TextFormField(
                                     controller: txPass,
@@ -145,7 +146,9 @@ class _LoginFormState extends State<LoginForm> {
                                           });
                                         },
                                         icon: Icon(
-                                          _obscureText ? Icons.visibility_off : Icons.visibility,
+                                          _obscureText
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
                                         ),
                                       ),
                                     ),
@@ -172,10 +175,10 @@ class _LoginFormState extends State<LoginForm> {
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => Menu()),
-                                (route) => false);
-                        // ceklogin();
+                        // Navigator.of(context).pushAndRemoveUntil(
+                        //     MaterialPageRoute(builder: (context) => Menu()),
+                        //         (route) => false);
+                        ceklogin();
                       },
                       child: Container(
                         margin: const EdgeInsets.only(right: 15),
@@ -246,7 +249,8 @@ class _LoginFormState extends State<LoginForm> {
           ],
         ),
         onWillPop: () async {
-          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new MyApp()));
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => new MyApp()));
           return true;
         });
   }
