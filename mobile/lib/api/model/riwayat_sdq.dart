@@ -11,6 +11,7 @@ class RiwayatSDQ {
       hasil_pro,
       skor_keseluruhan,
       hasil_keseluruhan,
+      nama,
       tanggal;
 
   int? id;
@@ -29,6 +30,7 @@ class RiwayatSDQ {
       this.hasil_pro,
       this.skor_keseluruhan,
       this.hasil_keseluruhan,
+      this.nama,
       this.tanggal});
 
   factory RiwayatSDQ.fromJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class RiwayatSDQ {
       hasil_pro: json['hasil_pro'],
       skor_keseluruhan: json['skor_keseluruhan'],
       hasil_keseluruhan: json['hasil_keseluruhan'],
+      nama: json['nama'],
       tanggal: json['tanggal'],
     );
   }

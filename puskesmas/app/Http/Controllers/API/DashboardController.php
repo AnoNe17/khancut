@@ -47,9 +47,8 @@ class DashboardController extends Controller
     {
 
         $data = HasilSDQ::where('user_id', $request->user_id)->orderBy("id", "desc")->get();
-
         foreach ($data as $key => $value) {
-            $data[$key]["tanggal"] = date($value->created_at);
+            $data[$key]["tanggal"] = str_replace(':', '_', date($value->created_at));
         }
 
         if (count($data) !== 0) {
@@ -70,7 +69,7 @@ class DashboardController extends Controller
         $data = HasilSRQ::where('user_id', $request->user_id)->orderBy("id", "desc")->get();
 
         foreach ($data as $key => $value) {
-            $data[$key]["tanggal"] = date($value->created_at);
+            $data[$key]["tanggal"] = str_replace(':', '_', date($value->created_at));
         }
 
         if (count($data) !== 0) {

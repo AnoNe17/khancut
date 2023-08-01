@@ -1,10 +1,11 @@
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/api/api.dart';
 import 'package:untitled/api/model/riwayat_sdq.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class RiwayatSDQPage extends StatefulWidget {
   const RiwayatSDQPage({Key? key}) : super(key: key);
@@ -125,7 +126,19 @@ class _RiwayatSDQPageState extends State<RiwayatSDQPage> {
   ) {
     return GestureDetector(
       onTap: () {
-        // pdfSDQ(sdq_id, tanggal);
+        pdfSDQ(sdq_id, tanggal);
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.info,
+          animType: AnimType.scale,
+          headerAnimationLoop: true,
+          title:
+              'Hasil Kuisioner berhasil di simpan, Silahkan cek di folder Download',
+          btnOkOnPress: () {},
+          onDismissCallback: (type) {},
+          btnOkIcon: Icons.cancel,
+          btnOkColor: Colors.blue,
+        ).show();
       },
       child: Card(
         child: Padding(
@@ -154,20 +167,22 @@ class _RiwayatSDQPageState extends State<RiwayatSDQPage> {
     );
   }
 
-  // void pdfSDQ(int? sdq_id, String nama) async {
-  //   // final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   Map data = {
-  //     "id": sdq_id.toString(),
-  //   };
+  void pdfSDQ(int? sdq_id, String tanggal) async {
+    Map data = {
+      "id": sdq_id,
+    };
 
-  //   var time = DateTime.now().millisecondsSinceEpoch;
-  //   var path = "storage/emulated/0/Download/Hasil-SDQ-" + nama + ".pdf";
-  //   var file = File(path);
-  //   var res = await post(
-  //       Uri.parse("https://puskesmaskertasemaya.com/api/hasil_sdq/pdf"),
-  //       body: data);
-  //   file.writeAsBytes(res.bodyBytes);
-  // }
+    var body = json.encode(data);
+
+    var time = DateTime.now().millisecondsSinceEpoch;
+    var path =
+        "storage/emulated/0/Download/" + "Hasil SDQ Pasien " + tanggal + ".pdf";
+    var file = File(path);
+    var res = await post(
+        Uri.parse("http://192.168.0.105:8000/api/hasil_sdq/pdf"),
+        body: body);
+    file.writeAsBytes(res.bodyBytes);
+  }
 
   _cardHasil(String judul, String hasil, String skor) {
     return Padding(

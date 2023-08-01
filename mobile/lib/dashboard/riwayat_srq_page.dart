@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:untitled/api/api.dart';
 import 'package:untitled/api/model/riwayat_srq.dart';
+import 'dart:io';
+import 'dart:convert';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class RiwayatSRQPage extends StatefulWidget {
   const RiwayatSRQPage({Key? key}) : super(key: key);
@@ -76,12 +80,14 @@ class _RiwayatSRQPageState extends State<RiwayatSRQPage> {
                   Column(
                     children: [
                       _card(
+                        riwayatSRQ[index].id,
                         "${riwayatSRQ[index].total}",
                         "${riwayatSRQ[index].hasil}",
                         "${riwayatSRQ[index].masalah_psikologis}",
                         "${riwayatSRQ[index].pengguna_narkoba}",
                         "${riwayatSRQ[index].gangguan_psikotik}",
                         "${riwayatSRQ[index].gangguan_ptsd}",
+                        "${riwayatSRQ[index].tanggal}",
                       ),
                       SizedBox(
                         height: 10,
@@ -98,22 +104,30 @@ class _RiwayatSRQPageState extends State<RiwayatSRQPage> {
   }
 
   Widget _card(
-    String total,
-    String hasil,
-    String masalah_psikologis,
-    String pengguna_narkoba,
-    String gangguan_psikotik,
-    String gangguan_ptsd,
-  ) {
+      int? srq_id,
+      String total,
+      String hasil,
+      String masalah_psikologis,
+      String pengguna_narkoba,
+      String gangguan_psikotik,
+      String gangguan_ptsd,
+      String tanggal) {
     return GestureDetector(
-      // onTap: () => Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context) => PenilaianPage(
-      //     tema: tema,
-      //     sub_tema: sub_tema,
-      //     minggu_ke: minggu_ke,
-      //     semester: semester,
-      //   ),
-      // )),
+      onTap: () {
+        pdfSRQ(srq_id, tanggal);
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.info,
+          animType: AnimType.scale,
+          headerAnimationLoop: true,
+          title:
+              'Hasil Kuisioner berhasil di simpan, Silahkan cek di folder Download',
+          btnOkOnPress: () {},
+          onDismissCallback: (type) {},
+          btnOkIcon: Icons.cancel,
+          btnOkColor: Colors.blue,
+        ).show();
+      },
       child: Card(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -138,6 +152,23 @@ class _RiwayatSRQPageState extends State<RiwayatSRQPage> {
         ),
       ),
     );
+  }
+
+  void pdfSRQ(int? srq_id, String tanggal) async {
+    Map data = {
+      "id": srq_id,
+    };
+
+    var body = json.encode(data);
+
+    var time = DateTime.now().millisecondsSinceEpoch;
+    var path =
+        "storage/emulated/0/Download/" + "Hasil SRQ Pasien " + tanggal + ".pdf";
+    var file = File(path);
+    var res = await post(
+        Uri.parse("http://192.168.0.105:8000/api/hasil_sdq/pdf"),
+        body: body);
+    file.writeAsBytes(res.bodyBytes);
   }
 
   _cardHasil(String judul, String hasil) {
