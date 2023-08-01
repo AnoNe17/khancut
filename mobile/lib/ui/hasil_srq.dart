@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/dashboard/home.dart';
 import 'package:untitled/kuisioner.dart';
 import 'package:untitled/main.dart';
 import 'package:untitled/api/api.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:untitled/widgets/menu.dart';
 
 class HasilSrq extends StatefulWidget {
-
   final int total_psikologis;
   final int total_narkoba;
   final int total_psikotik;
@@ -15,14 +19,25 @@ class HasilSrq extends StatefulWidget {
 
   final String nama, umur, no_hp, alamat, pekerjaan;
 
-  const HasilSrq({Key? key, required this.total_psikologis, required this.total_narkoba, required this.total_psikotik, required this.total_ptsd, required this.login, required this.nama, required this.umur, required this.no_hp, required this.alamat, required this.pekerjaan}) : super(key: key);
+  const HasilSrq(
+      {Key? key,
+      required this.total_psikologis,
+      required this.total_narkoba,
+      required this.total_psikotik,
+      required this.total_ptsd,
+      required this.login,
+      required this.nama,
+      required this.umur,
+      required this.no_hp,
+      required this.alamat,
+      required this.pekerjaan})
+      : super(key: key);
 
   @override
   State<HasilSrq> createState() => _HasilSrqState();
 }
 
 class _HasilSrqState extends State<HasilSrq> {
-
   String hasil_akhir = "";
   String hasil_psikologis = '';
   String hasil_narkoba = '';
@@ -38,23 +53,27 @@ class _HasilSrqState extends State<HasilSrq> {
   initState() {
     super.initState();
 
-    skor_akhir = widget.total_psikologis + widget.total_narkoba + widget.total_psikotik + widget.total_ptsd;
+    skor_akhir = widget.total_psikologis +
+        widget.total_narkoba +
+        widget.total_psikotik +
+        widget.total_ptsd;
 
-    if(skor_akhir <= 8){
+    if (skor_akhir <= 8) {
       hasil_akhir = 'Normal';
     } else {
       hasil_akhir = 'Abnormal';
     }
 
-    if(widget.total_psikologis >= 5){
-      hasil_psikologis == 'ya';
-      keterangan_psikologis = 'Terdapat masalah psikologis seperti cemas dan depresi';
+    if (widget.total_psikologis >= 5) {
+      hasil_psikologis = 'ya';
+      keterangan_psikologis =
+          'Terdapat masalah psikologis seperti cemas dan depresi';
     } else {
       hasil_psikologis = 'tidak';
       keterangan_psikologis = 'Tidak terdapat masalah';
     }
 
-    if(widget.total_narkoba != 0){
+    if (widget.total_narkoba != 0) {
       hasil_narkoba = 'ya';
       keterangan_narkoba = 'Terdapat penggunaan zat psikoaktif/narkoba';
     } else {
@@ -62,43 +81,85 @@ class _HasilSrqState extends State<HasilSrq> {
       keterangan_narkoba = 'Tidak terdapat masalah';
     }
 
-    if(widget.total_psikotik != 0){
+    if (widget.total_psikotik != 0) {
       hasil_psikotik = 'ya';
-      keterangan_psikotik = 'Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius';
+      keterangan_psikotik =
+          'Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius';
     } else {
       hasil_psikotik = 'tidak';
       keterangan_psikotik = 'Tidak terdapat masalah';
     }
 
-    if(widget.total_ptsd != 0){
+    if (widget.total_ptsd != 0) {
       hasil_ptsd = 'ya';
-      keterangan_ptsd = 'Terdapat gejala-gejala gangguan  PTSD (Post Traumatic Stress Disorder) / gangguan stres setelah trauma';
+      keterangan_ptsd =
+          'Terdapat gejala-gejala gangguan  PTSD (Post Traumatic Stress Disorder) / gangguan stres setelah trauma';
     } else {
       hasil_ptsd = 'tidak';
       keterangan_ptsd = 'Tidak terdapat masalah';
     }
 
-    // try {
-    //   API.tambahHasilSRQ(widget.nama, widget.umur, widget.no_hp, widget.alamat, widget.pekerjaan, hasil_akhir)
-    //       .then((value) async {
-    //     AwesomeDialog(
-    //       context: context,
-    //       dialogType: DialogType.success,
-    //       animType: AnimType.scale,
-    //       headerAnimationLoop: true,
-    //       title: value,
-    //       btnOkOnPress: () {},
-    //       btnOkIcon: Icons.cancel,
-    //       btnOkColor: Colors.red,
-    //     ).show();
-    //   });
-    // } catch (e) {}
+    if (widget.login == true) {
+      try {
+        API
+            .tambahHasilSRQPasien(
+                widget.nama,
+                widget.umur,
+                widget.no_hp,
+                widget.alamat,
+                widget.pekerjaan,
+                hasil_akhir,
+                skor_akhir.toString(),
+                hasil_psikologis,
+                hasil_narkoba,
+                hasil_psikotik,
+                hasil_ptsd)
+            .then((value) async {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.scale,
+            headerAnimationLoop: true,
+            title: "Data Berhasil Di Input",
+            btnOkOnPress: () {},
+            btnOkIcon: Icons.cancel,
+            btnOkColor: Colors.red,
+          ).show();
+        });
+      } catch (e) {}
+    } else {
+      try {
+        API
+            .tambahHasilSRQ(
+                widget.nama,
+                widget.umur,
+                widget.no_hp,
+                widget.alamat,
+                widget.pekerjaan,
+                hasil_akhir,
+                skor_akhir.toString(),
+                hasil_psikologis,
+                hasil_narkoba,
+                hasil_psikotik,
+                hasil_ptsd)
+            .then((value) async {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.scale,
+            headerAnimationLoop: true,
+            title: "Data Berhasil Di Input",
+            btnOkOnPress: () {},
+            btnOkIcon: Icons.cancel,
+            btnOkColor: Colors.red,
+          ).show();
+        });
+      } catch (e) {}
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
         child: Scaffold(
             appBar: AppBar(
@@ -120,40 +181,30 @@ class _HasilSrqState extends State<HasilSrq> {
                             SizedBox(
                               height: 30,
                             ),
-                            Text("Skor Akhir Kuis SRQ",
+                            Text(
+                              "Skor akhir kuis SRQ",
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700,),
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            if (hasil_akhir == 'Normal') ... [
-                              _card('Skor', skor_akhir.toString(), hasil_akhir, Colors.green),
-                            ] else ... [
-                              _card('Skor', skor_akhir.toString(), hasil_akhir, Colors.red),
+                            if (hasil_akhir == 'Normal') ...[
+                              _card('Skor', skor_akhir.toString(), hasil_akhir,
+                                  Colors.green),
+                            ] else ...[
+                              _card('Skor', skor_akhir.toString(), hasil_akhir,
+                                  Colors.red),
                             ],
                             SizedBox(
                               height: 20,
                             ),
-                            if (hasil_psikologis == 'ya') ... [
+                            if (hasil_psikologis == 'ya') ...[
                               InkWell(
-                                onTap: (){
-                                  AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.info,
-                                  animType: AnimType.scale,
-                                  headerAnimationLoop: true,
-                                  title: keterangan_psikologis,
-                                  btnOkOnPress: () {},
-                                  btnOkIcon: Icons.cancel,
-                                  btnOkColor: Colors.blue,
-                                  ).show();
-                                  },
-                                child: _card('Masalah Psikologis', hasil_psikologis, 'tidak_ada', Colors.red),
-                              )
-                            ] else ... [
-                              InkWell(
-                                onTap: (){
+                                onTap: () {
                                   AwesomeDialog(
                                     context: context,
                                     dialogType: DialogType.info,
@@ -165,15 +216,36 @@ class _HasilSrqState extends State<HasilSrq> {
                                     btnOkColor: Colors.blue,
                                   ).show();
                                 },
-                                child: _card('Masalah Psikologis', hasil_psikologis, 'tidak_ada', Colors.green),
+                                child: _card('Masalah Psikologis',
+                                    hasil_psikologis, 'tidak_ada', Colors.red),
+                              )
+                            ] else ...[
+                              InkWell(
+                                onTap: () {
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.info,
+                                    animType: AnimType.scale,
+                                    headerAnimationLoop: true,
+                                    title: keterangan_psikologis,
+                                    btnOkOnPress: () {},
+                                    btnOkIcon: Icons.cancel,
+                                    btnOkColor: Colors.blue,
+                                  ).show();
+                                },
+                                child: _card(
+                                    'Masalah Psikologis',
+                                    hasil_psikologis,
+                                    'tidak_ada',
+                                    Colors.green),
                               )
                             ],
                             SizedBox(
                               height: 20,
                             ),
-                            if (hasil_narkoba == 'ya') ... [
+                            if (hasil_narkoba == 'ya') ...[
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   AwesomeDialog(
                                     context: context,
                                     dialogType: DialogType.info,
@@ -185,11 +257,12 @@ class _HasilSrqState extends State<HasilSrq> {
                                     btnOkColor: Colors.blue,
                                   ).show();
                                 },
-                                child: _card('Pengguna Narkoba', hasil_narkoba, 'tidak_ada', Colors.red),
+                                child: _card('Pengguna Narkoba', hasil_narkoba,
+                                    'tidak_ada', Colors.red),
                               )
-                            ] else ... [
+                            ] else ...[
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   AwesomeDialog(
                                     context: context,
                                     dialogType: DialogType.info,
@@ -201,15 +274,16 @@ class _HasilSrqState extends State<HasilSrq> {
                                     btnOkColor: Colors.blue,
                                   ).show();
                                 },
-                                child: _card('Pengguna Narkoba', hasil_narkoba, 'tidak_ada', Colors.green),
+                                child: _card('Pengguna Narkoba', hasil_narkoba,
+                                    'tidak_ada', Colors.green),
                               )
                             ],
                             SizedBox(
                               height: 20,
                             ),
-                            if (hasil_psikotik == 'ya') ... [
+                            if (hasil_psikotik == 'ya') ...[
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   AwesomeDialog(
                                     context: context,
                                     dialogType: DialogType.info,
@@ -221,12 +295,12 @@ class _HasilSrqState extends State<HasilSrq> {
                                     btnOkColor: Colors.blue,
                                   ).show();
                                 },
-                                child: _card('Gangguan Psikotik', hasil_psikotik, 'tidak_ada', Colors.red),
+                                child: _card('Gangguan Psikotik',
+                                    hasil_psikotik, 'tidak_ada', Colors.red),
                               )
-
-                            ] else ... [
+                            ] else ...[
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   AwesomeDialog(
                                     context: context,
                                     dialogType: DialogType.info,
@@ -238,15 +312,16 @@ class _HasilSrqState extends State<HasilSrq> {
                                     btnOkColor: Colors.blue,
                                   ).show();
                                 },
-                                child: _card('Gangguan Psikotik', hasil_psikotik, 'tidak_ada', Colors.green),
+                                child: _card('Gangguan Psikotik',
+                                    hasil_psikotik, 'tidak_ada', Colors.green),
                               )
                             ],
                             SizedBox(
                               height: 20,
                             ),
-                            if (hasil_ptsd == 'ya') ... [
+                            if (hasil_ptsd == 'ya') ...[
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   AwesomeDialog(
                                     context: context,
                                     dialogType: DialogType.info,
@@ -258,12 +333,12 @@ class _HasilSrqState extends State<HasilSrq> {
                                     btnOkColor: Colors.blue,
                                   ).show();
                                 },
-                                child: _card('Gangguan PTSD', hasil_ptsd, 'tidak_ada', Colors.red),
+                                child: _card('Gangguan PTSD', hasil_ptsd,
+                                    'tidak_ada', Colors.red),
                               )
-
-                            ] else ... [
+                            ] else ...[
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   AwesomeDialog(
                                     context: context,
                                     dialogType: DialogType.info,
@@ -275,15 +350,19 @@ class _HasilSrqState extends State<HasilSrq> {
                                     btnOkColor: Colors.blue,
                                   ).show();
                                 },
-                                child: _card('Gangguan PTSD', hasil_ptsd, 'tidak_ada', Colors.green),
+                                child: _card('Gangguan PTSD', hasil_ptsd,
+                                    'tidak_ada', Colors.green),
                               )
                             ],
                             SizedBox(
                               height: 50,
                             ),
-                            SizedBox(height: 50,),
+                            SizedBox(
+                              height: 50,
+                            ),
                             Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
                               width: double.infinity,
                               height: 70,
                               child: TextButton(
@@ -294,10 +373,14 @@ class _HasilSrqState extends State<HasilSrq> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  if(widget.login == true){
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+                                  if (widget.login == true) {
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) => Home()));
                                   } else {
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Kuisioner()));
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) => Kuisioner()));
                                   }
                                 },
                                 child: Text(
@@ -309,59 +392,158 @@ class _HasilSrqState extends State<HasilSrq> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20,),
-                            Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                              width: double.infinity,
-                              height: 70,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  backgroundColor: Color(0xff43978D),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            if (widget.login == true)
+                              ...[]
+                            else ...[
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 15.0),
+                                width: double.infinity,
+                                height: 70,
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Color(0xff43978D),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
                                   ),
-                                ),
-                                onPressed: () {
-                                  AwesomeDialog(
-                                    context: context,
-                                    dialogType: DialogType.question,
-                                    animType: AnimType.scale,
-                                    headerAnimationLoop: true,
-                                    title: "Ingin melakukan Perawatan Lanjutan ?",
-                                    btnCancelOnPress: () {},
-                                    btnOkOnPress: () {},
-                                    btnOkColor: Colors.blue,
-                                  ).show();
-                                },
-                                child: Text(
-                                  "Cetak Hasil PDF",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Color(0xffffffff),
+                                  onPressed: () {
+                                    AwesomeDialog(
+                                      context: context,
+                                      dialogType: DialogType.question,
+                                      animType: AnimType.scale,
+                                      headerAnimationLoop: true,
+                                      title: "Ingin melanjutkan perawatan ?",
+                                      btnCancelOnPress: () {
+                                        pdfSRQ();
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.info,
+                                          animType: AnimType.scale,
+                                          headerAnimationLoop: true,
+                                          title:
+                                              'Hasil Kuisioner berhasil di simpan, Silahkan cek di folder Download',
+                                          btnOkOnPress: () {},
+                                          onDismissCallback: (type) {
+                                            if (widget.login == true) {
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Menu()));
+                                            } else {
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Kuisioner()));
+                                            }
+                                          },
+                                          btnOkIcon: Icons.cancel,
+                                          btnOkColor: Colors.blue,
+                                        ).show();
+                                      },
+                                      btnOkOnPress: () {
+                                        pdfSRQPasienBaru();
+                                        AwesomeDialog(
+                                            context: context,
+                                            dialogType: DialogType.info,
+                                            animType: AnimType.scale,
+                                            headerAnimationLoop: true,
+                                            title:
+                                                'Hasil Kuisioner berhasil di simpan, Silahkan cek di folder Download',
+                                            btnOkOnPress: () {},
+                                            btnOkIcon: Icons.cancel,
+                                            btnOkColor: Colors.blue,
+                                            onDismissCallback: (type) {
+                                              if (widget.login == true) {
+                                                Navigator.of(context)
+                                                    .pushReplacement(
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    Menu()));
+                                              } else {
+                                                Navigator.of(context)
+                                                    .pushReplacement(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Kuisioner()));
+                                              }
+                                            }).show();
+                                      },
+                                      btnOkColor: Colors.blue,
+                                    ).show();
+                                  },
+                                  child: Text(
+                                    "Cetak Hasil PDF",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Color(0xffffffff),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ],
-                        )
-                    ),
+                        )),
                     SizedBox(height: 50),
                   ],
                 ),
               ),
-            )
-        ),
+            )),
         onWillPop: () async {
-          if(widget.login == true){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
+          if (widget.login == true) {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => Home()));
           } else {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Kuisioner()));
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => Kuisioner()));
           }
           return true;
         });
   }
 
-  Widget _card(String? nama_hasil, String? total, String hasil_akhir, MaterialColor color){
+  void pdfSRQPasienBaru() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map data = {
+      "id": prefs.getString('id_srq'),
+      "pasien_baru": "true",
+    };
+
+    var time = DateTime.now().millisecondsSinceEpoch;
+    var path = "storage/emulated/0/Download/Hasil-SRQ-" +
+        widget.nama.toString() +
+        "-Pasien-Baru.pdf";
+    var file = File(path);
+    var res = await post(
+        Uri.parse("http://192.168.0.105:8000/api/hasil_srq/pdf"),
+        body: data);
+    file.writeAsBytes(res.bodyBytes);
+  }
+
+  void pdfSRQ() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map data = {
+      "id": prefs.getString('id_srq'),
+    };
+
+    var time = DateTime.now().millisecondsSinceEpoch;
+    var path = "storage/emulated/0/Download/Hasil-SRQ-" +
+        widget.nama.toString() +
+        ".pdf";
+    var file = File(path);
+    var res = await post(
+        Uri.parse("http://192.168.0.105:8000/api/hasil_srq/pdf"),
+        body: data);
+    file.writeAsBytes(res.bodyBytes);
+  }
+
+  Widget _card(String? nama_hasil, String? total, String hasil_akhir,
+      MaterialColor color) {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -373,11 +555,14 @@ class _HasilSrqState extends State<HasilSrq> {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
-            Text(nama_hasil.toString(),
+            Text(
+              nama_hasil.toString(),
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 30),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               width: 100,
               height: 100,
@@ -386,26 +571,30 @@ class _HasilSrqState extends State<HasilSrq> {
                 shape: BoxShape.circle,
                 color: color,
               ),
-              child:Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     total.toString(),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30
-                    ),),
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
                 ],
               ),
             ),
-            if (hasil_akhir == 'tidak_ada') ... [
-
-            ] else ... [
-              SizedBox(height: 20,),
-              Text(hasil_akhir.toString(),
+            if (hasil_akhir == 'tidak_ada')
+              ...[]
+            else ...[
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                hasil_akhir.toString(),
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700,),
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
 
@@ -416,7 +605,7 @@ class _HasilSrqState extends State<HasilSrq> {
     );
   }
 
-  Widget _card_data(){
+  Widget _card_data() {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -428,57 +617,97 @@ class _HasilSrqState extends State<HasilSrq> {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            Text("Nama :",
+            Text(
+              "Nama :",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700,color: Colors.orangeAccent),
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.orangeAccent),
             ),
-            Text(widget.nama.toString(),
+            Text(
+              widget.nama.toString(),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700,color: Color(0xff43978D)),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff43978D)),
             ),
             SizedBox(
               height: 10,
             ),
-            Text("Umur :",
+            Text(
+              "Umur :",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: Colors.orangeAccent),
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.orangeAccent),
             ),
-            Text(widget.umur.toString(),
+            Text(
+              widget.umur.toString(),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700,color: Color(0xff43978D)),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff43978D)),
             ),
             SizedBox(
               height: 10,
             ),
-            Text("No HP :",
+            Text(
+              "No HP :",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: Colors.orangeAccent),
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.orangeAccent),
             ),
-            Text(widget.no_hp.toString(),
+            Text(
+              widget.no_hp.toString(),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700,color: Color(0xff43978D)),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff43978D)),
             ),
             SizedBox(
               height: 10,
             ),
-            Text("Alamat :",
+            Text(
+              "Alamat :",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: Colors.orangeAccent),
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.orangeAccent),
             ),
-            Text(widget.alamat.toString(),
+            Text(
+              widget.alamat.toString(),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700,color: Color(0xff43978D)),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff43978D)),
             ),
             SizedBox(
               height: 10,
             ),
-            Text("Pekerjaan :",
+            Text(
+              "Pekerjaan :",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: Colors.orangeAccent),
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.orangeAccent),
             ),
-            Text(widget.pekerjaan.toString(),
+            Text(
+              widget.pekerjaan.toString(),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700,color: Color(0xff43978D)),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff43978D)),
             ),
             SizedBox(
               height: 20,

@@ -4,6 +4,7 @@ import 'package:untitled/api/model/dashboard.dart';
 import 'package:untitled/inputan/tipe_sdq.dart';
 import 'package:untitled/kusioner/soal_sdq_11-18.dart';
 import 'package:untitled/kusioner/soal_sdq_4-11.dart';
+import 'package:untitled/kusioner/soal_srq.dart';
 import 'package:untitled/main.dart';
 import 'package:untitled/widgets/matiere.dart';
 
@@ -172,6 +173,14 @@ class _HomeState extends State<Home> {
                 ),
                 InkWell(
                   onTap: () async {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SoalSRQ(
+                            login: true,
+                            nama: dashboard.nama.toString(),
+                            umur: dashboard.umur.toString(),
+                            no_hp: dashboard.no_hp.toString(),
+                            alamat: dashboard.alamat.toString(),
+                            pekerjaan: dashboard.pekerjaan.toString())));
                     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoalSRQ(login: true)));
                   },
                   child: Matiere(

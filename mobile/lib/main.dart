@@ -9,7 +9,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -22,7 +21,8 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(color: Colors.white),
           color: const Color(0xff43978D),
-      ),),
+        ),
+      ),
       home: const MyHomePage(),
     );
   }
@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
-
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -43,9 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     Timer(Duration(seconds: 3), () {
-      setState(() {
-        progress = 1;
-      });
+      if (this.mounted) {
+        setState(() {
+          progress = 1;
+        });
+      }
     });
     super.initState();
   }
@@ -70,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 colors: [
                   const Color(0xfffff9f2),
                   const Color(0xfffff9f2),
-                  ])),
+                ])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -80,12 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 500,
               height: 500,
             ),
-
-            if (progress == 0) ... [
+            if (progress == 0) ...[
               CircularProgressIndicator(
                 color: Colors.deepOrangeAccent,
               ),
-            ] else ... [
+            ] else ...[
               Container(
                 width: 300,
                 height: 60,
@@ -97,7 +97,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new Kuisioner()));
+                    Navigator.of(context, rootNavigator: true).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => new Kuisioner()));
                   },
                   child: Text(
                     "Isi Kuisioner",
@@ -120,7 +122,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new Login()));
+                    Navigator.of(context, rootNavigator: true).pushReplacement(
+                        MaterialPageRoute(builder: (context) => new Login()));
                     // setState(() {
                     //   progress = 1 ;
                     // });

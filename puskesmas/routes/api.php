@@ -23,6 +23,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('input_sdq', [KuisionerController::class, 'inputSDQ']);
 Route::post('input_srq', [KuisionerController::class, 'inputSRQ']);
 Route::post('input_sdq_pasien', [KuisionerController::class, 'inputSDQPasien']);
+Route::post('input_srq_pasien', [KuisionerController::class, 'inputSRQPasien']);
 
 Route::post('hasil_sdq/pdf', [KuisionerController::class, 'printSDQ']);
 Route::post('hasil_srq/pdf', [KuisionerController::class, 'printSRQ']);

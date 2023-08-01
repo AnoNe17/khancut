@@ -12,8 +12,7 @@ const String baseURL = "http://192.168.0.105:8000/api/"; //emulator localhost
 const Map<String, String> header = {"Content-Type": "application/json"};
 
 class API {
-  static Future<http.Response> login(
-      String email, String password, BuildContext context) async {
+  static Future<http.Response> login(String email, String password) async {
     Map data = {
       "name": email,
       "password": password,
@@ -135,15 +134,33 @@ class API {
     return json.decode(response.body)["data"].toString();
   }
 
-  static Future<String?> tambahHasilSRQ(String? nama, String? umur,
-      String? no_hp, String? alamat, String? pekerjaan, String? hasil) async {
+  static Future<String?> tambahHasilSRQ(
+    String? nama,
+    String? umur,
+    String? no_hp,
+    String? alamat,
+    String? pekerjaan,
+    String? hasil_akhir,
+    String? skor_akhir,
+    String? hasil_psikologis,
+    String? hasil_narkoba,
+    String? hasil_psikotik,
+    String? hasil_ptsd,
+  ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     Map data = {
       "nama": nama,
       "umur": umur,
       "no_hp": no_hp,
       "alamat": alamat,
       "pekerjaan": pekerjaan,
-      "hasil": hasil,
+      "hasil_akhir": hasil_akhir,
+      "skor_akhir": skor_akhir,
+      "hasil_psikologis": hasil_psikologis,
+      "hasil_narkoba": hasil_narkoba,
+      "hasil_psikotik": hasil_psikotik,
+      "hasil_ptsd": hasil_ptsd,
     };
     //
     var body = json.encode(data);
@@ -155,7 +172,53 @@ class API {
       body: body,
     );
 
-    return "Data Berhasil Di Input";
+    prefs.setString('id_srq', json.decode(response.body)["data"].toString());
+
+    return json.decode(response.body)["data"].toString();
+  }
+
+  static Future<String?> tambahHasilSRQPasien(
+    String? nama,
+    String? umur,
+    String? no_hp,
+    String? alamat,
+    String? pekerjaan,
+    String? hasil_akhir,
+    String? skor_akhir,
+    String? hasil_psikologis,
+    String? hasil_narkoba,
+    String? hasil_psikotik,
+    String? hasil_ptsd,
+  ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    Map data = {
+      "nama": nama,
+      "umur": umur,
+      "no_hp": no_hp,
+      "alamat": alamat,
+      "pekerjaan": pekerjaan,
+      "hasil_akhir": hasil_akhir,
+      "skor_akhir": skor_akhir,
+      "hasil_psikologis": hasil_psikologis,
+      "hasil_narkoba": hasil_narkoba,
+      "hasil_psikotik": hasil_psikotik,
+      "hasil_ptsd": hasil_ptsd,
+      "user_id": prefs.getString('user_id')
+    };
+    //
+    var body = json.encode(data);
+    var url = Uri.parse(baseURL + 'input_srq_pasien');
+    //
+    http.Response response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    prefs.setString('id_srq', json.decode(response.body)["data"].toString());
+
+    return json.decode(response.body)["data"].toString();
   }
 
   static Future<Dashboard> dashboard() async {

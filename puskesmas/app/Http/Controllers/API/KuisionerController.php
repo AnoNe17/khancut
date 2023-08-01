@@ -180,7 +180,6 @@ class KuisionerController extends Controller
 
     public function inputSRQ(Request $request)
     {
-        // return $request;
         $keterangan = '';
 
         if ($request->hasil_psikologis === 'ya') {
@@ -205,6 +204,60 @@ class KuisionerController extends Controller
         $alamat     = $request->alamat;
         $pekerjaan  = $request->pekerjaan;
 
+        $data = new HasilSRQ();
+        $data->nama                 = strtoupper($nama);
+        $data->umur                 = strtoupper($umur);
+        $data->no_hp                = strtoupper($no_hp);
+        $data->alamat               = strtoupper($alamat);
+        $data->pekerjaan            = strtoupper($pekerjaan);
+        $data->hasil                = strtoupper($request->hasil_akhir);
+        $data->total                = $request->skor_akhir;
+        $data->masalah_psikologis   = $request->hasil_psikologis;
+        $data->pengguna_narkoba     = $request->hasil_narkoba;
+        $data->gangguan_psikotik    = $request->hasil_psikotik;
+        $data->gangguan_ptsd        = $request->hasil_ptsd;
+        $data->keterangan           = $keterangan;
+        $data->save();
+
+        if ($data->save()) {
+            return response()->json([
+                'success' => true,
+                'data' => $data->id,
+                'note' => 'Data Berhasil Di Input'
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'note' => 'Data Gagal Di Input'
+            ], 400);
+        }
+    }
+
+    public function inputSRQPasien(Request $request)
+    {
+        $keterangan = '';
+
+        if ($request->hasil_psikologis === 'ya') {
+            $keterangan .= '- Terdapat masalah psikologis seperti cemas dan depresi<br>';
+        }
+        if ($request->hasil_narkoba === 'ya') {
+            $keterangan .= '- Terdapat penggunaan zat psikoaktif/narkoba<br>';
+        }
+        if ($request->hasil_psikotik === 'ya') {
+            $keterangan .= '- Terdapat gejala gangguan psikotik (gangguan dalam penilaian realitas) yang perlu penanganan serius<br>';
+        }
+        if ($request->hasil_ptsd === 'ya') {
+            $keterangan .= '- Terdapat gejala-gejala gangguan  PTSD (Post Traumatic Stress Disorder) / gangguan stres setelah trauma<br>';
+        }
+        if ($request->hasil == 'Normal') {
+            $keterangan .= '- Mohon Jaga Kesehatan Anda';
+        }
+
+        $nama       = $request->nama;
+        $umur       = $request->umur;
+        $no_hp      = $request->no_hp;
+        $alamat     = $request->alamat;
+        $pekerjaan  = $request->pekerjaan;
 
         $data = new HasilSRQ();
         $data->nama                 = strtoupper($nama);
@@ -219,6 +272,7 @@ class KuisionerController extends Controller
         $data->gangguan_psikotik    = $request->hasil_psikotik;
         $data->gangguan_ptsd        = $request->hasil_ptsd;
         $data->keterangan           = $keterangan;
+        $data->user_id              = $request->user_id;
         $data->save();
 
         if ($data->save()) {

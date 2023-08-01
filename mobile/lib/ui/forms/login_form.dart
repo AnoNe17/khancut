@@ -23,14 +23,8 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController txPass = new TextEditingController();
 
   ceklogin() async {
-    // ProgressDialog progressDialog = ProgressDialog(
-    //   context,
-    //   blur: 10,
-    //   message: Text("Please Wait ..."),
-    // );
-    // progressDialog.show();
     try {
-      http.Response response = await API.login(_email, _password, context);
+      http.Response response = await API.login(_email, _password);
       if (response.statusCode == 200) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Menu()), (route) => false);
@@ -178,6 +172,19 @@ class _LoginFormState extends State<LoginForm> {
                         // Navigator.of(context).pushAndRemoveUntil(
                         //     MaterialPageRoute(builder: (context) => Menu()),
                         //         (route) => false);
+                        // AwesomeDialog(
+                        //   context: context,
+                        //   dialogType: DialogType.error,
+                        //   animType: AnimType.scale,
+                        //   headerAnimationLoop: true,
+                        //   title: 'Username atau Password Salah !',
+                        //   btnOkOnPress: () {},
+                        //   onDismissCallback: (type) {
+                        //     // progressDialog.dismiss();
+                        //   },
+                        //   btnOkIcon: Icons.cancel,
+                        //   btnOkColor: Colors.red,
+                        // ).show();
                         ceklogin();
                       },
                       child: Container(

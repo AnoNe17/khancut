@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/api/api.dart';
 import 'package:untitled/api/model/profil.dart';
 import 'package:untitled/main.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({Key? key}) : super(key: key);
@@ -68,9 +69,20 @@ class _ProfilPageState extends State<ProfilPage> {
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) => new MyHomePage()));
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.question,
+                      animType: AnimType.scale,
+                      headerAnimationLoop: true,
+                      title: "Apakah anda yakin ?",
+                      btnCancelOnPress: () {},
+                      btnOkOnPress: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pushReplacement(MaterialPageRoute(
+                                builder: (context) => new MyHomePage()));
+                      },
+                      btnOkColor: Colors.blue,
+                    ).show();
                   },
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(15),
