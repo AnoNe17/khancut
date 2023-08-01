@@ -520,7 +520,7 @@ class _HasilSrqState extends State<HasilSrq> {
         "-Pasien-Baru.pdf";
     var file = File(path);
     var res = await post(
-        Uri.parse("http://192.168.0.105:8000/api/hasil_srq/pdf"),
+        Uri.parse("https://www.puskesmaskertasemaya.com/api/hasil_srq/pdf"),
         body: data);
     file.writeAsBytes(res.bodyBytes);
   }
@@ -537,7 +537,7 @@ class _HasilSrqState extends State<HasilSrq> {
         ".pdf";
     var file = File(path);
     var res = await post(
-        Uri.parse("http://192.168.0.105:8000/api/hasil_srq/pdf"),
+        Uri.parse("https://www.puskesmaskertasemaya.com/api/hasil_srq/pdf"),
         body: data);
     file.writeAsBytes(res.bodyBytes);
   }
