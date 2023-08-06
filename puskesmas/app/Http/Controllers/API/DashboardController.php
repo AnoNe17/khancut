@@ -16,7 +16,6 @@ class DashboardController extends Controller
     {
         $pasien = Pasien::where('user_id', $request->user_id)->first();
 
-        // return $pasien;
         $data['banyak_sdq'] = count($pasien->User->SDQ);
         $data['banyak_srq'] = count($pasien->User->SRQ);
         $data["nama"]       = $pasien->nama;
@@ -25,6 +24,7 @@ class DashboardController extends Controller
         $data["no_hp"]      = $pasien->no_hp;
         $data["alamat"]     = $pasien->alamat;
         $data["pekerjaan"]  = $pasien->pekerjaan;
+
         if ($pasien->umur <= 10) {
             $data["tipe"] = "4_11";
         } else {

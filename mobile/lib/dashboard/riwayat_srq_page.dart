@@ -166,7 +166,7 @@ class _RiwayatSRQPageState extends State<RiwayatSRQPage> {
         "storage/emulated/0/Download/" + "Hasil SRQ Pasien " + tanggal + ".pdf";
     var file = File(path);
     var res = await post(
-        Uri.parse("http://192.168.0.105:8000/api/hasil_sdq/pdf"),
+        Uri.parse("https://www.puskesmaskertasemaya.com/api/hasil_sdq/pdf"),
         body: body);
     file.writeAsBytes(res.bodyBytes);
   }

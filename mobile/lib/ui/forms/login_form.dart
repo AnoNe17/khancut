@@ -23,31 +23,32 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController txPass = new TextEditingController();
 
   ceklogin() async {
-    try {
-      http.Response response = await API.login(_email, _password);
-      if (response.statusCode == 200) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Menu()), (route) => false);
-      } else {
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.error,
-          animType: AnimType.scale,
-          headerAnimationLoop: true,
-          title: 'Username atau Password Salah !',
-          btnOkOnPress: () {},
-          onDismissCallback: (type) {
-            // progressDialog.dismiss();
-          },
-          btnOkIcon: Icons.cancel,
-          btnOkColor: Colors.red,
-        ).show();
-        txEmail.text = "";
-        txPass.text = "";
-      }
-    } catch (e) {
-      // API.gagal(context, progressDialog);
+    // print(_password);
+    // try {
+    http.Response response = await API.login(_email, _password);
+    if (response.statusCode == 200) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Menu()), (route) => false);
+    } else {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.scale,
+        headerAnimationLoop: true,
+        title: 'Username atau Password Salah !',
+        btnOkOnPress: () {},
+        onDismissCallback: (type) {
+          // progressDialog.dismiss();
+        },
+        btnOkIcon: Icons.cancel,
+        btnOkColor: Colors.red,
+      ).show();
+      txEmail.text = "";
+      txPass.text = "";
     }
+    // } catch (e) {
+    // API.gagal(context, progressDialog);
+    // }
   }
 
   @override
@@ -169,22 +170,6 @@ class _LoginFormState extends State<LoginForm> {
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: () {
-                        // Navigator.of(context).pushAndRemoveUntil(
-                        //     MaterialPageRoute(builder: (context) => Menu()),
-                        //         (route) => false);
-                        // AwesomeDialog(
-                        //   context: context,
-                        //   dialogType: DialogType.error,
-                        //   animType: AnimType.scale,
-                        //   headerAnimationLoop: true,
-                        //   title: 'Username atau Password Salah !',
-                        //   btnOkOnPress: () {},
-                        //   onDismissCallback: (type) {
-                        //     // progressDialog.dismiss();
-                        //   },
-                        //   btnOkIcon: Icons.cancel,
-                        //   btnOkColor: Colors.red,
-                        // ).show();
                         ceklogin();
                       },
                       child: Container(

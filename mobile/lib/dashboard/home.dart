@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                if (dashboard.tipe.toString() == "11_18") ...[
+                if (dashboard.tipe.toString() == "4_11") ...[
                   InkWell(
                     onTap: () async {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -146,7 +146,7 @@ class _HomeState extends State<Home> {
                       "SDQ",
                     ),
                   ),
-                ] else ...[
+                ] else if (dashboard.tipe.toString() == "11_18") ...[
                   InkWell(
                     onTap: () async {
                       Navigator.of(context).push(

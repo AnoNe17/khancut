@@ -39,7 +39,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Verifikasi</th>
+                            <th>Username</th>
                             <th>Nama</th>
                             <th>Umur</th>
                             <th>Instansi</th>

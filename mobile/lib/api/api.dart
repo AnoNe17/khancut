@@ -8,7 +8,8 @@ import 'package:untitled/api/model/profil.dart';
 import 'package:untitled/api/model/riwayat_sdq.dart';
 import 'package:untitled/api/model/riwayat_srq.dart';
 
-const String baseURL = "http://192.168.0.105:8000/api/"; //emulator localhost
+const String baseURL =
+    "https://www.puskesmaskertasemaya.com/api/"; //emulator localhost
 const Map<String, String> header = {"Content-Type": "application/json"};
 
 class API {
@@ -25,15 +26,12 @@ class API {
       body: body,
     );
 
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString(
-        'user_id', json.decode(response.body)["data"]["id"].toString());
-
-    try {
-      return response;
-    } catch (e) {
-      return response;
+    if (response.statusCode == 200) {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString(
+          'user_id', json.decode(response.body)["data"]["id"].toString());
     }
+    return response;
   }
 
   static Future<String?> tambahHasilSDQ(
