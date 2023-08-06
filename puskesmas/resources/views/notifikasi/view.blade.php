@@ -23,14 +23,10 @@
                                     <option selected disabled>-- Silahkan Pilih User --</option>
                                     @foreach ($user as $value)
                                         @if (!empty($value->Pasien->nama))
-                                            <option value="{{ $value->id }}">{{ $value->Pasien->nama }}</option>
+                                            <option value="{{ $value->id }}">{{ $value->verif_code }} - {{ $value->Pasien->nama }}</option>
                                         @endif
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="form-floating mb-4">
-                                <input id="kategori" type="text" class="form-control" name="kategori" value="{{ old('kategori') }}" required autocomplete="kategori">
-                                <label for="">Kategori</label>
                             </div>
                             <div class="form-floating mb-4">
                                 <input id="tanggal" type="date" class="form-control" name="tanggal" value="{{ old('tanggal') }}" required autocomplete="tanggal">
@@ -56,7 +52,6 @@
                         <tr>
                             <th>No</th>
                             <th>User</th>
-                            <th>Kategori</th>
                             <th>Tanggal Notifikasi Muncul</th>
                             <th>Isi Notifikasi</th>
                         </tr>
@@ -65,8 +60,7 @@
                         @foreach ($notif as $index => $value)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $value->User->Pasien->nama }}</td>
-                            <td>{{ $value->kategori }}</td>
+                            <td>{{ $value->User->verif_code }} - {{ $value->User->Pasien->nama }}</td>
                             <td>{{ $value->tanggal }}</td>
                             <td>{{ $value->isi }}</td>
                         </tr>

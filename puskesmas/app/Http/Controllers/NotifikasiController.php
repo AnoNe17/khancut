@@ -26,7 +26,6 @@ class NotifikasiController extends Controller
         // return $request;
         $notifikasi             = new Notifikasi();
         $notifikasi->user_id    = $request->user_id;
-        $notifikasi->kategori   = $request->kategori;
         $notifikasi->tanggal    = $request->tanggal;
         $notifikasi->isi        = $request->isi;
         $notifikasi->save();
