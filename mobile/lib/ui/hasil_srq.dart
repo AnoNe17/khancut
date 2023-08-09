@@ -417,6 +417,7 @@ class _HasilSrqState extends State<HasilSrq> {
                                       animType: AnimType.scale,
                                       headerAnimationLoop: true,
                                       title: "Ingin melanjutkan perawatan ?",
+                                      btnCancelText: "TIdak",
                                       btnCancelOnPress: () {
                                         pdfSRQ();
                                         AwesomeDialog(

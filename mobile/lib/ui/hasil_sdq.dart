@@ -735,6 +735,7 @@ class _HasilSdqState extends State<HasilSdq> {
                                     animType: AnimType.scale,
                                     headerAnimationLoop: true,
                                     title: "Ingin melanjutkan perawatan ?",
+                                    btnCancelText: "Tidak",
                                     btnCancelOnPress: () {
                                       pdfSDQ();
                                       AwesomeDialog(

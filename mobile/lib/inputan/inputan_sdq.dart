@@ -7,7 +7,6 @@ import 'package:untitled/kusioner/soal_srq.dart';
 import 'package:untitled/main.dart';
 
 class InputanSDQ extends StatefulWidget {
-
   final bool login;
 
   const InputanSDQ({Key? key, required this.login}) : super(key: key);
@@ -17,7 +16,6 @@ class InputanSDQ extends StatefulWidget {
 }
 
 class _InputanSDQState extends State<InputanSDQ> {
-
   String _nama = '';
   String _umur = '';
   String _instansi = '';
@@ -34,7 +32,8 @@ class _InputanSDQState extends State<InputanSDQ> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Kuisioner()));
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => Kuisioner()));
                 },
               ),
               toolbarHeight: 70,
@@ -53,7 +52,8 @@ class _InputanSDQState extends State<InputanSDQ> {
                   child: Column(
                     children: [
                       SizedBox(height: 10),
-                      Text("Input Data Diri",
+                      Text(
+                        "Input Data Diri",
                         style: TextStyle(fontSize: 30),
                       ),
                       SizedBox(height: 30),
@@ -65,16 +65,11 @@ class _InputanSDQState extends State<InputanSDQ> {
                             labelText: "Nama",
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(21),
-                              borderSide: BorderSide(
-                                  color: Colors.orange
-                              ),
+                              borderSide: BorderSide(color: Colors.orange),
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(21),
-                                borderSide: BorderSide(
-                                    color: Colors.orange
-                                )
-                            ),
+                                borderSide: BorderSide(color: Colors.orange)),
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -100,16 +95,11 @@ class _InputanSDQState extends State<InputanSDQ> {
                             labelText: "Umur",
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(21),
-                              borderSide: BorderSide(
-                                  color: Colors.orange
-                              ),
+                              borderSide: BorderSide(color: Colors.orange),
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(21),
-                                borderSide: BorderSide(
-                                    color: Colors.orange
-                                )
-                            ),
+                                borderSide: BorderSide(color: Colors.orange)),
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -134,16 +124,11 @@ class _InputanSDQState extends State<InputanSDQ> {
                             labelText: "Instansi",
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(21),
-                              borderSide: BorderSide(
-                                  color: Colors.orange
-                              ),
+                              borderSide: BorderSide(color: Colors.orange),
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(21),
-                                borderSide: BorderSide(
-                                    color: Colors.orange
-                                )
-                            ),
+                                borderSide: BorderSide(color: Colors.orange)),
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -188,16 +173,16 @@ class _InputanSDQState extends State<InputanSDQ> {
                   ),
                 ),
               ),
-            )
-        ),
+            )),
         onWillPop: () async {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Kuisioner()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => Kuisioner()));
           return true;
         });
   }
 
-  cek_inputan(){
-    if(_nama == ''){
+  cek_inputan() {
+    if (_nama == '') {
       AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
@@ -211,7 +196,7 @@ class _InputanSDQState extends State<InputanSDQ> {
         btnOkIcon: Icons.cancel,
         btnOkColor: Colors.red,
       ).show();
-    } else if(_umur == ''){
+    } else if (_umur == '') {
       AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
@@ -225,7 +210,7 @@ class _InputanSDQState extends State<InputanSDQ> {
         btnOkIcon: Icons.cancel,
         btnOkColor: Colors.red,
       ).show();
-    } else if(_instansi == ''){
+    } else if (_instansi == '') {
       AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
@@ -240,7 +225,46 @@ class _InputanSDQState extends State<InputanSDQ> {
         btnOkColor: Colors.red,
       ).show();
     } else {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => TipeSDQ(login: false, nama: _nama, umur: _umur, instansi: _instansi,)));
+      if (int.parse(_umur) > 18) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.scale,
+          headerAnimationLoop: true,
+          title: 'Umur tidak boleh lebih dari 18 tahun !',
+          btnOkOnPress: () {},
+          onDismissCallback: (type) {
+            // progressDialog.dismiss();
+          },
+          btnOkIcon: Icons.cancel,
+          btnOkColor: Colors.red,
+        ).show();
+      } else if (int.parse(_umur) < 4) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.scale,
+          headerAnimationLoop: true,
+          title: 'Umur tidak boleh kurang dari 4 tahun !',
+          btnOkOnPress: () {},
+          onDismissCallback: (type) {
+            // progressDialog.dismiss();
+          },
+          btnOkIcon: Icons.cancel,
+          btnOkColor: Colors.red,
+        ).show();
+      } else {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => TipeSDQ(
+              login: false,
+              nama: _nama,
+              umur: _umur,
+              instansi: _instansi,
+            ),
+          ),
+        );
+      }
     }
   }
 }

@@ -63,11 +63,11 @@ class _NotifPageState extends State<NotifPage> {
                       height: 10,
                     ),
                     Text(
-                      "Kategori : ",
+                      "Hai ! Apa Kabar ?",
                       style: TextStyle(fontSize: 18),
                     ),
                     Text(
-                      "${notifikasi[index].kategori.toString()}",
+                      "Silahkan Cek Notifikasi ini !",
                       style: TextStyle(fontSize: 20, color: Colors.orange),
                     ),
                   ],

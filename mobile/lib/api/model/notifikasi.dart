@@ -1,11 +1,10 @@
 class Notifikasi {
-  String? kategori, tanggal, isi;
+  String? tanggal, isi;
 
   int? id;
 
   Notifikasi({
     this.id,
-    this.kategori,
     this.tanggal,
     this.isi,
   });
@@ -13,7 +12,6 @@ class Notifikasi {
   factory Notifikasi.fromJson(Map<String, dynamic> json) {
     return Notifikasi(
       id: json['id'],
-      kategori: json['kategori'],
       tanggal: json['tanggal'],
       isi: json['isi'],
     );
