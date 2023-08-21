@@ -135,15 +135,15 @@ class _HasilSdqState extends State<HasilSdq> {
       if (widget.skor_pro <= 4) {
         hasil_pro = 'Normal';
         ket_pro =
-            '1. Tidak Dapat menjaga perasaan orang lain\n2. Cuek\n3. Tidak suka membantu dengan orang lain / cuek\n4. Memliki sikap yang tidak baik';
+            '1.	Mampu mempertimbangkan perasaan orang lain\n2. Bersedia berbagi dengan anak lain. - Suka Menolong\n3. Bersikap baik pada anak yang lebih muda\n4. Sering menawarkan diri membantu orang lain';
       } else if (widget.skor_pro == 5) {
         hasil_pro = 'Ambang';
         ket_pro =
-            '1.	Mampu mempertimbangkan perasaan orang lain\n2. Bersedia berbagi dengan anak lain. - Suka Menolong\n3. Bersikap baik pada anak yang lebih muda\n4. Sering menawarkan diri membantu orang lain';
+            '1. Tidak Dapat menjaga perasaan orang lain\n2. Cuek\n3. Tidak suka membantu dengan orang lain / cuek\n4. Memliki sikap yang tidak baik';
       } else {
         hasil_pro = 'Abnormal';
         ket_pro =
-            '1.	Mampu mempertimbangkan perasaan orang lain\n2. Bersedia berbagi dengan anak lain. - Suka Menolong\n3. Bersikap baik pada anak yang lebih muda\n4. Sering menawarkan diri membantu orang lain';
+            '1. Tidak Dapat menjaga perasaan orang lain\n2. Cuek\n3. Tidak suka membantu dengan orang lain / cuek\n4. Memliki sikap yang tidak baik';
       }
     } else {
       // Jika umur antara 11-18
