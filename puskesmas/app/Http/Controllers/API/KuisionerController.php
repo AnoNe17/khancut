@@ -43,9 +43,9 @@ class KuisionerController extends Controller
         }
 
         if ($request->hasil_pro === 'Normal') {
-            $keterangan_pro = '1. Tidak Dapat menjaga perasaan orang lain<br>2. Cuek<br>3. Tidak suka membantu dengan orang lain / cuek<br>4. Memliki sikap yang tidak baik';
-        } else {
             $keterangan_pro = '1. Mampu mempertimbangkan perasaan orang lain.<br>2.	Bersedia berbagi dengan anak lain. - Suka Menolong.<br>3. Bersikap baik pada anak yang lebih muda.<br>4. Sering menawarkan diri membantu orang lain.';
+        } else {
+            $keterangan_pro = '1. Tidak Dapat menjaga perasaan orang lain<br>2. Cuek<br>3. Tidak suka membantu dengan orang lain / cuek<br>4. Memliki sikap yang tidak baik';
         }
 
         // $data = new HasilSDQ();

@@ -173,7 +173,13 @@ class KuisionerController extends Controller
         Alert::success('Data Berhasil Ditambahkan');
 
         if ($data->save()) {
-            return view('kuisioner.hasil.hasil_srq', compact('nama', 'umur', 'no_hp', 'alamat', 'pekerjaan', 'total', 'hasil', 'masalah_psikologis', 'pengguna_narkoba', 'gangguan_psikotik', 'gangguan_ptsd', 'keterangan'));
+            $data = HasilSRQ::where('id', $data->id)->get();
+            // return $data;
+
+            return view('kuisioner.hasil.hasil_srq', [
+                'data' => $data
+            ]);
+            // return view('kuisioner.hasil.hasil_srq', compact('nama', 'umur', 'no_hp', 'alamat', 'pekerjaan', 'total', 'hasil', 'masalah_psikologis', 'pengguna_narkoba', 'gangguan_psikotik', 'gangguan_ptsd', 'keterangan'));
         }
     }
 
@@ -357,9 +363,9 @@ class KuisionerController extends Controller
         }
 
         if ($hasil_pro === 'Normal') {
-            $keterangan_pro = '1. Tidak Dapat menjaga perasaan orang lain<br>2. Cuek<br>3. Tidak suka membantu dengan orang lain / cuek<br>4. Memliki sikap yang tidak baik';
-        } else {
             $keterangan_pro = '1. Mampu mempertimbangkan perasaan orang lain.<br>2.	Bersedia berbagi dengan anak lain. - Suka Menolong.<br>3. Bersikap baik pada anak yang lebih muda.<br>4. Sering menawarkan diri membantu orang lain.';
+        } else {
+            $keterangan_pro = '1. Tidak Dapat menjaga perasaan orang lain<br>2. Cuek<br>3. Tidak suka membantu dengan orang lain / cuek<br>4. Memliki sikap yang tidak baik';
         }
 
         // return $hasil_pro;
@@ -393,24 +399,10 @@ class KuisionerController extends Controller
 
 
         Alert::success('Data Berhasil Ditambahkan');
-        return view('kuisioner.hasil.hasil_sdq', compact(
-            'nama',
-            'instansi',
-            'umur',
-            'hasil_e',
-            'hasil_c',
-            'hasil_h',
-            'hasil_p',
-            'hasil_pro',
-            'hasil_kesulitan',
-            'skor_kesulitan',
-            'skor_e',
-            'skor_c',
-            'skor_h',
-            'skor_p',
-            'skor_pro',
-            'skor_keseluruhan',
-        ));
+
+        $data = HasilSDQ::where('id', $data->id)->get();
+
+        return view('kuisioner.hasil.hasil_sdq', ['data' => $data]);
     }
 
     public function getHasilSDQ()

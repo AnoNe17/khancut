@@ -148,9 +148,9 @@
         <tr>
             <th>Hasil</th>
             <td>
-                @if ($data[0]->hasil_h === 'NORMAL')
+                @if ($data[0]->hasil_p === 'NORMAL')
                     <div class="text-success">{{ $data[0]->hasil_p }}</div>
-                @elseif($data[0]->hasil_h === 'BORDERLINE / AMBANG')
+                @elseif($data[0]->hasil_p === 'BORDERLINE / AMBANG')
                     <div class="text-warning">{{ $data[0]->hasil_p }}</div>
                 @else
                     <div class="text-danger">{{ $data[0]->hasil_p }}</div>
