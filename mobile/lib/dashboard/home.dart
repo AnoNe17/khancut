@@ -28,172 +28,186 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  Future refresh_dashboard() async {
+    API.dashboard().then((value) {
+      setState(() {
+        dashboard = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [
-            Color(0xffF9FAFB),
-            Color(0xffFEFEFF),
-          ],
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0),
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 200,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text("SELAMAT DATANG DI",
-                          style: const TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white)),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text("E-MPUS",
-                          style: const TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white)),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                          Color(0xfff8a55f),
-                          Color(0xfff1665f),
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: () => refresh_dashboard(),
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Color(0xffF9FAFB),
+                Color(0xffFEFEFF),
+              ],
+            ),
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Text("SELAMAT DATANG DI",
+                              style: const TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white)),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text("E-MPUS",
+                              style: const TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white)),
                         ],
                       ),
-                      borderRadius: BorderRadius.circular(35)),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Row(
-                    children: [
-                      ChallangeCard(
-                          dashboard.banyak_sdq.toString(),
-                          "Riwayat SDQ",
-                          "",
-                          "",
-                          "",
-                          Color(0xfff1665f),
-                          Colors.deepOrangeAccent),
-                      Spacer(),
-                      ChallangeCard(
-                          dashboard.banyak_srq.toString(),
-                          "Riwayat SRQ",
-                          "",
-                          "",
-                          "",
-                          const Color(0xffF7A94B),
-                          const Color(0xffFFF7E7)),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
+                      decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              Color(0xfff8a55f),
+                              Color(0xfff1665f),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(35)),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Padding(
-                      padding: EdgeInsets.only(left: 18.0, top: 20, bottom: 20),
-                      child: Text(
-                        "SOAL",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xff9FB2BA),
-                          fontSize: 17,
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        children: [
+                          ChallangeCard(
+                              dashboard.banyak_sdq.toString(),
+                              "Riwayat SDQ",
+                              "",
+                              "",
+                              "",
+                              Color(0xfff1665f),
+                              Colors.deepOrangeAccent),
+                          Spacer(),
+                          ChallangeCard(
+                              dashboard.banyak_srq.toString(),
+                              "Riwayat SRQ",
+                              "",
+                              "",
+                              "",
+                              const Color(0xffF7A94B),
+                              const Color(0xffFFF7E7)),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: 18.0, top: 20, bottom: 20),
+                          child: Text(
+                            "SOAL",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xff9FB2BA),
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (dashboard.tipe.toString() == "4_11") ...[
+                      InkWell(
+                        onTap: () async {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SoalSDQ4_11(
+                                  login: true,
+                                  nama: dashboard.nama.toString(),
+                                  umur: dashboard.umur.toString(),
+                                  instansi: dashboard.instansi.toString())));
+                        },
+                        child: Matiere(
+                          const Color(0xffF5D9CC),
+                          const Color(0xffF1E6DF),
+                          const Color(0xfff1665f),
+                          "SDQ",
                         ),
                       ),
+                    ] else if (dashboard.tipe.toString() == "11_18") ...[
+                      InkWell(
+                        onTap: () async {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => SoalSDQ11_18(
+                                login: true,
+                                nama: dashboard.nama.toString(),
+                                umur: dashboard.umur.toString(),
+                                instansi: dashboard.instansi.toString(),
+                              ),
+                            ),
+                          );
+                        },
+                        child: Matiere(
+                          const Color(0xffF5D9CC),
+                          const Color(0xffF1E6DF),
+                          const Color(0xfff1665f),
+                          "SDQ",
+                        ),
+                      ),
+                    ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SoalSRQ(
+                                login: true,
+                                nama: dashboard.nama.toString(),
+                                umur: dashboard.umur.toString(),
+                                no_hp: dashboard.no_hp.toString(),
+                                alamat: dashboard.alamat.toString(),
+                                pekerjaan: dashboard.pekerjaan.toString())));
+                        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoalSRQ(login: true)));
+                      },
+                      child: Matiere(
+                        const Color(0xffF5D9CC),
+                        const Color(0xffF1E6DF),
+                        const Color(0xfff1665f),
+                        "SRQ",
+                      ),
+                    ),
+                    SizedBox(
+                      height: 80,
                     ),
                   ],
                 ),
-                if (dashboard.tipe.toString() == "4_11") ...[
-                  InkWell(
-                    onTap: () async {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SoalSDQ4_11(
-                              login: true,
-                              nama: dashboard.nama.toString(),
-                              umur: dashboard.umur.toString(),
-                              instansi: dashboard.instansi.toString())));
-                    },
-                    child: Matiere(
-                      const Color(0xffF5D9CC),
-                      const Color(0xffF1E6DF),
-                      const Color(0xfff1665f),
-                      "SDQ",
-                    ),
-                  ),
-                ] else if (dashboard.tipe.toString() == "11_18") ...[
-                  InkWell(
-                    onTap: () async {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => SoalSDQ11_18(
-                            login: true,
-                            nama: dashboard.nama.toString(),
-                            umur: dashboard.umur.toString(),
-                            instansi: dashboard.instansi.toString(),
-                          ),
-                        ),
-                      );
-                    },
-                    child: Matiere(
-                      const Color(0xffF5D9CC),
-                      const Color(0xffF1E6DF),
-                      const Color(0xfff1665f),
-                      "SDQ",
-                    ),
-                  ),
-                ],
-                SizedBox(
-                  height: 10,
-                ),
-                InkWell(
-                  onTap: () async {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SoalSRQ(
-                            login: true,
-                            nama: dashboard.nama.toString(),
-                            umur: dashboard.umur.toString(),
-                            no_hp: dashboard.no_hp.toString(),
-                            alamat: dashboard.alamat.toString(),
-                            pekerjaan: dashboard.pekerjaan.toString())));
-                    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoalSRQ(login: true)));
-                  },
-                  child: Matiere(
-                    const Color(0xffF5D9CC),
-                    const Color(0xffF1E6DF),
-                    const Color(0xfff1665f),
-                    "SRQ",
-                  ),
-                ),
-                SizedBox(
-                  height: 80,
-                ),
-              ],
+              ),
             ),
           ),
         ),
@@ -219,24 +233,25 @@ class ChallangeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-          width: 165,
-          height: 145,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                  color: const Color.fromARGB(255, 175, 186, 195)
-                      .withOpacity(0.15),
-                  offset: const Offset(0, 15),
-                  blurRadius: 3,
-                  spreadRadius: -5)
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        width: 165,
+        height: 145,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+                color:
+                    const Color.fromARGB(255, 175, 186, 195).withOpacity(0.15),
+                offset: const Offset(0, 15),
+                blurRadius: 3,
+                spreadRadius: -5)
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               const SizedBox(height: 30),
               Align(
                   alignment: Alignment.center,
@@ -256,13 +271,17 @@ class ChallangeCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ))),
               Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(Littxt,
-                      style: const TextStyle(
-                          color: Color(0xFF893101),
-                          fontWeight: FontWeight.w600))),
-            ]),
-          )),
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  Littxt,
+                  style: const TextStyle(
+                      color: Color(0xFF893101), fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

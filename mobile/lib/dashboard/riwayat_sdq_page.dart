@@ -40,72 +40,79 @@ class _RiwayatSDQPageState extends State<RiwayatSDQPage> {
           toolbarHeight: 80,
           title: Text('Riwayat Kuisioner SDQ'),
         ),
-        body: Center(
-          child: Text(
-            "Belum ada riwayat SDQ",
-            style: TextStyle(fontSize: 20),
+        body: RefreshIndicator(
+          onRefresh: () => getRiwayatSDQ(),
+          child: Center(
+            child: Text(
+              "Belum ada riwayat SDQ",
+              style: TextStyle(fontSize: 20),
+            ),
           ),
         ),
       );
     } else {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.deepOrangeAccent,
-          toolbarHeight: 80,
-          title: Text('Riwayat Kuisioner SDQ'),
-        ),
-        body: Container(
-          margin: EdgeInsets.only(bottom: 50),
-          child: ListView.builder(
-            itemCount: riwayatSDQ.length,
-            itemBuilder: (context, index) {
-              return SingleChildScrollView(
-                  child: ExpansionTile(
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Dibuat Pada : ",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      "${riwayatSDQ[index].tanggal.toString()}",
-                      style: TextStyle(fontSize: 20, color: Colors.orange),
-                    ),
-                  ],
-                ),
-                children: [
-                  Column(
-                    children: [
-                      _card(
-                        riwayatSDQ[index].id,
-                        "${riwayatSDQ[index].skor_keseluruhan}",
-                        "${riwayatSDQ[index].skor_e}",
-                        "${riwayatSDQ[index].hasil_e}",
-                        "${riwayatSDQ[index].skor_c}",
-                        "${riwayatSDQ[index].hasil_c}",
-                        "${riwayatSDQ[index].skor_h}",
-                        "${riwayatSDQ[index].hasil_h}",
-                        "${riwayatSDQ[index].skor_p}",
-                        "${riwayatSDQ[index].hasil_p}",
-                        "${riwayatSDQ[index].skor_pro}",
-                        "${riwayatSDQ[index].hasil_pro}",
-                        "${riwayatSDQ[index].tanggal}",
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                ],
-              ));
-            },
+          appBar: AppBar(
+            backgroundColor: Colors.deepOrangeAccent,
+            toolbarHeight: 80,
+            title: Text('Riwayat Kuisioner SDQ'),
           ),
-        ),
-      );
+          body: RefreshIndicator(
+            onRefresh: () => getRiwayatSDQ(),
+            child: Container(
+              margin: EdgeInsets.only(bottom: 50),
+              child: ListView.builder(
+                itemCount: riwayatSDQ.length,
+                itemBuilder: (context, index) {
+                  return SingleChildScrollView(
+                    child: ExpansionTile(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Dibuat Pada : ",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          Text(
+                            "${riwayatSDQ[index].tanggal.toString()}",
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.orange),
+                          ),
+                        ],
+                      ),
+                      children: [
+                        Column(
+                          children: [
+                            _card(
+                              riwayatSDQ[index].id,
+                              "${riwayatSDQ[index].skor_keseluruhan}",
+                              "${riwayatSDQ[index].skor_e}",
+                              "${riwayatSDQ[index].hasil_e}",
+                              "${riwayatSDQ[index].skor_c}",
+                              "${riwayatSDQ[index].hasil_c}",
+                              "${riwayatSDQ[index].skor_h}",
+                              "${riwayatSDQ[index].hasil_h}",
+                              "${riwayatSDQ[index].skor_p}",
+                              "${riwayatSDQ[index].hasil_p}",
+                              "${riwayatSDQ[index].skor_pro}",
+                              "${riwayatSDQ[index].hasil_pro}",
+                              "${riwayatSDQ[index].tanggal}",
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ));
     }
   }
 

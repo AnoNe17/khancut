@@ -1,0 +1,357 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "API Kanchut",
+    "dateExported": "2023-08-22T17:25:57.314Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "d10e2ce5-add2-4ed2-8b67-996d4fdb3303",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "Dashboard",
+            "url": "https://www.puskesmaskertasemaya.com/api/dashboard",
+            "method": "POST",
+            "sortNum": 4375,
+            "created": "2023-07-30T18:16:03.514Z",
+            "modified": "2023-08-22T08:52:15.719Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "user_id",
+                        "value": "60"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "dfbb5455-8fae-4829-b743-4d5aa469a588",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "Profil",
+            "url": "http://192.168.0.105.:8000/api/profil",
+            "method": "POST",
+            "sortNum": 6562.5,
+            "created": "2023-07-30T18:24:29.506Z",
+            "modified": "2023-07-30T18:24:43.436Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "user_id",
+                        "value": "40"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "5487748c-2264-49ab-ba86-b35c7966c849",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "Notifikasi",
+            "url": "http://192.168.0.105.:8000/api/notifikasi",
+            "method": "POST",
+            "sortNum": 8750,
+            "created": "2023-07-27T04:15:39.705Z",
+            "modified": "2023-07-31T09:47:58.564Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "user_id",
+                        "value": "40"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "d34fd911-ff38-443f-bbb2-cd4c39bf576b",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "Riwayat SRQ",
+            "url": "http://192.168.0.105.:8000/api/riwayat_srq",
+            "method": "POST",
+            "sortNum": 17500,
+            "created": "2023-07-27T04:14:46.734Z",
+            "modified": "2023-07-30T22:22:38.446Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "user_id",
+                        "value": "40"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "27f1159d-654b-4039-9d8c-806a4fc34260",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "PDF SRQ",
+            "url": "http://127.0.0.1:8000/api/hasil_srq/pdf",
+            "method": "POST",
+            "sortNum": 35000,
+            "created": "2023-07-27T04:13:44.431Z",
+            "modified": "2023-07-27T04:13:44.431Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "id",
+                        "value": "43"
+                    },
+                    {
+                        "name": "pasien_baru",
+                        "value": "true"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "d457c57e-498a-482b-a21b-05e804109eaf",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "Input SRQ",
+            "url": "http://192.168.0.105.:8000/api/input_srq",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-07-27T04:08:08.455Z",
+            "modified": "2023-07-30T22:27:14.668Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "nama",
+                        "value": "Lana"
+                    },
+                    {
+                        "name": "umur",
+                        "value": "21"
+                    },
+                    {
+                        "name": "no_hp",
+                        "value": "089678776867"
+                    },
+                    {
+                        "name": "alamat",
+                        "value": "Jatibarang"
+                    },
+                    {
+                        "name": "pekerjaan",
+                        "value": "Mahasiswa"
+                    },
+                    {
+                        "name": "hasil_akhir",
+                        "value": "Abnormal"
+                    },
+                    {
+                        "name": "skor_akhir",
+                        "value": "20"
+                    },
+                    {
+                        "name": "hasil_psikologis",
+                        "value": "ya"
+                    },
+                    {
+                        "name": "hasil_narkoba",
+                        "value": "ya"
+                    },
+                    {
+                        "name": "hasil_psikotik",
+                        "value": "ya"
+                    },
+                    {
+                        "name": "hasil_ptsd",
+                        "value": "ya"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "9b1349c2-84ff-44fd-811a-274dbed49802",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "Riwayat SDQ",
+            "url": "http://192.168.0.105.:8000/api/riwayat_sdq",
+            "method": "POST",
+            "sortNum": 75000,
+            "created": "2023-07-27T04:08:02.689Z",
+            "modified": "2023-07-30T19:07:42.481Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "user_id",
+                        "value": "40"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "b6a9fe2e-dac4-40c3-a916-03a4f69917dd",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "PDF SDQ",
+            "url": "http://127.0.0.1:8000/api/hasil_sdq/pdf",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-07-27T04:08:12.373Z",
+            "modified": "2023-07-27T04:08:12.373Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "id",
+                        "value": "26"
+                    },
+                    {
+                        "name": "pasien_baru",
+                        "value": "true"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "13ae3a6a-6f06-494e-b022-fd4a6d18416e",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "input sdq",
+            "url": "http://192.168.0.105.:8000/api/input_sdq_pasien",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2023-07-27T04:08:16.815Z",
+            "modified": "2023-07-31T11:09:10.897Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "nama",
+                        "value": "rudi"
+                    },
+                    {
+                        "name": "instansi",
+                        "value": "cirebon"
+                    },
+                    {
+                        "name": "hasil_e",
+                        "value": "Normal"
+                    },
+                    {
+                        "name": "hasil_c",
+                        "value": "Normal"
+                    },
+                    {
+                        "name": "hasil_h",
+                        "value": "Normal"
+                    },
+                    {
+                        "name": "hasil_p",
+                        "value": "Normal"
+                    },
+                    {
+                        "name": "hasil_pro",
+                        "value": "Normal"
+                    },
+                    {
+                        "name": "skor_e",
+                        "value": "1"
+                    },
+                    {
+                        "name": "skor_c",
+                        "value": "1"
+                    },
+                    {
+                        "name": "skor_h",
+                        "value": "1"
+                    },
+                    {
+                        "name": "skor_p",
+                        "value": "1"
+                    },
+                    {
+                        "name": "skor_pro",
+                        "value": "1"
+                    },
+                    {
+                        "name": "hasil_kesulitan",
+                        "value": "abnormal"
+                    },
+                    {
+                        "name": "skor_kesulitan",
+                        "value": "5"
+                    },
+                    {
+                        "name": "user_id",
+                        "value": "40"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "daf81157-707c-4704-b5de-d64cf621f63f",
+            "colId": "8f9f22ec-7baa-4828-b7f5-86e1d002ac1d",
+            "containerId": "",
+            "name": "Login",
+            "url": "https://www.puskesmaskertasemaya.com/api/login",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2023-07-26T15:48:39.317Z",
+            "modified": "2023-08-10T06:21:21.979Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "empus202356"
+                    },
+                    {
+                        "name": "password",
+                        "value": "@empus202356"
+                    }
+                ]
+            },
+            "tests": []
+        }
+    ]
+}

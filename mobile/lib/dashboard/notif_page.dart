@@ -30,66 +30,70 @@ class _NotifPageState extends State<NotifPage> {
   Widget build(BuildContext context) {
     if (notifikasi.isEmpty) {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.deepOrangeAccent,
-          toolbarHeight: 80,
-          title: Text('Notifikasi'),
-        ),
-        body: Center(
-          child: Text(
-            "Belum ada Notifikasi",
-            style: TextStyle(fontSize: 20),
+          appBar: AppBar(
+            backgroundColor: Colors.deepOrangeAccent,
+            toolbarHeight: 80,
+            title: Text('Notifikasi'),
           ),
-        ),
-      );
+          body: RefreshIndicator(
+            onRefresh: () => getNotifikasi(),
+            child: Center(
+              child: Text(
+                "Belum ada Notifikasi",
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ));
     } else {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.deepOrangeAccent,
-          toolbarHeight: 80,
-          title: Text('Notifikasi'),
-        ),
-        body: Container(
-          margin: EdgeInsets.only(bottom: 50),
-          child: ListView.builder(
-            itemCount: notifikasi.length,
-            itemBuilder: (context, index) {
-              return SingleChildScrollView(
-                  child: ExpansionTile(
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 10,
+          appBar: AppBar(
+            backgroundColor: Colors.deepOrangeAccent,
+            toolbarHeight: 80,
+            title: Text('Notifikasi'),
+          ),
+          body: RefreshIndicator(
+            onRefresh: () => getNotifikasi(),
+            child: Container(
+              margin: EdgeInsets.only(bottom: 50),
+              child: ListView.builder(
+                itemCount: notifikasi.length,
+                itemBuilder: (context, index) {
+                  return SingleChildScrollView(
+                      child: ExpansionTile(
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Hai ! Apa Kabar ?",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "Silahkan Cek Notifikasi ini !",
+                          style: TextStyle(fontSize: 20, color: Colors.orange),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "Hai ! Apa Kabar ?",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      "Silahkan Cek Notifikasi ini !",
-                      style: TextStyle(fontSize: 20, color: Colors.orange),
-                    ),
-                  ],
-                ),
-                children: [
-                  Column(
                     children: [
-                      _card(
-                        "${notifikasi[index].tanggal}",
-                        "${notifikasi[index].isi}",
-                      ),
-                      SizedBox(
-                        height: 10,
+                      Column(
+                        children: [
+                          _card(
+                            "${notifikasi[index].tanggal}",
+                            "${notifikasi[index].isi}",
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
                       ),
                     ],
-                  ),
-                ],
-              ));
-            },
-          ),
-        ),
-      );
+                  ));
+                },
+              ),
+            ),
+          ));
     }
   }
 

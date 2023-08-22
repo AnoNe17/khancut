@@ -34,72 +34,76 @@ class _RiwayatSRQPageState extends State<RiwayatSRQPage> {
   Widget build(BuildContext context) {
     if (riwayatSRQ.isEmpty) {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.deepOrangeAccent,
-          toolbarHeight: 80,
-          title: Text('Riwayat Kuisioner SRQ'),
-        ),
-        body: Center(
-          child: Text(
-            "Belum ada riwayat SRQ",
-            style: TextStyle(fontSize: 20),
+          appBar: AppBar(
+            backgroundColor: Colors.deepOrangeAccent,
+            toolbarHeight: 80,
+            title: Text('Riwayat Kuisioner SRQ'),
           ),
-        ),
-      );
+          body: RefreshIndicator(
+            onRefresh: () => getriwayatSRQ(),
+            child: Center(
+              child: Text(
+                "Belum ada riwayat SRQ",
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ));
     } else {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.deepOrangeAccent,
-          toolbarHeight: 80,
-          title: Text('Riwayat Kuisioner SRQ'),
-        ),
-        body: Container(
-          margin: EdgeInsets.only(bottom: 50),
-          child: ListView.builder(
-            itemCount: riwayatSRQ.length,
-            itemBuilder: (context, index) {
-              return SingleChildScrollView(
-                  child: ExpansionTile(
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 10,
+          appBar: AppBar(
+            backgroundColor: Colors.deepOrangeAccent,
+            toolbarHeight: 80,
+            title: Text('Riwayat Kuisioner SRQ'),
+          ),
+          body: RefreshIndicator(
+            onRefresh: () => getriwayatSRQ(),
+            child: Container(
+              margin: EdgeInsets.only(bottom: 50),
+              child: ListView.builder(
+                itemCount: riwayatSRQ.length,
+                itemBuilder: (context, index) {
+                  return SingleChildScrollView(
+                      child: ExpansionTile(
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Dibuat Pada : ",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "${riwayatSRQ[index].tanggal.toString()}",
+                          style: TextStyle(fontSize: 20, color: Colors.orange),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "Dibuat Pada : ",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      "${riwayatSRQ[index].tanggal.toString()}",
-                      style: TextStyle(fontSize: 20, color: Colors.orange),
-                    ),
-                  ],
-                ),
-                children: [
-                  Column(
                     children: [
-                      _card(
-                        riwayatSRQ[index].id,
-                        "${riwayatSRQ[index].total}",
-                        "${riwayatSRQ[index].hasil}",
-                        "${riwayatSRQ[index].masalah_psikologis}",
-                        "${riwayatSRQ[index].pengguna_narkoba}",
-                        "${riwayatSRQ[index].gangguan_psikotik}",
-                        "${riwayatSRQ[index].gangguan_ptsd}",
-                        "${riwayatSRQ[index].tanggal}",
-                      ),
-                      SizedBox(
-                        height: 10,
+                      Column(
+                        children: [
+                          _card(
+                            riwayatSRQ[index].id,
+                            "${riwayatSRQ[index].total}",
+                            "${riwayatSRQ[index].hasil}",
+                            "${riwayatSRQ[index].masalah_psikologis}",
+                            "${riwayatSRQ[index].pengguna_narkoba}",
+                            "${riwayatSRQ[index].gangguan_psikotik}",
+                            "${riwayatSRQ[index].gangguan_ptsd}",
+                            "${riwayatSRQ[index].tanggal}",
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
                       ),
                     ],
-                  ),
-                ],
-              ));
-            },
-          ),
-        ),
-      );
+                  ));
+                },
+              ),
+            ),
+          ));
     }
   }
 
