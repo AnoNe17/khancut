@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:untitled/main.dart';
 import 'package:untitled/widgets/menu.dart';
+import 'dart:math';
 // import 'package:ndialog/ndialog.dart';
 
 class LoginForm extends StatefulWidget {
@@ -22,30 +23,105 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController txEmail = new TextEditingController();
   TextEditingController txPass = new TextEditingController();
 
+  int _valCapsa = 0;
+  var txCapsa = TextEditingController();
+
   ceklogin() async {
-    // print(_password);
-    // try {
-    http.Response response = await API.login(_email, _password);
-    if (response.statusCode == 200) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Menu()), (route) => false);
-    } else {
-      AwesomeDialog(
-        context: context,
-        dialogType: DialogType.error,
-        animType: AnimType.scale,
-        headerAnimationLoop: true,
-        title: 'Username atau Password Salah !',
-        btnOkOnPress: () {},
-        onDismissCallback: (type) {
-          // progressDialog.dismiss();
-        },
-        btnOkIcon: Icons.cancel,
-        btnOkColor: Colors.red,
-      ).show();
-      txEmail.text = "";
-      txPass.text = "";
+    var rnd = Random();
+    var next = rnd.nextDouble() * 1000000;
+    while (next < 100000) {
+      next *= 10;
     }
+    int capsa = next.toInt();
+
+    AwesomeDialog(
+      context: context,
+      animType: AnimType.scale,
+      dialogType: DialogType.info,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            capsa.toString(),
+            style: TextStyle(fontSize: 30),
+          ),
+          SizedBox(height: 30),
+          Container(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            child: TextFormField(
+              keyboardType: TextInputType.number,
+              controller: txCapsa,
+              decoration: InputDecoration(
+                labelText: "Captcha",
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(21),
+                  borderSide: BorderSide(color: Colors.orange),
+                ),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(21),
+                    borderSide: BorderSide(color: Colors.orange)),
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "";
+                } else {
+                  return null;
+                }
+              },
+              onChanged: (value) {
+                _valCapsa = int.parse(value);
+              },
+            ),
+          ),
+        ],
+      ),
+      onDismissCallback: (type) {},
+      btnOkOnPress: () async {
+        if (_valCapsa == capsa) {
+          http.Response response = await API.login(_email, _password);
+          if (response.statusCode == 200) {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => Menu()),
+                (route) => false);
+          } else {
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.error,
+              animType: AnimType.scale,
+              headerAnimationLoop: true,
+              title: 'Username atau Password Salah !',
+              btnOkOnPress: () {},
+              onDismissCallback: (type) {
+                // progressDialog.dismiss();
+              },
+              btnOkIcon: Icons.cancel,
+              btnOkColor: Colors.red,
+            ).show();
+            txEmail.text = "";
+            txPass.text = "";
+          }
+        } else {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.scale,
+            headerAnimationLoop: true,
+            title: 'Captcha yang anda masukan salah',
+            btnOkOnPress: () {},
+            onDismissCallback: (type) {
+              // progressDialog.dismiss();
+            },
+            btnOkIcon: Icons.cancel,
+            btnOkColor: Colors.red,
+          ).show();
+          txEmail.text = "";
+          txPass.text = "";
+        }
+      },
+      btnOkIcon: Icons.check,
+      btnOkColor: Colors.blue,
+    ).show();
+
     // } catch (e) {
     // API.gagal(context, progressDialog);
     // }
