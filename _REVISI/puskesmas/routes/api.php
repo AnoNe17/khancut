@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\KuisionerController;
+use App\Http\Controllers\API\LupaPassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::post('riwayat_srq', [DashboardController::class, 'riwayatSRQ']);
 Route::post('notifikasi', [DashboardController::class, 'notifikasi']);
 Route::post('profil', [DashboardController::class, 'profil']);
 Route::post('dashboard', [DashboardController::class, 'dashboard']);
+
+Route::post('lupa_password', [LupaPassController::class, 'sendResetLinkEmail']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

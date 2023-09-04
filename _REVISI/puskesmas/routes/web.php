@@ -70,3 +70,7 @@ Route::post('/notifikasi/store', [NotifikasiController::class, 'store'])->name('
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/edit_profil/{id}', [App\Http\Controllers\HomeController::class, 'edit_profil'])->name('profil.edit');
 Route::post('/update', [App\Http\Controllers\HomeController::class, 'update'])->name('profil.update');
+
+Route::get('/pass_ganti', function () {
+    return view('ganti');
+})->name('pass_ganti');

@@ -18,10 +18,15 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   String _email = '';
   String _password = '';
+  String lupa_email = '';
+  String lupa_no_hp = '';
   bool _obscureText = true;
   final formKey = GlobalKey<FormState>();
   TextEditingController txEmail = new TextEditingController();
   TextEditingController txPass = new TextEditingController();
+
+  TextEditingController txLupaEmail = new TextEditingController();
+  TextEditingController txLupaNoHp = new TextEditingController();
 
   int _valCapsa = 0;
   var txCapsa = TextEditingController();
@@ -301,17 +306,102 @@ class _LoginFormState extends State<LoginForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 16, top: 24),
-                  child: const Text(
-                    "",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xffe98f60),
+                InkWell(
+                  onTap: () {
+                    AwesomeDialog(
+                      context: context,
+                      animType: AnimType.scale,
+                      dialogType: DialogType.info,
+                      body: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Lupa Password",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          SizedBox(height: 30),
+                          Container(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              controller: txLupaNoHp,
+                              decoration: InputDecoration(
+                                labelText: "Nomor HP",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(21),
+                                  borderSide: BorderSide(color: Colors.orange),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(21),
+                                    borderSide:
+                                        BorderSide(color: Colors.orange)),
+                              ),
+                              onChanged: (value) {
+                                lupa_no_hp = value;
+                              },
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Container(
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            child: TextFormField(
+                              controller: txLupaEmail,
+                              decoration: InputDecoration(
+                                labelText: "Email",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(21),
+                                  borderSide: BorderSide(color: Colors.orange),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(21),
+                                    borderSide:
+                                        BorderSide(color: Colors.orange)),
+                              ),
+                              onChanged: (value) {
+                                lupa_email = value;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      onDismissCallback: (type) {},
+                      btnOkOnPress: () async {
+                        try {
+                          API
+                              .lupaPass(lupa_email, lupa_no_hp)
+                              .then((value) async {
+                            // await
+
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.success,
+                              animType: AnimType.scale,
+                              headerAnimationLoop: true,
+                              title:
+                                  "Email telah dikirim, Mohon cek email anda",
+                              btnOkOnPress: () {},
+                              btnOkIcon: Icons.cancel,
+                              btnOkColor: Colors.green,
+                            ).show();
+                          });
+                        } catch (e) {}
+                      },
+                      btnOkIcon: Icons.check,
+                      btnOkColor: Colors.blue,
+                    ).show();
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 16, top: 24),
+                    child: const Text(
+                      "Lupa Password ?",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xffe98f60),
+                      ),
                     ),
                   ),
-                ),
+                )
               ],
             )
           ],

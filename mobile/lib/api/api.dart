@@ -34,6 +34,27 @@ class API {
     return response;
   }
 
+  static Future<String?> lupaPass(
+    String? email,
+    String? no_hp,
+  ) async {
+    Map data = {
+      "email": email,
+      "no_hp": no_hp,
+    };
+    //
+    var body = json.encode(data);
+    var url = Uri.parse(baseURL + 'lupa_password');
+    //
+    http.Response response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    return 'asd';
+  }
+
   static Future<String?> tambahHasilSDQ(
     String? nama,
     String? instansi,
