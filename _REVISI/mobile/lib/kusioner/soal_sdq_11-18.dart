@@ -18,6 +18,7 @@ class SoalSDQ11_18 extends StatefulWidget {
 
 class _SoalSDQ11_18State extends State<SoalSDQ11_18> {
   List<Soal> soal = [
+    //objek soal
     Soal('a','0', 0, 0, 0),
     Soal('pro', '1. Saya berusaha baik kepada orang lain. Saya peduli dengan perasaan mereka', 0, 1, 2),
     Soal('h', '2. Saya gelisah. saya tidak dapat diam untuk waktu lama', 0, 1, 2),
@@ -116,7 +117,10 @@ class _SoalSDQ11_18State extends State<SoalSDQ11_18> {
                         } else {
                           hasil_pro = hasil_pro + soal[index].nilai_1;
                         }
+
+                        // Buat nambah nomor soal
                         index++;
+
                       } else {
                         if (soal[index].kategori == 'e'){
                           hasil_e = hasil_e + soal[index].nilai_1;

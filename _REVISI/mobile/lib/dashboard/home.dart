@@ -155,7 +155,7 @@ class _HomeState extends State<Home> {
                           const Color(0xffF5D9CC),
                           const Color(0xffF1E6DF),
                           const Color(0xfff1665f),
-                          "SDQ",
+                          "Skrining Perilaku Remaja",
                         ),
                       ),
                     ] else if (dashboard.tipe.toString() == "11_18") ...[
@@ -199,7 +199,7 @@ class _HomeState extends State<Home> {
                         const Color(0xffF5D9CC),
                         const Color(0xffF1E6DF),
                         const Color(0xfff1665f),
-                        "SRQ",
+                        "Skrining Semua Umur",
                       ),
                     ),
                     SizedBox(

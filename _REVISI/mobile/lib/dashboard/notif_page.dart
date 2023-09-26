@@ -37,13 +37,18 @@ class _NotifPageState extends State<NotifPage> {
           ),
           body: RefreshIndicator(
             onRefresh: () => getNotifikasi(),
-            child: Center(
-              child: Text(
-                "Belum ada Notifikasi",
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-          ));
+            child: Stack(
+              children: [
+                Center(
+                  child: Text(
+                    "Belum ada Notifikasi",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                ListView()
+              ],
+            )
+          ),);
     } else {
       return Scaffold(
           appBar: AppBar(

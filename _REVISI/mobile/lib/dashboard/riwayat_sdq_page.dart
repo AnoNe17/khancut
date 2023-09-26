@@ -42,12 +42,17 @@ class _RiwayatSDQPageState extends State<RiwayatSDQPage> {
         ),
         body: RefreshIndicator(
           onRefresh: () => getRiwayatSDQ(),
-          child: Center(
-            child: Text(
-              "Belum ada riwayat SDQ",
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
+          child: Stack(
+            children: [
+              Center(
+                child: Text(
+                  "Belum ada riwayat SDQ",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              ListView()
+            ],
+          )
         ),
       );
     } else {

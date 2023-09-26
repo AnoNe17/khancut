@@ -34,22 +34,43 @@ class API {
     return response;
   }
 
+  static Future<String?> lupaPass(
+      String? email,
+      String? no_hp,
+      ) async {
+    Map data = {
+      "email": email,
+      "no_hp": no_hp,
+    };
+    //
+    var body = json.encode(data);
+    var url = Uri.parse(baseURL + 'lupa_password');
+    //
+    http.Response response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    return 'asd';
+  }
+
   static Future<String?> tambahHasilSDQ(
-    String? nama,
-    String? instansi,
-    String? hasil_e,
-    String? hasil_c,
-    String? hasil_h,
-    String? hasil_p,
-    String? hasil_pro,
-    int? skor_e,
-    int? skor_c,
-    int? skor_h,
-    int? skor_p,
-    int? skor_pro,
-    String? hasil_kesulitan,
-    int? skor_kesulitan,
-  ) async {
+      String? nama,
+      String? instansi,
+      String? hasil_e,
+      String? hasil_c,
+      String? hasil_h,
+      String? hasil_p,
+      String? hasil_pro,
+      int? skor_e,
+      int? skor_c,
+      int? skor_h,
+      int? skor_p,
+      int? skor_pro,
+      String? hasil_kesulitan,
+      int? skor_kesulitan,
+      ) async {
     Map data = {
       "nama": nama,
       "instansi": instansi,
@@ -83,21 +104,21 @@ class API {
   }
 
   static Future<String?> tambahHasilSDQPasien(
-    String? nama,
-    String? instansi,
-    String? hasil_e,
-    String? hasil_c,
-    String? hasil_h,
-    String? hasil_p,
-    String? hasil_pro,
-    int? skor_e,
-    int? skor_c,
-    int? skor_h,
-    int? skor_p,
-    int? skor_pro,
-    String? hasil_kesulitan,
-    int? skor_kesulitan,
-  ) async {
+      String? nama,
+      String? instansi,
+      String? hasil_e,
+      String? hasil_c,
+      String? hasil_h,
+      String? hasil_p,
+      String? hasil_pro,
+      int? skor_e,
+      int? skor_c,
+      int? skor_h,
+      int? skor_p,
+      int? skor_pro,
+      String? hasil_kesulitan,
+      int? skor_kesulitan,
+      ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data = {
@@ -133,18 +154,18 @@ class API {
   }
 
   static Future<String?> tambahHasilSRQ(
-    String? nama,
-    String? umur,
-    String? no_hp,
-    String? alamat,
-    String? pekerjaan,
-    String? hasil_akhir,
-    String? skor_akhir,
-    String? hasil_psikologis,
-    String? hasil_narkoba,
-    String? hasil_psikotik,
-    String? hasil_ptsd,
-  ) async {
+      String? nama,
+      String? umur,
+      String? no_hp,
+      String? alamat,
+      String? pekerjaan,
+      String? hasil_akhir,
+      String? skor_akhir,
+      String? hasil_psikologis,
+      String? hasil_narkoba,
+      String? hasil_psikotik,
+      String? hasil_ptsd,
+      ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data = {
@@ -176,18 +197,18 @@ class API {
   }
 
   static Future<String?> tambahHasilSRQPasien(
-    String? nama,
-    String? umur,
-    String? no_hp,
-    String? alamat,
-    String? pekerjaan,
-    String? hasil_akhir,
-    String? skor_akhir,
-    String? hasil_psikologis,
-    String? hasil_narkoba,
-    String? hasil_psikotik,
-    String? hasil_ptsd,
-  ) async {
+      String? nama,
+      String? umur,
+      String? no_hp,
+      String? alamat,
+      String? pekerjaan,
+      String? hasil_akhir,
+      String? skor_akhir,
+      String? hasil_psikologis,
+      String? hasil_narkoba,
+      String? hasil_psikotik,
+      String? hasil_ptsd,
+      ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data = {
@@ -280,7 +301,7 @@ class API {
 
     Iterable it = data_sdq;
     List<RiwayatSDQ> riwayat_sdq =
-        it.map((e) => RiwayatSDQ.fromJson(e)).toList();
+    it.map((e) => RiwayatSDQ.fromJson(e)).toList();
 
     if (response.statusCode == 200) {
       return riwayat_sdq;
@@ -310,7 +331,7 @@ class API {
 
     Iterable it = data_srq;
     List<RiwayatSRQ> riwayat_srq =
-        it.map((e) => RiwayatSRQ.fromJson(e)).toList();
+    it.map((e) => RiwayatSRQ.fromJson(e)).toList();
 
     if (response.statusCode == 200) {
       return riwayat_srq;
@@ -339,7 +360,7 @@ class API {
 
     Iterable it = data_notif;
     List<Notifikasi> notifikasi =
-        it.map((e) => Notifikasi.fromJson(e)).toList();
+    it.map((e) => Notifikasi.fromJson(e)).toList();
 
     if (response.statusCode == 200) {
       return notifikasi;

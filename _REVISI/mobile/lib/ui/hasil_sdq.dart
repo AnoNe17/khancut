@@ -59,7 +59,7 @@ class _HasilSdqState extends State<HasilSdq> {
         widget.skor_pro;
     // Jika umur antara 4-11
     if (widget.tipe == '4_11') {
-      // Total Kesulitan
+      // Total keseluruhan
       if (total <= 13) {
         total_string = total.toString();
         hasil_keseluruhan = 'Normal';

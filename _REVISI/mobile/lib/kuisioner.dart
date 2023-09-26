@@ -59,8 +59,10 @@ class _KuisionerState extends State<Kuisioner> {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => InputanSDQ(login: false,)));
                       },
                       child: Text(
-                        "SDQ",
+                        "SDQ (4-18 Tahun)\n (Instrumen Skrining Perilaku Remaja)",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
+
                           fontSize: 24,
                           color: Color(0xffffffff),
                         ),
@@ -85,7 +87,8 @@ class _KuisionerState extends State<Kuisioner> {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => InputanSRQ(login: false,)));
                       },
                       child: Text(
-                        "SRQ",
+                        "SRQ\n (Instrumen Skrining Semua Umur)",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
                           color: Color(0xffffffff),

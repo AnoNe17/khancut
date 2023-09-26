@@ -41,12 +41,17 @@ class _RiwayatSRQPageState extends State<RiwayatSRQPage> {
           ),
           body: RefreshIndicator(
             onRefresh: () => getriwayatSRQ(),
-            child: Center(
-              child: Text(
-                "Belum ada riwayat SRQ",
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
+            child: Stack(
+              children: [
+                Center(
+                  child: Text(
+                    "Belum ada riwayat SRQ",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                ListView()
+              ],
+            )
           ));
     } else {
       return Scaffold(
